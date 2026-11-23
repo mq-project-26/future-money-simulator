@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONEY QUEST | お金を知る。未来を考える。</title>
+<style>
+:root {
+  --paper: #fffbf4;
+  --ink: #2d3436;
+  --muted: #636e72;
+  --line: #ffeaa7;
+  
+  --green: #26996b;
+  --green-light: #dff7ec;
+  --green-dark: #1b6b4a;
+  
+  --yellow: #ffd65a;
+  --yellow-light: #fff4cc;
+  --yellow-dark: #b88d00;
+  
+  --pink: #ff6b8b;
+  --pink-light: #ffe3ea;
+  --pink-dark: #d63051;
+  
+  --blue: #3b82f6;
+  --blue-light: #e0eeff;
+  --blue-dark: #1d4ed8;
+  
+  --purple: #8b5cf6;
+  --purple-light: #ede9fe;
+  --purple-dark: #6d28d9;
+  
+  --orange: #f97316;
+  --orange-light: #ffedd5;
+  --orange-dark: #c2410c;
+  
+  --shadow-pop: 0 8px 0 rgba(0,0,0,0.07);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-rounded, "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.6;
+}
+
+button { font: inherit; cursor: pointer; border: 0; }
+.shell { max-width: 1180px; margin: auto; padding: 16px 20px 64px; }
+
+/* HEADER & NAV */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0 20px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 26px;
+  box-shadow: 0 6px 0 var(--green-dark);
+}
+
+.brand small { display: block; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
+
+.header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.dict-btn-head {
+  background: #fff;
+  border: 2px solid var(--purple);
+  color: var(--purple-dark);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-weight: 900;
+  font-size: 13px;
+  box-shadow: 0 4px 0 var(--purple-light);
+  transition: .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dict-btn-head:hover { transform: translateY(-2px); background: var(--purple-light); }
+
+.nav-pills {
+  display: flex;
+  gap: 6px;
+  background: #fff;
+  padding: 6px;
+  border-radius: 999px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 2px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: transparent;
+  border-radius: 999px;
+  padding: 8px 15px;
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--muted);
+  transition: .15s;
+}
+.nav-btn:hover { background: var(--yellow-light); color: var(--ink); }
+.nav-btn.active {
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(249,115,22,0.3);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 60%, var(--purple) 100%);
+  color: #fff;
+  padding: 40px 44px;
+  box-shadow: 0 12px 30px rgba(59,130,246,0.25);
+  min-height: 250px;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 640px; }
+.eyebrow {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; letter-spacing: -1px; }
+.hero p { color: #e0eeff; line-height: 1.8; margin: 0; max-width: 520px; font-weight: 600; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+/* STAMP BOARD */
+.stamp-board {
+  background: #fff;
+  border: 3px solid var(--purple);
+  border-radius: 26px;
+  padding: 22px 26px;
+  margin: 24px 0 32px;
+  box-shadow: 0 8px 0 var(--purple-light);
+}
+
+.stamp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.stamp-title-box { display: flex; align-items: center; gap: 10px; }
+.stamp-title-box h3 { margin: 0; font-size: 20px; font-weight: 900; color: var(--purple-dark); }
+.stamp-progress-bar { flex: 1; max-width: 280px; height: 14px; background: #ede9fe; border-radius: 99px; overflow: hidden; border: 2px solid var(--purple); }
+.stamp-progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--pink)); width: 0%; transition: width .4s ease; }
+.stamp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+
+.stamp-item {
+  background: var(--paper);
+  border: 2px dashed #c4b5fd;
+  border-radius: 18px;
+  padding: 12px 8px;
+  text-align: center;
+  transition: .2s;
+  position: relative;
+}
+.stamp-item.cleared { background: var(--purple-light); border-style: solid; border-color: var(--purple); box-shadow: 0 4px 0 var(--purple); }
+.stamp-icon { font-size: 28px; opacity: .3; transition: .2s; }
+.stamp-item.cleared .stamp-icon { opacity: 1; transform: scale(1.1); }
+.stamp-name { font-size: 11px; font-weight: 900; margin-top: 4px; color: var(--muted); }
+.stamp-item.cleared .stamp-name { color: var(--purple-dark); }
+.stamp-check { position: absolute; top: -6px; right: -6px; background: var(--yellow); color: #5f3e02; font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 99px; display: none; }
+.stamp-item.cleared .stamp-check { display: block; }
+
+.all-clear-banner {
+  display: none;
+  background: linear-gradient(135deg, var(--yellow-light), var(--pink-light));
+  border: 3px solid var(--yellow);
+  border-radius: 20px;
+  padding: 14px 20px;
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 900;
+  color: #5f3e02;
+}
+
+/* BUTTONS */
+.btn {
+  border-radius: 16px;
+  padding: 12px 22px;
+  font-weight: 900;
+  font-size: 14px;
+  transition: .15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(2px); }
+.btn-primary { background: var(--yellow); color: #5f3e02; box-shadow: 0 6px 0 var(--yellow-dark); }
+.btn-ghost { background: rgba(255,255,255,0.2); color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+.btn-outline { background: #fff; color: var(--green-dark); border: 2px solid var(--green); box-shadow: 0 4px 0 var(--green); }
+.btn-secondary { background: var(--green); color: #fff; box-shadow: 0 5px 0 var(--green-dark); }
+.btn-stop { background: var(--pink); color: #fff; box-shadow: 0 6px 0 var(--pink-dark); width: 100%; padding: 12px; font-size: 16px; }
+
+/* TILES */
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 32px 2px 16px; }
+.section-head h2 { font-size: 24px; margin: 0 0 4px; font-weight: 900; }
+.section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.section-tag { font-size: 11px; font-weight: 900; color: #fff; background: var(--purple); padding: 6px 14px; border-radius: 99px; }
+
+.grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.tile {
+  border: 3px solid var(--tile-border);
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 8px 0 var(--tile-shadow);
+  transition: .18s;
+  min-height: 210px;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.tile:hover { transform: translateY(-4px); }
+.tile-icon { width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center; font-size: 28px; background: var(--tile-bg); margin-bottom: 12px; }
+.tile h3 { font-size: 17px; margin: 0 0 6px; font-weight: 900; }
+.tile p { font-size: 12px; line-height: 1.55; color: var(--muted); margin: 0; }
+.tile .go { position: absolute; right: 16px; top: 16px; color: var(--muted); font-weight: 900; font-size: 18px; }
+.tile-clear-badge { position: absolute; top: 14px; right: 14px; background: var(--yellow); color: #5f3e02; font-size: 10.5px; font-weight: 900; padding: 3px 9px; border-radius: 99px; display: none; }
+.tile.cleared .tile-clear-badge { display: block; }
+.tile.cleared .go { display: none; }
+
+.tile.green { --tile-border: #a8e6cf; --tile-shadow: var(--green); --tile-bg: var(--green-light); }
+.tile.yellow { --tile-border: #ffeaa7; --tile-shadow: var(--yellow-dark); --tile-bg: var(--yellow-light); }
+.tile.pink { --tile-border: #ff8b94; --tile-shadow: var(--pink-dark); --tile-bg: var(--pink-light); }
+.tile.blue { --tile-border: #74b9ff; --tile-shadow: var(--blue-dark); --tile-bg: var(--blue-light); }
+.tile.orange { --tile-border: #ffedd5; --tile-shadow: var(--orange-dark); --tile-bg: var(--orange-light); }
+
+/* BOTTOM GRID */
+.bottom-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; margin-top: 24px; }
+.panel { background: #fff; border: 3px solid var(--line); border-radius: 24px; padding: 24px; box-shadow: var(--shadow-pop); }
+.panel h3 { margin: 0 0 8px; font-size: 18px; font-weight: 900; }
+.panel p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0; }
+.mini-steps { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.step { background: var(--paper); border: 2px solid var(--line); border-radius: 16px; padding: 12px; font-size: 12px; font-weight: 800; flex: 1; min-width: 110px; }
+.step b { display: block; color: var(--purple); font-size: 11px; margin-bottom: 3px; }
+.tip { background: linear-gradient(135deg, var(--yellow-light), var(--pink-light)); border: 3px solid var(--yellow); }
+
+/* VIEWS & COMMON */
+.view { display: none; }
+.view.active { display: block; }
+.back { border: 2px solid var(--purple); background: #fff; padding: 8px 16px; border-radius: 14px; color: var(--purple); font-weight: 900; margin: 8px 0 16px; box-shadow: 0 4px 0 var(--purple-light); }
+.page-title { font-size: 32px; margin: 6px 0; font-weight: 900; }
+.lead { color: var(--muted); line-height: 1.8; margin: 0 0 20px; font-size: 14.5px; }
+.feature-box { background: #fff; border: 3px solid var(--line); border-radius: 24px; padding: 24px; margin: 18px 0; box-shadow: var(--shadow-pop); }
+.choice-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+.choice { border: 2px solid #dfe6e9; background: #fff; border-radius: 14px; padding: 10px 16px; font-weight: 900; color: var(--ink); transition: .15s; font-size: 13px; }
+.choice:hover { border-color: var(--green); background: var(--green-light); }
+.choice.selected { background: var(--green); border-color: var(--green); color: #fff; box-shadow: 0 4px 10px rgba(38,153,107,0.3); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat { background: var(--paper); padding: 16px; border-radius: 18px; border: 2px solid var(--line); }
+.stat small { color: var(--muted); display: block; font-size: 11px; font-weight: 800; }
+.stat strong { font-size: 20px; font-weight: 900; color: var(--ink); }
+
+/* LAB SPECIFIC */
+.big-summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+.card-summary { border-radius: 20px; padding: 18px; color: #fff; box-shadow: 0 8px 0 rgba(0,0,0,0.06); }
+.card-summary.blue { background: linear-gradient(135deg, #60a5fa, var(--blue)); border: 2px solid var(--blue); }
+.card-summary.green { background: linear-gradient(135deg, #34d399, var(--green)); border: 2px solid var(--green); color: #00382b; }
+.card-summary.gold { background: linear-gradient(135deg, var(--yellow), var(--orange)); border: 2px solid var(--orange); color: #fff; }
+.card-summary small { font-size: 11.5px; font-weight: 900; opacity: 0.95; display: block; }
+.card-summary strong { font-size: 24px; font-weight: 900; display: block; margin-top: 4px; }
+
+.panic-card { background: linear-gradient(135deg, #fff5f5, var(--pink-light)); border: 3px solid var(--pink); border-radius: 22px; padding: 20px; margin-top: 16px; }
+.panic-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.panic-meter { background: var(--pink); color: #fff; padding: 4px 12px; border-radius: 99px; font-weight: 900; font-size: 12px; }
+
+/* SVG AXIS STYLES */
+.chart-axis-line { stroke: #b2bec3; stroke-width: 2; }
+.chart-grid-line { stroke: #f1f2f6; stroke-width: 1; stroke-dasharray: 4 4; }
+.chart-axis-text { fill: var(--muted); font-size: 11px; font-weight: 800; font-family: sans-serif; }
+
+/* GAME SPECIFIC */
+.game-container { background: #fff; border: 3px solid var(--line); border-radius: 28px; padding: 24px; box-shadow: var(--shadow-pop); margin-bottom: 24px; }
+.slot-machine { background: linear-gradient(135deg, #2d3436, #1e272e); border-radius: 24px; padding: 24px; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+.slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+.slot-col { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 14px; text-align: center; border: 2px solid rgba(255,255,255,0.15); }
+.slot-col.pink { border-color: var(--pink); }
+.slot-col.yellow { border-color: var(--yellow); }
+.slot-col.blue { border-color: var(--blue); }
+.slot-box { background: #fff; color: var(--ink); border-radius: 16px; padding: 16px 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: inset 0 4px 10px rgba(0,0,0,0.15); overflow: hidden; }
+.slot-box.stopped { border: 4px solid var(--green); background: var(--green-light); animation: bounce .25s ease; }
+@keyframes bounce { 0% { transform: scale(0.92); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+.dashboard { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background: linear-gradient(135deg, var(--green), var(--blue)); color: #fff; padding: 16px; border-radius: 22px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(59,130,246,0.2); }
+.dash-item { background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.2); }
+.dash-item label { display: block; font-size: 10.5px; color: #e0eeff; font-weight: 900; margin-bottom: 2px; }
+.dash-item .val { font-size: 16px; font-weight: 900; }
+
+.board-track { display: flex; justify-content: space-between; align-items: center; position: relative; margin: 25px 10px 35px; }
+.board-line { position: absolute; top: 50%; left: 25px; right: 25px; height: 8px; background: #dfe6e9; border-radius: 4px; z-index: 0; transform: translateY(-50%); }
+.board-line-fill { position: absolute; top: 50%; left: 25px; height: 8px; background: linear-gradient(90deg, var(--green), var(--blue)); border-radius: 4px; z-index: 0; transform: translateY(-50%); transition: width .4s ease; }
+.board-node { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.node-circle { width: 46px; height: 46px; border-radius: 50%; background: #fff; border: 4px solid #b2bec3; display: grid; place-items: center; font-weight: 900; font-size: 13px; color: var(--muted); transition: .3s; }
+.board-node.active .node-circle { border-color: var(--green); background: var(--green); color: #fff; transform: scale(1.2); box-shadow: 0 0 0 6px var(--green-light); }
+.node-avatar { position: absolute; top: -30px; font-size: 26px; animation: float 1s infinite alternate; }
+@keyframes float { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+
+.game-play-area { display: grid; grid-template-columns: 1fr 1.1fr; gap: 18px; }
+.event-box { background: linear-gradient(135deg, var(--yellow-light), var(--pink-light)); border: 3px solid var(--yellow); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.hand-box { background: #f8fafc; border: 3px dashed #b2bec3; border-radius: 24px; padding: 18px; }
+.cards-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+
+.action-card { background: #fff; border: 3px solid #dfe6e9; border-radius: 18px; padding: 12px; cursor: pointer; transition: all .18s ease; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 165px; }
+.action-card:hover { transform: translateY(-4px); border-color: var(--green); box-shadow: 0 8px 15px rgba(38,153,107,0.2); }
+.action-card.selected { border-color: var(--purple); background: var(--purple-light); box-shadow: 0 0 0 3px var(--purple); }
+.card-cat { font-size: 9.5px; font-weight: 900; padding: 2px 6px; border-radius: 6px; color: #fff; display: inline-block; margin-bottom: 4px; }
+.card-cat.savings { background: var(--blue); }
+.card-cat.invest { background: var(--green); }
+.card-cat.shield { background: var(--purple); }
+.card-cat.study { background: var(--orange); }
+
+/* QUIZ SPECIFIC */
+.quiz-theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.quiz-theme-card { background: #fff; border: 3px solid var(--line); border-radius: 22px; padding: 20px; cursor: pointer; transition: .18s; position: relative; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 rgba(0,0,0,0.05); min-height: 170px; }
+.quiz-theme-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+
+.quiz-opt-btn { background: #fff; border: 3px solid #dfe6e9; border-radius: 16px; padding: 14px 18px; text-align: left; font-weight: 900; font-size: 14px; color: var(--ink); transition: .15s; display: flex; align-items: center; gap: 12px; width: 100%; }
+.quiz-opt-btn:hover:not(:disabled) { border-color: var(--purple); background: var(--purple-light); transform: translateX(4px); }
+
+/* LIFE & SOCIAL SECURITY SPECIFIC */
+.quick-help-strip { display: flex; align-items: center; gap: 10px; background: #fff; border: 3px solid var(--line); border-radius: 20px; padding: 12px 18px; margin-bottom: 20px; flex-wrap: wrap; box-shadow: 0 4px 0 rgba(0,0,0,0.04); }
+.quick-help-pill { background: var(--paper); border: 2px solid #dfe6e9; border-radius: 99px; padding: 6px 14px; font-size: 12.5px; font-weight: 900; color: var(--ink); cursor: pointer; transition: .15s; }
+.quick-help-pill:hover { background: var(--purple-light); border-color: var(--purple); color: var(--purple); transform: translateY(-2px); }
+
+.roadmap-tab-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 16px; margin-bottom: 20px; }
+.roadmap-tab { flex: 1; min-width: 130px; background: #fff; border: 3px solid #dfe6e9; border-radius: 20px; padding: 12px; text-align: center; cursor: pointer; transition: all .2s ease; box-shadow: 0 4px 0 #dfe6e9; }
+.roadmap-tab:hover { transform: translateY(-3px); }
+.roadmap-tab.active-student { border-color: var(--green); background: var(--green-light); box-shadow: 0 6px 0 var(--green-dark); color: #00382b; }
+.roadmap-tab.active-worker { border-color: var(--blue); background: var(--blue-light); box-shadow: 0 6px 0 var(--blue-dark); color: #1e3a8a; }
+.roadmap-tab.active-pinch { border-color: var(--pink); background: var(--pink-light); box-shadow: 0 6px 0 var(--pink-dark); color: #881337; }
+.roadmap-tab.active-family { border-color: var(--yellow); background: var(--yellow-light); box-shadow: 0 6px 0 var(--yellow-dark); color: #78350f; }
+.roadmap-tab.active-senior { border-color: var(--purple); background: var(--purple-light); box-shadow: 0 6px 0 var(--purple-dark); color: #4c1d95; }
+
+.system-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.system-select-card { background: #fff; border: 3px solid #dfe6e9; border-radius: 22px; padding: 16px 18px; cursor: pointer; transition: all .2s ease; box-shadow: 0 6px 0 #dfe6e9; display: flex; align-items: center; gap: 14px; }
+.system-select-card:hover { transform: translateY(-3px); }
+.system-select-card.active { border-color: var(--purple); background: var(--purple-light); box-shadow: 0 6px 0 var(--purple); transform: translateY(-2px); }
+
+.system-card-icon { width: 48px; height: 48px; border-radius: 16px; background: #fff; display: grid; place-items: center; font-size: 26px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); flex-shrink: 0; }
+.system-detail-panel { background: #fff; border: 3px solid var(--purple); border-radius: 26px; padding: 24px; box-shadow: 0 10px 0 var(--purple-light); animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.flow-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.flow-step-item { background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 14px; text-align: center; }
+.flow-step-num { font-size: 11px; font-weight: 900; color: var(--purple); display: inline-block; background: var(--purple-light); padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
+
+.compare-bars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+.bar-box { border-radius: 16px; padding: 14px; font-size: 12.5px; }
+.bar-box.no-system { background: #fff1f2; border: 2px dashed #f43f5e; color: #9f1239; }
+.bar-box.has-system { background: #ecfdf5; border: 2px solid #10b981; color: #065f46; }
+
+.mini-calc-panel { background: linear-gradient(135deg, var(--paper), #fff); border: 2px solid var(--yellow); border-radius: 20px; padding: 18px; margin: 16px 0; }
+.mini-calc-panel input[type="range"] { width: 100%; accent-color: var(--green); cursor: pointer; }
+
+/* START GUIDE SPECIFIC */
+.start-tab-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 14px; margin-bottom: 20px; }
+.start-tab { flex: 1; min-width: 140px; background: #fff; border: 3px solid #dfe6e9; border-radius: 20px; padding: 12px; text-align: center; cursor: pointer; font-weight: 900; font-size: 13px; color: var(--ink); transition: all .2s; box-shadow: 0 4px 0 #dfe6e9; }
+.start-tab:hover { transform: translateY(-2px); }
+.start-tab.active { background: var(--orange-light); border-color: var(--orange); color: var(--orange-dark); box-shadow: 0 6px 0 var(--orange); }
+
+.start-sub-panel { background: #fff; border: 3px solid var(--line); border-radius: 26px; padding: 24px; box-shadow: var(--shadow-pop); animation: fadeIn .3s ease; }
+
+.stepper-nav { display: flex; justify-content: space-between; align-items: center; position: relative; margin: 20px 0 24px; gap: 8px; }
+.step-pill { flex: 1; background: var(--paper); border: 2px solid #dfe6e9; border-radius: 16px; padding: 10px 8px; text-align: center; font-size: 12px; font-weight: 900; color: var(--muted); cursor: pointer; transition: .15s; }
+.step-pill.active { background: var(--orange-light); border-color: var(--orange); color: var(--orange-dark); box-shadow: 0 4px 0 var(--orange); transform: translateY(-2px); }
+.step-pill.completed { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+
+.stepper-content-box { background: var(--paper); border: 2px solid var(--line); border-radius: 22px; padding: 22px; margin-bottom: 18px; }
+.checklist-item { display: flex; align-items: center; gap: 12px; background: #fff; border: 2px solid #dfe6e9; border-radius: 16px; padding: 12px 16px; margin-bottom: 10px; cursor: pointer; transition: .15s; font-weight: 800; font-size: 13.5px; }
+.checklist-item:hover { border-color: var(--orange); background: var(--orange-light); }
+.checklist-item.checked { border-color: var(--green); background: var(--green-light); color: var(--green-dark); text-decoration: line-through; }
+.checkbox-box { width: 24px; height: 24px; border-radius: 8px; border: 2px solid #b2bec3; display: grid; place-items: center; font-size: 14px; background: #fff; flex-shrink: 0; }
+.checklist-item.checked .checkbox-box { background: var(--green); border-color: var(--green); color: #fff; }
+
+/* DICTIONARY MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(45,52,54,0.6); backdrop-filter: blur(4px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-box { background: #fff; border: 4px solid var(--purple); border-radius: 30px; width: 100%; max-width: 860px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(20px); transition: transform .25s ease; overflow: hidden; }
+.modal-overlay.active .modal-box { transform: translateY(0); }
+.modal-header { background: linear-gradient(135deg, var(--purple-light), #fff); padding: 20px 24px; border-bottom: 2px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 22px; font-weight: 900; color: var(--purple-dark); }
+.modal-close { background: #fff; border: 2px solid var(--line); width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; font-weight: 900; color: var(--muted); transition: .15s; }
+.modal-close:hover { background: var(--pink-light); color: var(--pink-dark); border-color: var(--pink); }
+.modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+
+.dict-search-box { display: flex; gap: 10px; margin-bottom: 16px; }
+.dict-input { flex: 1; border: 2px solid var(--purple); border-radius: 14px; padding: 10px 16px; font-size: 14px; font-family: inherit; font-weight: 800; outline: none; }
+.dict-input:focus { box-shadow: 0 0 0 3px var(--purple-light); }
+.dict-cat-pills { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
+.dict-cat-pill { background: var(--paper); border: 2px solid #dfe6e9; border-radius: 99px; padding: 6px 14px; font-size: 12px; font-weight: 900; color: var(--muted); cursor: pointer; white-space: nowrap; transition: .15s; }
+.dict-cat-pill.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+
+.dict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.dict-card { background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 16px; transition: .15s; }
+.dict-card:hover { border-color: var(--purple); background: #fff; transform: translateY(-2px); }
+.dict-term { font-size: 16px; font-weight: 900; color: var(--purple-dark); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; }
+.dict-tag { font-size: 10px; font-weight: 900; background: var(--purple-light); color: var(--purple-dark); padding: 2px 8px; border-radius: 99px; }
+.dict-desc { font-size: 12.5px; color: var(--ink); line-height: 1.6; margin: 0 0 8px; }
+.dict-example { font-size: 11.5px; background: #fff; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); }
+
+/* FLOATING DICT BUTTON */
+.float-dict-btn { position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; border-radius: 99px; padding: 12px 22px; font-weight: 900; font-size: 14px; box-shadow: 0 8px 25px rgba(139,92,246,0.4); z-index: 99; display: flex; align-items: center; gap: 8px; transition: .2s; border: 2px solid #fff; }
+.float-dict-btn:hover { transform: translateY(-4px) scale(1.03); }
+
+/* OFFICIAL LINKS & FOOTER */
+.official-links-section { background: #fff; border: 3px solid var(--line); border-radius: 26px; padding: 26px; margin-top: 40px; box-shadow: var(--shadow-pop); }
+.links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+.link-card { background: var(--paper); border: 2px solid #dfe6e9; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); transition: .15s; }
+.link-card:hover { border-color: var(--blue); background: var(--blue-light); transform: translateY(-2px); }
+.link-icon { font-size: 24px; }
+.link-info strong { display: block; font-size: 13px; font-weight: 900; color: var(--blue-dark); }
+.link-info small { font-size: 11px; color: var(--muted); }
+
+footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top: 32px; line-height: 1.8; }
+
+@media(max-width:960px){
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .quiz-theme-grid { grid-template-columns: repeat(2, 1fr); }
+  .system-select-grid { grid-template-columns: repeat(2, 1fr); }
+  .game-play-area { grid-template-columns: 1fr; }
+  .dict-grid { grid-template-columns: 1fr; }
+  .links-grid { grid-template-columns: repeat(2, 1fr); }
+  .stamp-grid { grid-template-columns: repeat(3, 1fr); }
+  .flow-steps-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:640px){
+  .grid { grid-template-columns: 1fr; }
+  .quiz-theme-grid { grid-template-columns: 1fr; }
+  .system-select-grid { grid-template-columns: 1fr; }
+  .big-summary-cards { grid-template-columns: 1fr; }
+  .compare-bars-grid { grid-template-columns: 1fr; }
+  .slot-grid { grid-template-columns: 1fr; }
+  .dashboard { grid-template-columns: repeat(2, 1fr); }
+  .links-grid { grid-template-columns: 1fr; }
+  .stamp-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- HEADER & NAVIGATION -->
+<header>
+  <div class="brand" onclick="showView('home')">
+    <div class="brand-mark">Ｑ</div>
+    <div>MONEY QUEST<small>LEARN · EXPERIENCE · CHOOSE</small></div>
+  </div>
+  <div class="header-right">
+    <button class="dict-btn-head" onclick="openDictModal()">📖 用語辞典 (24語)</button>
+    <div class="top-pill">🎮 お金の冒険をはじめよう</div>
+  </div>
+</header>
+
+<nav class="nav-pills" style="margin-bottom:20px">
+  <button class="nav-btn active" id="nav-home" onclick="showView('home')">🏠 ホーム</button>
+  <button class="nav-btn" id="nav-lab" onclick="showView('lab')">📈 長期投資ラボ</button>
+  <button class="nav-btn" id="nav-game" onclick="showView('game')">🃏 人生お金ゲーム</button>
+  <button class="nav-btn" id="nav-quiz" onclick="showView('quiz')">🧠 お金クイズ</button>
+  <button class="nav-btn" id="nav-life" onclick="showView('life')">🏡 社会保障と生活</button>
+  <button class="nav-btn" id="nav-start" onclick="showView('start')">🌱 投資の始め方</button>
+  <button class="nav-btn" id="nav-about" onclick="showView('about')">💡 サイト紹介</button>
+</nav>
+
+<!-- HOME VIEW -->
+<main id="home" class="view active">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">✨ YOUR MONEY, YOUR FUTURE</div>
+      <h1>お金を知る。<br>未来を考える。</h1>
+      <p>投資も貯金も人生のお金も。ゲームやシミュレーションを通して、自分にぴったりなお金との付き合い方を見つけよう！</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showView('game')">🎮 冒険をはじめる ➔</button>
+        <button class="btn btn-ghost" onclick="showView('about')">💡 MONEY QUESTとは？</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAMP BOARD -->
+  <section class="stamp-board">
+    <div class="stamp-header">
+      <div class="stamp-title-box">
+        <span style="font-size:24px">🏅</span>
+        <div>
+          <h3>あなたの冒険クリアスタンプ帳</h3>
+          <p style="margin:0;font-size:12px;color:var(--muted)">各コーナーを体験して、5つのスタンプをコンプリートしよう！</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="stamp-progress-bar">
+          <div class="stamp-progress-fill" id="stampProgressFill"></div>
+        </div>
+        <strong id="stampRatioText" style="font-size:14px;color:var(--purple-dark)">0 / 5 CLEAR</strong>
+        <button onclick="resetStamps()" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline">リセット</button>
+      </div>
+    </div>
+
+    <div class="stamp-grid">
+      <div class="stamp-item" id="stamp-lab"><span class="stamp-check">✓</span><div class="stamp-icon">📈</div><div class="stamp-name">長期投資ラボ</div></div>
+      <div class="stamp-item" id="stamp-game"><span class="stamp-check">✓</span><div class="stamp-icon">🃏</div><div class="stamp-name">人生お金ゲーム</div></div>
+      <div class="stamp-item" id="stamp-quiz"><span class="stamp-check">✓</span><div class="stamp-icon">🧠</div><div class="stamp-name">お金の知識クイズ</div></div>
+      <div class="stamp-item" id="stamp-life"><span class="stamp-check">✓</span><div class="stamp-icon">🏡</div><div class="stamp-name">社会保障と生活</div></div>
+      <div class="stamp-item" id="stamp-start"><span class="stamp-check">✓</span><div class="stamp-icon">🌱</div><div class="stamp-name">投資の始め方</div></div>
+    </div>
+
+    <div class="all-clear-banner" id="allClearBanner">
+      🎉 コンプリート達成！あなたは素晴らしい「マネーマスター」です！お金の知識と経験値がレベルUPしました！
+    </div>
+  </section>
+
+  <div class="section-head">
+    <div><h2>どの冒険にする？</h2><p>気になるコンテンツを選んで体験してみよう！</p></div>
+    <span class="section-tag">5 CONTENTS</span>
+  </div>
+
+  <section class="grid">
+    <button class="tile green" id="tile-lab" onclick="showView('lab')">
+      <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
+      <div class="tile-icon">📈</div>
+      <h3>長期投資ラボ</h3>
+      <p>縦横軸の目盛り付き！過去50年のズームと未来50年のAI予測を体験！</p>
+    </button>
+
+    <button class="tile yellow" id="tile-game" onclick="showView('game')">
+      <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
+      <div class="tile-icon">🃏</div>
+      <h3>人生お金ゲーム</h3>
+      <p>高速回転スロットでスタート！20代〜60代のイベントを乗り越えよう。</p>
+    </button>
+
+    <button class="tile pink" id="tile-quiz" onclick="showView('quiz')">
+      <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
+      <div class="tile-icon">🧠</div>
+      <h3>お金の知識クイズ</h3>
+      <p>全5テーマ×各5問（25問）＋ミックスモード！図解と解説でマスター！</p>
+    </button>
+
+    <button class="tile blue" id="tile-life" onclick="showView('life')">
+      <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
+      <div class="tile-icon">🏡</div>
+      <h3>社会保障と生活</h3>
+      <p>全12制度を図解・Before/After比較・試算スライダーで丸わかり！</p>
+    </button>
+
+    <button class="tile orange" id="tile-start" onclick="showView('start')">
+      <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
+      <div class="tile-icon">🌱</div>
+      <h3>投資の始め方</h3>
+      <p>口座開設の5ステップやNISA非課税シミュレーター、準備チェック！</p>
+    </button>
+  </section>
+
+  <section class="bottom-grid">
+    <div class="panel">
+      <h3>🌟 MONEY QUESTの楽しみ方</h3>
+      <p>ただ暗記するのだけでなく「選んで体験して、振り返る」ステップでお金のリテラシーが身につきます。</p>
+      <div class="mini-steps">
+        <div class="step"><b>01 · LEARN</b>まずは知る</div>
+        <div class="step"><b>02 · TRY</b>選んで体験</div>
+        <div class="step"><b>03 · THINK</b>結果を振り返る</div>
+      </div>
+    </div>
+    <div class="panel tip">
+      <div class="tip-icon">💡</div>
+      <h3>このサイトの合言葉</h3>
+      <p>「投資すれば100%正解」ではありません。貯金にも投資にもそれぞれの役割があります。自分に合った選択を考えることが大切です。</p>
+    </div>
+  </section>
+</main>
+
+<!-- LAB VIEW -->
+<section id="lab" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--green)">01 · INVESTMENT LAB</div>
+  <h2 class="page-title">📈 長期投資ラボ</h2>
+  <p class="lead">時間の「全体像」と「暴落の怖さ」をリアルな縦横軸目盛り付きで比較体験！過去50年のデータと未来50年AI予測です。</p>
+
+  <div class="game-container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+      <div>
+        <span style="font-size:12px;font-weight:900;color:var(--blue);background:var(--blue-light);padding:4px 10px;border-radius:99px">PART 1 · 1976年 〜 2026年</span>
+        <h3 style="font-size:22px;margin:6px 0 2px">⏰ タイムマシン実験！過去50年間コツコツ続けたら？</h3>
+        <p style="color:var(--muted);font-size:13px;margin:0">ブラックマンデーやリーマンショックを乗り越えた実データシミュレーター。</p>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:900;color:var(--muted);display:block;margin-bottom:4px">毎月の積み立て額を選ぶ</label>
+        <div class="choice-row" style="margin:0">
+          <button class="choice" onclick="setHistAmount(1, this)">🪙 毎月1万円</button>
+          <button class="choice selected" onclick="setHistAmount(3, this)">💰 毎月3万円</button>
+          <button class="choice" onclick="setHistAmount(5, this)">💎 毎月5万円</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="big-summary-cards">
+      <div class="card-summary blue">
+        <small>🏦 貯金だけだったら（累計元本）</small>
+        <strong id="cardPrinc">¥1,800万円</strong>
+      </div>
+      <div class="card-summary green">
+        <small>🌱 コツコツ投資してたら（2026年現在）</small>
+        <strong id="cardAsset">¥1億6,240万円</strong>
+      </div>
+      <div class="card-summary gold">
+        <small>✨ 増えたプラス分（時間の力）</small>
+        <strong id="cardDiff">+¥1億4,440万円</strong>
+      </div>
+    </div>
+
+    <div style="background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:16px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:900;color:var(--purple);margin-bottom:10px">
+        🔍 虫めがねで拡大してみよう！（全体の右肩上がり vs 暴落期の恐怖）
+      </div>
+      <div class="choice-row" style="margin:0">
+        <button class="choice selected" id="btn-zoom-all" onclick="applyZoom('all')">🔭 50年ぜんぶ見る (1976➔2026)</button>
+        <button class="choice" id="btn-zoom-bubble" onclick="applyZoom('bubble')">📉 1990年 バブル崩壊 (1年間ズーム)</button>
+        <button class="choice" id="btn-zoom-lehman" onclick="applyZoom('lehman')">💥 2008年 リーマンショック (1年間ズーム)</button>
+        <button class="choice" id="btn-zoom-covid" onclick="applyZoom('covid')">🦠 2020年 コロナショック (半年間ズーム)</button>
+      </div>
+    </div>
+
+    <!-- CHART WITH AXES -->
+    <div style="background:#fff;border:2px solid #dfe6e9;border-radius:20px;padding:18px 18px 10px;position:relative">
+      <svg id="histSvg" viewBox="0 0 780 300" width="100%" height="auto"></svg>
+      <div style="display:flex;justify-content:center;gap:24px;font-size:12px;font-weight:900;margin-top:8px">
+        <span id="legendAsset" style="color:var(--green)">━━ 資産評価額（値動きあり）</span>
+        <span style="color:#b2bec3">┈┈ 累計貯金額（元本）</span>
+      </div>
+    </div>
+
+    <div class="panic-card">
+      <div class="panic-header">
+        <strong style="font-size:17px;color:#d63031" id="panicTitle">🔭 50年全体の振り返り（1976〜2026）</strong>
+        <span class="panic-meter" id="panicMeter">ハラハラ度：★☆☆☆☆ (安心)</span>
+      </div>
+      <p style="margin:0 0 10px;font-size:13.5px;line-height:1.7;color:var(--ink)" id="panicDesc">
+        50年間全体で見ると、途中で何度も暴落を挟みながらもきれいな右肩上がりの成長曲線を描いています！
+      </p>
+      <div style="background:#fff;border-radius:14px;padding:12px 16px;border:2px solid #ff8b94;font-size:12.5px;color:var(--ink)" id="panicLesson">
+        💡 <strong>ポイント:</strong> 虫めがねボタンでリーマンショックなどにズームすると、横軸が月単位に変わり、暴落の怖さが体感できます。
+      </div>
+    </div>
+  </div>
+
+  <div class="game-container" style="margin-top:28px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+      <div>
+        <span style="font-size:12px;font-weight:900;color:var(--purple);background:var(--purple-light);padding:4px 10px;border-radius:99px">PART 2 · 2026年 〜 2076年</span>
+        <h3 style="font-size:22px;margin:6px 0 2px">🤖 未来50年 AI予想シミュレーター</h3>
+        <p style="color:var(--muted);font-size:13px;margin:0">これからの50年間における多様な未来パターンをAIが算出。</p>
+      </div>
+      <button class="btn btn-primary" onclick="renderFutureChart()">🎲 別の未来パターンを再計算する</button>
+    </div>
+
+    <div style="background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:16px;margin-bottom:16px">
+      <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:16px">
+        <div>
+          <label style="font-size:12px;font-weight:900;color:var(--muted);display:block;margin-bottom:4px">① 毎月の積み立て額</label>
+          <div class="choice-row" style="margin:0">
+            <button class="choice" onclick="setFutureAmt(1,this)">1万円</button>
+            <button class="choice selected" onclick="setFutureAmt(3,this)">3万円</button>
+            <button class="choice" onclick="setFutureAmt(5,this)">5万円</button>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:900;color:var(--muted);display:block;margin-bottom:4px">② AI予想コース選択</label>
+          <div class="choice-row" style="margin:0">
+            <button class="choice selected" onclick="setFutureCourse('growth',this)">🚀 ワクワク成長</button>
+            <button class="choice" onclick="setFutureCourse('balanced',this)">⚖️ ふつうバランス</button>
+            <button class="choice" onclick="setFutureCourse('stagnant',this)">🌧️ 最初の15年ガマン</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:2px solid #dfe6e9;border-radius:20px;padding:18px 18px 10px">
+      <svg id="futureSvg" viewBox="0 0 780 280" width="100%" height="auto"></svg>
+      <div style="display:flex;justify-content:center;gap:20px;font-size:12px;font-weight:900;margin-top:6px">
+        <span style="color:var(--green)">━━ AI予想メインコース</span>
+        <span style="color:#b2bec3">┈┈ 累計貯金額</span>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <h4 style="font-size:16px;margin:0;font-weight:900">🎯 未来の節目予想額</h4>
+      <button class="btn btn-outline" onclick="showView('start')" style="padding:6px 14px;font-size:12px">🌱 実際の投資の始め方ガイドを見る ➔</button>
+    </div>
+    <div class="stat-grid" id="futureMilestones" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<!-- GAME VIEW -->
+<section id="game" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--yellow);color:#5f3e02">02 · LIFE MONEY GAME</div>
+  <h2 class="page-title">🃏 人生お金ゲーム（回転スロット＆年代進行版）</h2>
+  <p class="lead">スロットで人生スタート！20代から60代までの年代イベントに合わせて手札を使い分け、70歳ゴールを目指そう！</p>
+
+  <div id="gameSlot" class="game-container" style="text-align:center">
+    <div style="font-size:40px;margin-bottom:4px">🎰</div>
+    <h3 style="font-size:24px;margin:0 0 4px;font-weight:900">STEP 1 · 高速スロットを止めよう！</h3>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">「🛑 ストップ！」を順番に押して、今回のキャラクターを決定！</p>
+
+    <div class="slot-machine">
+      <div class="slot-grid">
+        <div class="slot-col pink">
+          <div style="font-size:12px;font-weight:900;color:var(--pink);margin-bottom:6px">REEL 1 · スタート</div>
+          <div class="slot-box" id="slotBox0">
+            <div style="font-size:36px" id="slotIcon0">🎂</div>
+            <div style="font-size:15px;font-weight:900;margin-top:4px" id="slotTitle0">回転中...</div>
+          </div>
+          <button class="btn btn-stop" id="stopBtn0" onclick="stopReel(0)">🛑 ストップ！</button>
+        </div>
+
+        <div class="slot-col yellow">
+          <div style="font-size:12px;font-weight:900;color:var(--yellow);margin-bottom:6px">REEL 2 · 職業と手取り</div>
+          <div class="slot-box" id="slotBox1">
+            <div style="font-size:36px" id="slotIcon1">💼</div>
+            <div style="font-size:15px;font-weight:900;margin-top:4px" id="slotTitle1">回転中...</div>
+          </div>
+          <button class="btn btn-stop" id="stopBtn1" onclick="stopReel(1)">🛑 ストップ！</button>
+        </div>
+
+        <div class="slot-col blue">
+          <div style="font-size:12px;font-weight:900;color:var(--blue);margin-bottom:6px">REEL 3 · 初期貯金</div>
+          <div class="slot-box" id="slotBox2">
+            <div style="font-size:36px" id="slotIcon2">💰</div>
+            <div style="font-size:15px;font-weight:900;margin-top:4px" id="slotTitle2">回転中...</div>
+          </div>
+          <button class="btn btn-stop" id="stopBtn2" onclick="stopReel(2)">🛑 ストップ！</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmedProf" style="display:none;background:var(--green-light);border:3px solid var(--green);border-radius:24px;padding:20px;margin-top:20px;text-align:left">
+      <div style="font-size:12px;font-weight:900;color:var(--green)">✨ 決定したあなたのプロフィール</div>
+      <h3 style="font-size:22px;margin:6px 0" id="profName">22歳大卒 / 会社員</h3>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 14px" id="profDesc">堅実に貯金と運用を組み合わせて進むタイプ！</p>
+      <div class="stat-grid" style="margin-bottom:16px">
+        <div class="stat"><small>10年間の手取り収入</small><strong id="profIncome">¥3,200万</strong></div>
+        <div class="stat"><small>初期貯蓄</small><strong id="profCash">¥80万</strong></div>
+        <div class="stat"><small>特性ボーナス</small><strong id="profBonus" style="font-size:14px;color:var(--purple)">バランス運用型</strong></div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn btn-primary" onclick="startCardGame()">🎮 この人生でスタート！（手札3枚を引く） ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="gamePlay" class="game-container" style="display:none">
+    <div class="board-track">
+      <div class="board-line"></div>
+      <div class="board-line-fill" id="boardFill" style="width:0%"></div>
+      <div class="board-node active" id="node-0"><div class="node-avatar">🏃</div><div class="node-circle">20代</div><div style="font-size:11px;font-weight:900">スタート</div></div>
+      <div class="board-node" id="node-1"><div class="node-circle">30代</div><div style="font-size:11px;font-weight:900">30代</div></div>
+      <div class="board-node" id="node-2"><div class="node-circle">40代</div><div style="font-size:11px;font-weight:900">40代</div></div>
+      <div class="board-node" id="node-3"><div class="node-circle">50代</div><div style="font-size:11px;font-weight:900">50代</div></div>
+      <div class="board-node" id="node-4"><div class="node-circle">60代</div><div style="font-size:11px;font-weight:900">60代</div></div>
+      <div class="board-node" id="node-5"><div class="node-circle">🏁</div><div style="font-size:11px;font-weight:900">70歳</div></div>
+    </div>
+
+    <div class="dashboard">
+      <div class="dash-item"><label>🎂 現在の年代</label><div class="val" id="dashAgeJob">20代 (1/5)</div></div>
+      <div class="dash-item"><label>💵 現金（貯金）</label><div class="val" id="dashCash">¥80万</div></div>
+      <div class="dash-item"><label>📈 投資資産</label><div class="val" id="dashInvest">¥0万</div></div>
+      <div class="dash-item"><label>💰 合計資産</label><div class="val" id="dashTotal">¥80万</div></div>
+      <div class="dash-item"><label>❤️ 安心度</label><div class="val" id="dashHearts">❤️❤️❤️❤️❤️</div></div>
+    </div>
+
+    <div class="game-play-area">
+      <div class="event-box">
+        <div>
+          <span style="font-size:11px;font-weight:900;background:#fff;padding:4px 10px;border-radius:99px" id="eventBadge">20代のイベント</span>
+          <h3 style="font-size:20px;margin:10px 0 6px;font-weight:900" id="eventTitle">社会人生活のスタート！</h3>
+          <p style="font-size:13歳;color:var(--muted);line-height:1.6;margin:0" id="eventDesc">まずは基礎的な貯蓄習慣をつくる大切な時期。</p>
+        </div>
+        <div style="background:#fff;padding:12px;border-radius:14px;font-size:12.5px;font-weight:900;margin-top:14px" id="eventImpact">
+          生活費支出: -¥1,500万 / 10年
+        </div>
+      </div>
+
+      <div class="hand-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <strong style="font-size:14px">🎴 あなたの手札（3枚保持）</strong>
+          <button class="btn btn-outline" style="padding:4px 10px;font-size:11px" id="swapBtn" onclick="swapCard()">🔄 不要カードを1枚交換</button>
+        </div>
+
+        <div class="cards-wrapper" id="handContainer"></div>
+
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <button class="btn btn-outline" style="flex:1" onclick="playCard(-1)">温存して進む</button>
+          <button class="btn btn-primary" style="flex:1.2" id="playBtn" onclick="playSelectedCard()" disabled>カードを実行！ ⚡</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="turnResult" style="display:none;background:var(--green-light);border:3px solid var(--green);border-radius:20px;padding:18px;margin-top:16px">
+      <h4 style="margin:0 0 6px;font-size:18px;font-weight:900" id="resTitle">20代の結果発表！</h4>
+      <p style="margin:0 0 10px;font-size:13px;line-height:1.6" id="resBody">解説が入ります。</p>
+      <div style="text-align:right">
+        <button class="btn btn-secondary" onclick="nextTurn()">次の10年へ進む ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameResult" class="game-container" style="display:none;text-align:center">
+    <div style="font-size:50px">🎊</div>
+    <h3 style="font-size:26px;margin:6px 0;font-weight:900">70歳！人生のゴール到達！</h3>
+    <p style="color:var(--muted);margin:0 0 20px">50年間の資産管理おつかれさまでした！</p>
+
+    <div class="stat-grid" style="max-width:700px;margin:0 auto 20px">
+      <div class="stat"><small>最終現金</small><strong id="resCash">¥0</strong></div>
+      <div class="stat"><small>最終投資額</small><strong id="resInvest">¥0</strong></div>
+      <div class="stat" style="background:var(--green-light);border-color:var(--green)"><small>最終合計 / 安心度</small><strong id="resTotal" style="color:var(--green)">¥0</strong></div>
+    </div>
+
+    <button class="btn btn-primary" onclick="restartSlotGame()">🎰 もう一度スロットから遊ぶ</button>
+  </div>
+</section>
+
+<!-- QUIZ VIEW -->
+<section id="quiz" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--pink)">03 · MONEY QUIZ</div>
+  <h2 class="page-title">🧠 お金の知識クイズ</h2>
+  <p class="lead">全5テーマ×各5問（合計25問）＋全ジャンルミックス！好きなテーマを選んでマスターしよう！</p>
+
+  <div id="quizThemeSelect" class="game-container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+      <h3 style="font-size:22px;margin:0;font-weight:900">挑戦するテーマを選んでね</h3>
+      <span style="font-size:12px;font-weight:900;color:var(--purple);background:var(--purple-light);padding:6px 14px;border-radius:99px">全5テーマ ＋ ミックス</span>
+    </div>
+
+    <div class="quiz-theme-grid" id="quizThemeGrid"></div>
+  </div>
+
+  <div id="quizPlayArea" class="game-container" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+      <button class="btn btn-outline" style="padding:6px 14px;font-size:12px" onclick="backToQuizThemes()">← テーマ一覧へ戻る</button>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;font-weight:900;color:var(--purple);background:var(--purple-light);padding:4px 12px;border-radius:99px" id="quizThemeBadge">テーマ名</span>
+        <span style="font-size:13px;font-weight:900;color:var(--green);background:var(--green-light);padding:4px 12px;border-radius:99px" id="quizScoreDisplay">Score: 0</span>
+      </div>
+    </div>
+
+    <div style="background:#dfe6e9;height:10px;border-radius:5px;overflow:hidden;margin-bottom:18px">
+      <div id="quizProgressBar" style="background:linear-gradient(90deg,var(--pink),var(--purple));height:100%;width:0%;transition:width .3s"></div>
+    </div>
+
+    <div style="background:#fff;border:3px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 6px 0 rgba(0,0,0,0.05)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;font-weight:900;color:var(--pink)" id="quizNumBadge">QUESTION 01 / 05</span>
+        <span style="font-size:11px;font-weight:900;color:var(--orange)" id="quizStreakBadge">🔥 0連続正解</span>
+      </div>
+      <h3 style="margin:4px 0 18px;font-size:19px;line-height:1.5;font-weight:900" id="quizQuestionText">問題文</h3>
+
+      <div id="quizOptionsList" style="display:flex;flex-direction:column;gap:10px"></div>
+
+      <div id="quizExplanationBox" style="display:none;margin-top:20px;border-radius:20px;padding:20px;border:3px solid transparent">
+        <div id="quizResultStatus" style="font-size:18px;font-weight:900;margin-bottom:8px"></div>
+        <div style="font-size:14px;line-height:1.7;color:var(--ink);margin-bottom:12px" id="quizEasyExplain"></div>
+        <div id="quizExampleCard" style="background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:12px;border:2px solid var(--line);box-shadow:inset 0 2px 6px rgba(0,0,0,0.02)"></div>
+        <div style="background:rgba(255,255,255,0.85);border-radius:14px;padding:10px 14px;font-size:12.5px;font-weight:900;color:var(--purple);display:flex;align-items:center;gap:8px" id="quizKeyPoint"></div>
+        <div style="text-align:right;margin-top:16px">
+          <button class="btn btn-primary" id="quizNextBtn" onclick="nextQuestion()">次の問題へ ➔</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="quizResultArea" class="game-container" style="display:none;text-align:center">
+    <div style="font-size:52px" id="quizResultEmoji">🏆</div>
+    <h3 style="font-size:26px;margin:8px 0 4px;font-weight:900" id="quizResultRankTitle">マスター級！</h3>
+    <p style="color:var(--muted);margin:0 0 16px" id="quizResultSubtitle">素晴らしい！お金の知識がバッチリ身についています。</p>
+
+    <div class="stat-grid" style="max-width:600px;margin:0 auto 20px">
+      <div class="stat"><small>正解数</small><strong id="quizResultScoreText">5 / 5問</strong></div>
+      <div class="stat"><small>正解率</small><strong id="quizResultRateText" style="color:var(--green)">100%</strong></div>
+      <div class="stat"><small>獲得称号</small><strong id="quizResultTitleBadge" style="font-size:14px;color:var(--purple)">金メダル 🥇</strong></div>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-outline" onclick="restartCurrentTheme()">🔁 もう一度挑戦</button>
+      <button class="btn btn-primary" onclick="backToQuizThemes()">👑 別のテーマに挑戦する</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIFE VIEW -->
+<section id="life" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--blue)">04 · LIFE & SOCIAL SECURITY</div>
+  <h2 class="page-title">🏡 人生の安心マップ 〜もしもの時の社会保障〜</h2>
+  <p class="lead">ライフステージを選び、全12制度の気になるカードをタップ！図解・Before/After比較・試算スライダーで丸わかり！</p>
+
+  <div class="quick-help-strip">
+    <span style="font-size:12px;font-weight:900;color:var(--purple);display:flex;align-items:center;gap:4px">⚡ ピンチから探す:</span>
+    <button class="quick-help-pill" onclick="jumpToLifeSystem('pinch', 0)">🚑 病院代が高額になった！</button>
+    <button class="quick-help-pill" onclick="jumpToLifeSystem('pinch', 1)">🛌 病気・ケガで休職したい</button>
+    <button class="quick-help-pill" onclick="jumpToLifeSystem('pinch', 2)">💼 仕事がなくなった！</button>
+    <button class="quick-help-pill" onclick="jumpToLifeSystem('student', 0)">🎓 学費や生活費が心配！</button>
+    <button class="quick-help-pill" onclick="jumpToLifeSystem('family', 0)">👶 出産・育児の費用は？</button>
+  </div>
+
+  <div class="roadmap-tab-bar" id="roadmapTabBar">
+    <div class="roadmap-tab active-student" id="tab-student" onclick="switchLifeStage('student')">
+      <div style="font-size:24px">🎓</div>
+      <div style="font-size:13px;font-weight:900;margin-top:2px">18歳〜学生</div>
+    </div>
+    <div class="roadmap-tab" id="tab-worker" onclick="switchLifeStage('worker')">
+      <div style="font-size:24px">💼</div>
+      <div style="font-size:13px;font-weight:900;margin-top:2px">20代〜就職</div>
+    </div>
+    <div class="roadmap-tab" id="tab-pinch" onclick="switchLifeStage('pinch')">
+      <div style="font-size:24px">🚑</div>
+      <div style="font-size:13px;font-weight:900;margin-top:2px">病気・ケガ・失業</div>
+    </div>
+    <div class="roadmap-tab" id="tab-family" onclick="switchLifeStage('family')">
+      <div style="font-size:24px">👶</div>
+      <div style="font-size:13px;font-weight:900;margin-top:2px">結婚・出産・育児</div>
+    </div>
+    <div class="roadmap-tab" id="tab-senior" onclick="switchLifeStage('senior')">
+      <div style="font-size:24px">🌳</div>
+      <div style="font-size:13px;font-weight:900;margin-top:2px">老後・シニア</div>
+    </div>
+  </div>
+
+  <div id="systemSelectGrid" class="system-select-grid"></div>
+  <div id="systemDetailPanel"></div>
+</section>
+
+<!-- START GUIDE VIEW -->
+<section id="start" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--orange)">05 · HOW TO START</div>
+  <h2 class="page-title">🌱 投資の始め方ガイド</h2>
+  <p class="lead">「口座ってどう開くの？」「NISAって結局なに？」初心者や中高生でもゼロからわかるように図解とステップで解説！</p>
+
+  <div class="start-tab-bar">
+    <div class="start-tab active" id="startTab-bank" onclick="switchStartTab('bank')">🏦 銀行と証券の違い</div>
+    <div class="start-tab" id="startTab-step" onclick="switchStartTab('step')">👣 口座開設の5ステップ</div>
+    <div class="start-tab" id="startTab-nisa" onclick="switchStartTab('nisa')">🔍 証券会社とNISA</div>
+    <div class="start-tab" id="startTab-rules" onclick="switchStartTab('rules')">🛡️ 始める前の5つの鉄則</div>
+  </div>
+
+  <div class="start-sub-panel" id="startPanel-bank">
+    <h3 style="font-size:22px;margin:0 0 12px;font-weight:900">🏦 銀行口座と証券口座ってどう違うの？</h3>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">投資を始めるとき、最初に「証券会社（しょうけんがいしゃ）」で専用の口座をつくる必要があります。</p>
+
+    <div class="compare-bars-grid" style="margin-bottom:20px">
+      <div class="bar-box" style="background:#f0fdf4;border:2px solid #86efac;color:#166534;padding:18px">
+        <div style="font-size:32px;margin-bottom:6px">🏦 銀行口座（お財布）</div>
+        <strong style="font-size:16px;display:block;margin-bottom:6px">お金を安全に「預ける・引き出す」場所</strong>
+        <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.7">
+          <li>給料の受け取りや支払いに使う</li>
+          <li>元本が保証される（利息は少ない）</li>
+        </ul>
+      </div>
+
+      <div class="bar-box" style="background:#fff7ed;border:2px solid #fdba74;color:#9a3412;padding:18px">
+        <div style="font-size:32px;margin-bottom:6px">📈 証券口座（投資窓口）</div>
+        <strong style="font-size:16px;display:block;margin-bottom:6px">お金を「育てる・増やす」ための専用口座</strong>
+        <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.7">
+          <li>投資信託や株式を買うための口座</li>
+          <li>NISA（非課税制度）を利用するときもここで開く</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="start-sub-panel" id="startPanel-step" style="display:none">
+    <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">👣 スマホで完了！口座開設の5ステップ</h3>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px">店舗に行かなくてもスマホで10分〜15分ほどで申し込みができます！</p>
+
+    <div class="stepper-nav" id="stepperNav">
+      <div class="step-pill active" onclick="goStep(1)">STEP 1<br>公式サイト</div>
+      <div class="step-pill" onclick="goStep(2)">STEP 2<br>情報入力</div>
+      <div class="step-pill" onclick="goStep(3)">STEP 3<br>本人確認</div>
+      <div class="step-pill" onclick="goStep(4)">STEP 4<br>審査＆開設</div>
+      <div class="step-pill" onclick="goStep(5)">STEP 5<br>少額スタート</div>
+    </div>
+
+    <div class="stepper-content-box" id="stepperContent"></div>
+
+    <div style="display:flex;justify-content:space-between;margin-bottom:24px">
+      <button class="btn btn-outline" id="prevStepBtn" onclick="changeStep(-1)" disabled>← 前へ</button>
+      <button class="btn btn-primary" id="nextStepBtn" onclick="changeStep(1)">次へ ➔</button>
+    </div>
+
+    <h4 style="font-size:18px;margin:24px 0 6px;font-weight:900">📋 口座開設に必要な「持ち物チェックリスト」</h4>
+    <div id="checklistGroup">
+      <div class="checklist-item" onclick="toggleChecklist(this)"><div class="checkbox-box">✓</div><span>🆔 マイナンバーカード</span></div>
+      <div class="checklist-item" onclick="toggleChecklist(this)"><div class="checkbox-box">✓</div><span>🪪 本人確認書類（免許証や保険証）</span></div>
+      <div class="checklist-item" onclick="toggleChecklist(this)"><div class="checkbox-box">✓</div><span>🏦 自分名義の銀行口座</span></div>
+      <div class="checklist-item" onclick="toggleChecklist(this)"><div class="checkbox-box">✓</div><span>📱 メールアドレス＆スマホ</span></div>
+    </div>
+  </div>
+
+  <div class="start-sub-panel" id="startPanel-nisa" style="display:none">
+    <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">🔍 証券会社選びとNISAの税金メリット</h3>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">NISA口座を使うと、通常かかる約20%の税金が「0円」になります！</p>
+
+    <div class="mini-calc-panel">
+      <strong style="font-size:14px;color:var(--orange-dark)">🧮 利益に対する税金比較シミュレーター</strong>
+      <div style="margin:10px 0">
+        <label style="font-size:12.5px;color:var(--muted)">投資で出た利益: <strong id="valNisaProfit" style="color:var(--orange-dark);font-size:16px">500,000円</strong></label>
+        <input type="range" min="50000" max="2000000" step="50000" value="500000" oninput="updateNisaCalc(this.value)">
+      </div>
+      <div class="compare-bars-grid">
+        <div class="bar-box no-system">
+          <small>ふつうの口座 (税金 約20%)</small><br>
+          手取り: <strong id="valNormalNet" style="font-size:15px">約 398,425円</strong>
+        </div>
+        <div class="bar-box has-system" style="border-color:var(--orange);background:var(--orange-light)">
+          <small>✨ NISA口座 (非課税)</small><br>
+          手取り: <strong id="valNisaNet" style="font-size:16px;color:var(--orange-dark)">500,000円 まるごと残る！</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="start-sub-panel" id="startPanel-rules" style="display:none">
+    <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">🛡️ 始める前の「5つの鉄則」</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+      <div style="background:#fff1f2;border:2px solid #f43f5e;border-radius:16px;padding:14px;color:#881337"><strong>🚨 1. 「絶対儲かる」は100%詐欺！</strong></div>
+      <div style="background:#ecfdf5;border:2px solid #10b981;border-radius:16px;padding:14px;color:#065f46"><strong>🛟 2. 生活防衛資金（3〜6ヶ月分）は貯蓄に残す</strong></div>
+      <div style="background:#eff6ff;border:2px solid #3b82f6;border-radius:16px;padding:14px;color:#1e40af"><strong>🏷️ 3. 手数料が低いインデックスファンドを選ぶ</strong></div>
+      <div style="background:#fefce8;border:2px solid #eab308;border-radius:16px;padding:14px;color:#854d0e"><strong>🧺 4. 分散しても元本割れリスクはゼロにならない</strong></div>
+      <div style="background:#faf5ff;border:2px solid #a855f7;border-radius:16px;padding:14px;color:#6b21a8"><strong>❓ 5. 仕組みがわからない商品には手を出さない</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT VIEW -->
+<section id="about" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="section-tag" style="background:var(--purple)">ABOUT MONEY QUEST</div>
+  <h2 class="page-title">お金の選択肢を、知ることから。</h2>
+  <p class="lead">MONEY QUESTは投資を強く勧めるサイトではありません。貯金・投資・社会保障の仕組みを知り、自分の状況に合った選択を考えるための学習サイトです。</p>
+  <div class="feature-box">
+    <h3>このサイトで目指すこと</h3>
+    <p>① お金や投資の基本的な知識を身につける<br>② 長期的な資産の変化やリスクを体験する<br>③ さまざまな人生の出来事に応じたお金の管理を考える<br>④ 自分に合った選択肢を判断する力を育てる</p>
+  </div>
+</section>
+
+<!-- OFFICIAL LINKS SECTION -->
+<section class="official-links-section">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:24px">🔗</span>
+    <div>
+      <h3 style="margin:0;font-size:18px;font-weight:900">公的機関の安心リンク集 ＆ 相談窓口</h3>
+      <p style="margin:0;font-size:12px;color:var(--muted)">お金や契約、NISAについて正しく安全に調べるための公式外部サイトです。</p>
+    </div>
+  </div>
+
+  <div class="links-grid">
+    <a href="https://www.fsa.go.jp/policy/nisa2/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">🏛️</div>
+      <div class="link-info"><strong>金融庁 NISA特設サイト</strong><small>国の非課税制度の最新公式情報</small></div>
+    </a>
+    <a href="https://www.shiruporuto.jp/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">🌱</div>
+      <div class="link-info"><strong>知るぽると (J-FLEC)</strong><small>中高生・初心者向けの中立的な金融教育</small></div>
+    </a>
+    <a href="https://www.nenkin.go.jp/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">📜</div>
+      <div class="link-info"><strong>日本年金機構</strong><small>公的年金制度・ねんきんネットの確認</small></div>
+    </a>
+    <a href="https://www.kyoukaikenpo.or.jp/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">🏥</div>
+      <div class="link-info"><strong>全国健康保険協会 (協会けんぽ)</strong><small>医療費減免・高額療養費・傷病手当金</small></div>
+    </a>
+    <a href="https://www.caa.go.jp/policies/policy/local_cooperation/local_consumer_policy/188/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">📞</div>
+      <div class="link-info"><strong>消費者ホットライン「188」</strong><small>契約トラブル・怪しい投資勧誘の相談</small></div>
+    </a>
+    <a href="https://www.houterasu.or.jp/" target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-icon">⚖️</div>
+      <div class="link-info"><strong>日本司法支援センター (法テラス)</strong><small>法的なトラブルや相談の公的窓口</small></div>
+    </a>
+  </div>
+</section>
+
+<footer>© MONEY QUEST · 本サイトは学習用シミュレーションです。特定の金融商品の勧誘や将来の投資成果を保証するものではありません。</footer>
+</div>
+
+<!-- FLOATING DICTIONARY BUTTON -->
+<button class="float-dict-btn" onclick="openDictModal()">
+  <span>📖</span>
+  <span class="txt">用語辞典</span>
+</button>
+
+<!-- DICTIONARY MODAL -->
+<div class="modal-overlay" id="dictModalOverlay" onclick="closeDictOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">📖 お金の用語ミニ辞典 (全24語)</h3>
+      <button class="modal-close" onclick="closeDictModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="dict-search-box">
+        <input type="text" class="dict-input" id="dictSearchInput" placeholder="キーワードで検索 (例: 複利, NISA, 手取り, リボ払い)..." oninput="filterDict()">
+      </div>
+
+      <div class="dict-cat-pills">
+        <button class="dict-cat-pill active" onclick="filterDictCat('all', this)">すべて (24)</button>
+        <button class="dict-cat-pill" onclick="filterDictCat('tax', this)">基本・税金</button>
+        <button class="dict-cat-pill" onclick="filterDictCat('invest', this)">投資・NISA</button>
+        <button class="dict-cat-pill" onclick="filterDictCat('credit', this)">カード・契約</button>
+        <button class="dict-cat-pill" onclick="filterDictCat('life', this)">社会保障</button>
+      </div>
+
+      <div class="dict-grid" id="dictGridContainer"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* STAMP & PROGRESS SYSTEM */
+let userStamps = { lab: false, game: false, quiz: false, life: false, start: false };
+
+function loadStamps(){
+  try {
+    const saved = localStorage.getItem('moneyquest_stamps');
+    if(saved) userStamps = Object.assign(userStamps, JSON.parse(saved));
+  } catch(e){}
+  updateStampUI();
+}
+
+function markStampCleared(key){
+  if(!userStamps[key]){
+    userStamps[key] = true;
+    try { localStorage.setItem('moneyquest_stamps', JSON.stringify(userStamps)); } catch(e){}
+    updateStampUI();
+  }
+}
+
+function resetStamps(){
+  userStamps = { lab: false, game: false, quiz: false, life: false, start: false };
+  try { localStorage.removeItem('moneyquest_stamps'); } catch(e){}
+  updateStampUI();
+}
+
+function updateStampUI(){
+  let clearedCount = 0;
+  const keys = ['lab', 'game', 'quiz', 'life', 'start'];
+  keys.forEach(k => {
+    const item = document.getElementById(`stamp-${k}`);
+    const tile = document.getElementById(`tile-${k}`);
+    if(userStamps[k]){
+      clearedCount++;
+      if(item) item.classList.add('cleared');
+      if(tile) tile.classList.add('cleared');
+    } else {
+      if(item) item.classList.remove('cleared');
+      if(tile) tile.classList.remove('cleared');
+    }
+  });
+
+  const fill = document.getElementById('stampProgressFill');
+  const txt = document.getElementById('stampRatioText');
+  const banner = document.getElementById('allClearBanner');
+  if(fill) fill.style.width = `${(clearedCount / 5) * 100}%`;
+  if(txt) txt.textContent = `${clearedCount} / 5 ${clearedCount === 5 ? 'COMPLETE!' : 'CLEAR'}`;
+  if(banner) banner.style.display = (clearedCount === 5) ? 'block' : 'none';
+}
+
+/* NAVIGATION */
+function showView(id){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+
+  const navBtn = document.getElementById(`nav-${id}`);
+  if(navBtn) navBtn.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  markStampCleared(id);
+
+  try {
+    if(id === 'lab') { initHistLab(); initFutureLab(); }
+    else if(id === 'game') { startSlotSpinning(); }
+    else if(id === 'quiz') { initQuizView(); }
+    else if(id === 'life') { initLifeView(); }
+    else if(id === 'start') { initStartView(); }
+  } catch(e) { console.warn("Section init warning:", e); }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadStamps();
+  try { initHistLab(); } catch(e){}
+  try { initLifeView(); } catch(e){}
+  try { initStartView(); } catch(e){}
+  try { renderDictCards(); } catch(e){}
+});
+
+/* 1. LAB (HISTORICAL WITH EXACT X/Y AXES & DRILLDOWN) */
+let histAmt = 3, currentZoom = 'all', histPoints = [];
+
+function initHistLab(){ generateHistData(); renderHistUI(); }
+
+function setHistAmount(amt, btn){
+  histAmt = amt;
+  btn.parentNode.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  generateHistData(); renderHistUI();
+}
+
+function generateHistData(){
+  histPoints = [];
+  let price = 100, units = 0;
+  for(let i = 0; i < 600; i++){
+    let ret = 0.0068;
+    if(i >= 168 && i <= 180) ret = -0.038; // 1990 Bubble
+    else if(i >= 390 && i <= 402) ret = -0.045; // 2008 Lehman
+    else if(i >= 528 && i <= 534) ret = -0.055; // 2020 Covid
+    
+    price = Math.max(10, price * (1 + ret));
+    const monthlyYen = histAmt * 10000;
+    units += monthlyYen / price;
+
+    histPoints.push({
+      index: i,
+      year: 1976 + Math.floor(i / 12),
+      month: (i % 12) + 1,
+      principal: monthlyYen * (i + 1),
+      asset: units * price
+    });
+  }
+}
+
+function renderHistUI(){
+  const last = histPoints[599];
+  const pMan = Math.round(last.principal / 10000), aMan = Math.round(last.asset / 10000), diffMan = aMan - pMan;
+  document.getElementById('cardPrinc').textContent = `¥${pMan.toLocaleString()}万円`;
+  document.getElementById('cardAsset').textContent = `¥${(aMan >= 10000 ? (aMan / 10000).toFixed(2) + '億' : aMan.toLocaleString() + '万')}円`;
+  document.getElementById('cardDiff').textContent = `+¥${(diffMan >= 10000 ? (diffMan / 10000).toFixed(2) + '億' : diffMan.toLocaleString() + '万')}円`;
+  renderHistChart();
+}
+
+function applyZoom(mode){
+  currentZoom = mode;
+  document.querySelectorAll('[id^="btn-zoom-"]').forEach(b => b.classList.remove('selected'));
+  const targetBtn = document.getElementById(`btn-zoom-${mode}`);
+  if(targetBtn) targetBtn.classList.add('selected');
+  renderHistChart();
+
+  const title = document.getElementById('panicTitle');
+  const meter = document.getElementById('panicMeter');
+  const desc = document.getElementById('panicDesc');
+  const lesson = document.getElementById('panicLesson');
+
+  if(mode === 'all'){
+    title.textContent = '🔭 50年全体の振り返り（1976〜2026）';
+    meter.textContent = 'ハラハラ度：★☆☆☆☆ (安心)';
+    desc.textContent = '50年間全体で見ると、途中で何度も暴落を挟みながらもきれいな右肩上がりの成長曲線を描いています！';
+    lesson.innerHTML = '💡 <strong>ポイント:</strong> 虫めがねボタンでリーマンショックなどにズームすると、横軸が月単位に変わり、暴落の短期的恐怖が体感できます。';
+  } else if(mode === 'bubble'){
+    title.textContent = '📉 1990年 バブル崩壊（1年間ズーム）';
+    meter.textContent = 'ハラハラ度：★★★★☆ (ショック大)';
+    desc.textContent = 'たった1年間で資産評価額がどんどん目減りしていきます。横軸を見てわかる通り、毎月資産が減り続ける恐怖の時期です。';
+    lesson.innerHTML = '💡 <strong>学び:</strong> 短期で見ると大損した気分になりますが、積立を止めずに続けた人が50年後には大きな資産を築けました。';
+  } else if(mode === 'lehman'){
+    title.textContent = '💥 2008年 リーマンショック（1年間ズーム）';
+    meter.textContent = 'ハラハラ度：★★★★★ MAX (大暴落！)';
+    desc.textContent = '2008年9月〜2009年3月の半年でなんと最大 -48.5% も資産額が急降下！画面上の赤線が恐怖の落ち込みを示しています。';
+    lesson.innerHTML = '💡 <strong>学び:</strong> 暴落時に怖くなって売ってしまうと損失が確定します。「長期視点」を持つ大切さがここから学べます。';
+  } else if(mode === 'covid'){
+    title.textContent = '🦠 2020年 コロナショック（半年間ズーム）';
+    meter.textContent = 'ハラハラ度：★★★☆☆ (急落からのV字回復)';
+    desc.textContent = '2020年2月〜4月に一気に暴落！しかしその後わずか数ヶ月で急激なV字回復を見せました。';
+    lesson.innerHTML = '💡 <strong>学び:</strong> 短期の値動きは誰にも予測できません。積立を淡々と続けることで安値で多く買えるメリットが生まれます。';
+  }
+}
+
+function renderHistChart(){
+  const svg = document.getElementById('histSvg');
+  if(!svg) return;
+
+  let start = 0, end = 599;
+  if(currentZoom === 'bubble'){ start = 168; end = 180; }
+  else if(currentZoom === 'lehman'){ start = 390; end = 402; }
+  else if(currentZoom === 'covid'){ start = 528; end = 534; }
+
+  const slice = histPoints.slice(start, end + 1);
+  let maxV = 0, minV = Infinity;
+  slice.forEach(d => { maxV = Math.max(maxV, d.asset, d.principal); minV = Math.min(minV, d.asset, d.principal); });
+  maxV *= 1.08; minV *= 0.92;
+
+  const W = 780, H = 300, padL = 75, padR = 25, padT = 25, padB = 45;
+  const gW = W - padL - padR, gH = H - padT - padB;
+
+  const getX = i => padL + (i / (slice.length - 1 || 1)) * gW;
+  const getY = val => padT + gH - ((val - minV) / (maxV - minV || 1)) * gH;
+
+  // GRIDLINES & Y-AXIS LABELS
+  let gridHtml = '';
+  const yTicks = 5;
+  for(let i = 0; i <= yTicks; i++){
+    const val = minV + ((maxV - minV) / yTicks) * i;
+    const y = getY(val);
+    const man = Math.round(val / 10000);
+    const labelText = man >= 10000 ? (man / 10000).toFixed(1) + '億円' : man.toLocaleString() + '万円';
+    gridHtml += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" class="chart-grid-line" />`;
+    gridHtml += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" class="chart-axis-text">${labelText}</text>`;
+  }
+
+  // X-AXIS LABELS
+  let xLabelsHtml = '';
+  if(currentZoom === 'all'){
+    const years = [1976, 1986, 1996, 2006, 2016, 2026];
+    years.forEach(yr => {
+      const idx = (yr - 1976) * 12;
+      const sliceIdx = Math.min(slice.length - 1, Math.max(0, idx));
+      const x = getX(sliceIdx);
+      xLabelsHtml += `<line x1="${x}" y1="${padT + gH}" x2="${x}" y2="${padT + gH + 5}" stroke="#b2bec3" />`;
+      xLabelsHtml += `<text x="${x}" y="${padT + gH + 20}" text-anchor="middle" class="chart-axis-text">${yr}年</text>`;
+    });
+  } else {
+    slice.forEach((d, i) => {
+      if(i % Math.ceil(slice.length / 5) === 0 || i === slice.length - 1){
+        const x = getX(i);
+        xLabelsHtml += `<line x1="${x}" y1="${padT + gH}" x2="${x}" y2="${padT + gH + 5}" stroke="#b2bec3" />`;
+        xLabelsHtml += `<text x="${x}" y="${padT + gH + 20}" text-anchor="middle" class="chart-axis-text">${d.year}年${d.month}月</text>`;
+      }
+    });
+  }
+
+  let aPath = '', pPath = '', isCrash = (currentZoom !== 'all');
+  slice.forEach((d, i) => {
+    const x = getX(i), yA = getY(d.asset), yP = getY(d.principal);
+    if(i === 0){ aPath += `M ${x} ${yA}`; pPath += `M ${x} ${yP}`; }
+    else { aPath += ` L ${x} ${yA}`; pPath += ` L ${x} ${yP}`; }
+  });
+
+  const lineColor = isCrash ? '#d63031' : '#26996b';
+  const legend = document.getElementById('legendAsset');
+  if(legend){
+    legend.style.color = lineColor;
+    legend.textContent = isCrash ? '━━ 資産評価額（急降下中！）' : '━━ 資産評価額（値動きあり）';
+  }
+
+  svg.innerHTML = `
+    ${gridHtml}
+    <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + gH}" class="chart-axis-line" />
+    <line x1="${padL}" y1="${padT + gH}" x2="${W - padR}" y2="${padT + gH}" class="chart-axis-line" />
+    ${xLabelsHtml}
+    <path d="${pPath}" fill="none" stroke="#b2bec3" stroke-width="2" stroke-dasharray="4 4"/>
+    <path d="${aPath}" fill="none" stroke="${lineColor}" stroke-width="4" stroke-linecap="round"/>
+  `;
+}
+
+/* FUTURE LAB */
+let futureAmt = 3, futureCourse = 'growth';
+function initFutureLab(){ renderFutureChart(); }
+
+function setFutureAmt(amt, btn){
+  futureAmt = amt;
+  btn.parentNode.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  renderFutureChart();
+}
+
+function setFutureCourse(course, btn){
+  futureCourse = course;
+  btn.parentNode.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  renderFutureChart();
+}
+
+function renderFutureChart(){
+  const svg = document.getElementById('futureSvg');
+  if(!svg) return;
+  let points = [], base = 0, princ = 0;
+  const mYen = futureAmt * 10000;
+  for(let i = 0; i < 50; i++){
+    let ret = (futureCourse === 'growth' ? 0.07 : (futureCourse === 'balanced' ? 0.05 : 0.02));
+    if(futureCourse === 'stagnant' && i < 15) ret = -0.01;
+    ret += (Math.random() - 0.48) * 0.04;
+    for(let m = 0; m < 12; m++){ base = (base + mYen) * (1 + ret / 12); princ += mYen; }
+    points.push({ year: 2026 + i + 1, base: base, princ: princ });
+  }
+
+  const maxV = points[49].base * 1.1;
+  const W = 780, H = 280, padL = 75, padR = 25, padT = 25, padB = 40;
+  const gW = W - padL - padR, gH = H - padT - padB;
+  const getX = i => padL + (i / 49) * gW;
+  const getY = val => padT + gH - (val / maxV) * gH;
+
+  let gridHtml = '';
+  for(let i = 0; i <= 4; i++){
+    const val = (maxV / 4) * i;
+    const y = getY(val);
+    const man = Math.round(val / 10000);
+    const labelText = man >= 10000 ? (man / 10000).toFixed(1) + '億円' : man.toLocaleString() + '万円';
+    gridHtml += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" class="chart-grid-line" />`;
+    gridHtml += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" class="chart-axis-text">${labelText}</text>`;
+  }
+
+  let xLabelsHtml = '';
+  [2026, 2036, 2046, 2056, 2066, 2076].forEach(yr => {
+    const idx = Math.min(49, yr - 2026);
+    const x = getX(idx);
+    xLabelsHtml += `<line x1="${x}" y1="${padT + gH}" x2="${x}" y2="${padT + gH + 5}" stroke="#b2bec3" />`;
+    xLabelsHtml += `<text x="${x}" y="${padT + gH + 20}" text-anchor="middle" class="chart-axis-text">${yr}年</text>`;
+  });
+
+  let mainP = '', princP = '';
+  points.forEach((p, i) => {
+    const x = getX(i), yM = getY(p.base), yP = getY(p.princ);
+    if(i === 0){ mainP += `M ${x} ${yM}`; princP += `M ${x} ${yP}`; }
+    else { mainP += ` L ${x} ${yM}`; princP += ` L ${x} ${yP}`; }
+  });
+
+  svg.innerHTML = `
+    ${gridHtml}
+    <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + gH}" class="chart-axis-line" />
+    <line x1="${padL}" y1="${padT + gH}" x2="${W - padR}" y2="${padT + gH}" class="chart-axis-line" />
+    ${xLabelsHtml}
+    <path d="${princP}" fill="none" stroke="#b2bec3" stroke-width="2" stroke-dasharray="4 4"/>
+    <path d="${mainP}" fill="none" stroke="#26996b" stroke-width="4" stroke-linecap="round"/>
+  `;
+
+  const container = document.getElementById('futureMilestones');
+  if(container){
+    const mYears = [10, 20, 30, 50];
+    container.innerHTML = mYears.map(y => {
+      const p = points[y - 1];
+      const aMan = Math.round(p.base / 10000);
+      return `<div class="stat"><small>${y}年後 (${2026+y}年)</small><strong style="color:var(--green)">¥${aMan >= 10000 ? (aMan / 10000).toFixed(1) + '億' : aMan.toLocaleString() + '万'}円</strong></div>`;
+    }).join('');
+  }
+}
+
+/* 2. GAME (WORKING SPINNING SLOT & DECADE PROGRESSION) */
+const slotOptions = [
+  [ {icon:'🎂', title:'22歳・新卒会社員'}, {icon:'🐣', title:'20歳・専門卒スタート'}, {icon:'🎓', title:'25歳・転職チャレンジャー'} ],
+  [ {icon:'💼', title:'IT会社員 (手取り320万/10年)', inc:3200}, {icon:'🏛️', title:'公務員 (手取り300万/10年)', inc:3000}, {icon:'💻', title:'フリーランス (手取り360万/10年)', inc:3600} ],
+  [ {icon:'💰', title:'初期貯金 80万円'}, {icon:'🪙', title:'初期貯金 30万円'}, {icon:'💎', title:'初期貯金 150万円'} ]
+];
+
+let slotIntervals = [null, null, null];
+let slotStopped = [false, false, false];
+let slotSelectedIdx = [0, 0, 0];
+
+function startSlotSpinning(){
+  document.getElementById('gameSlot').style.display = 'block';
+  document.getElementById('gamePlay').style.display = 'none';
+  document.getElementById('gameResult').style.display = 'none';
+  document.getElementById('confirmedProf').style.display = 'none';
+
+  slotStopped = [false, false, false];
+  for(let i = 0; i < 3; i++){
+    document.getElementById(`stopBtn${i}`).disabled = false;
+    document.getElementById(`slotBox${i}`).classList.remove('stopped');
+    if(slotIntervals[i]) clearInterval(slotIntervals[i]);
+    
+    slotIntervals[i] = setInterval(() => {
+      slotSelectedIdx[i] = (slotSelectedIdx[i] + 1) % slotOptions[i].length;
+      const opt = slotOptions[i][slotSelectedIdx[i]];
+      document.getElementById(`slotIcon${i}`).textContent = opt.icon;
+      document.getElementById(`slotTitle${i}`).textContent = opt.title;
+    }, 60);
+  }
+}
+
+function stopReel(idx){
+  if(slotStopped[idx]) return;
+  slotStopped[idx] = true;
+  clearInterval(slotIntervals[idx]);
+  document.getElementById(`stopBtn${idx}`).disabled = true;
+  document.getElementById(`slotBox${idx}`).classList.add('stopped');
+  
+  if(slotStopped.every(Boolean)){
+    revealProfile();
+  }
+}
+
+function revealProfile(){
+  const prof = document.getElementById('confirmedProf');
+  if(prof) prof.style.display = 'block';
+  const opt0 = slotOptions[0][slotSelectedIdx[0]];
+  const opt1 = slotOptions[1][slotSelectedIdx[1]];
+  const opt2 = slotOptions[2][slotSelectedIdx[2]];
+
+  document.getElementById('profName').textContent = `${opt0.title} / ${opt1.title}`;
+  document.getElementById('profIncome').textContent = `¥${opt1.inc}万円`;
+  document.getElementById('profCash').textContent = opt2.title.replace('初期貯金 ','');
+}
+
+const decadeEvents = [
+  { decade: '20代', title: '🌱 社会人スタート！基礎資産形成期', desc: '新社会人としてのスタート。まずは生活の基盤を作り、貯蓄と投資の習慣を身につける大事な10年間！', impact: '生活費支出: -¥1,500万 / 10年', cost: 1500 },
+  { decade: '30代', title: '🏠 結婚・マイホーム・キャリアUP', desc: '人生の大きな出来事が重なる時期。支出が増える中、手札をどう活かして乗り切る？', impact: 'ライフイベント支出: -¥2,000万 / 10年', cost: 2000 },
+  { decade: '40代', title: '⚡ 教育費ピーク ＆ 世界同時株安ショック！', desc: '子供の学費が重なる中、市場で世界的な株安が発生！資産管理の踏ん張りどころ。', impact: '教育費: -¥1,800万 / 投資資産 -15%', cost: 1800, crash: 0.15 },
+  { decade: '50代', title: '🏥 親の介護・自身の健康 ＆ 老後ラストスパート', desc: '医療や介護の出費が増加。老後に向けた資産運用のラストスパート10年間！', impact: '医療・介護備え支出: -¥1,200万 / 10年', cost: 1200 },
+  { decade: '60代', title: '🌅 定年退職 ＆ セカンドライフスタート', desc: '定年を迎え、退職金が入る一方で今後の生活費の取り崩しを考える成熟期。', impact: '退職金プラス: +¥1,500万 / 生活費 -¥1,000万', cost: -500 }
+];
+
+let gameState = { turn: 0, cash: 80, invest: 0, hearts: 5, selectedIdx: -1, canSwap: true };
+const allCards = [
+  { name:'先取り貯金', cat:'savings', catName:'貯金', eff:'現金 +500万', icon:'🐷' },
+  { name:'つみたてNISA投資', cat:'invest', catName:'投資', eff:'投資へ +300万', icon:'🌱' },
+  { name:'医療・万が一の備え', cat:'shield', catName:'保険', eff:'支出軽減＆ガード', icon:'🛡️' },
+  { name:'スキルアップ自己投資', cat:'study', catName:'自己投資', eff:'収入 +400万', icon:'📚' }
+];
+let hand = [];
+
+function startCardGame(){
+  document.getElementById('gameSlot').style.display = 'none';
+  document.getElementById('gamePlay').style.display = 'block';
+
+  const initCashStr = slotOptions[2][slotSelectedIdx[2]].title.replace(/[^0-9]/g, '');
+  gameState = { turn: 0, cash: parseInt(initCashStr) || 80, invest: 0, hearts: 5, selectedIdx: -1, canSwap: true };
+  hand = [allCards[0], allCards[1], allCards[3]];
+  
+  renderTurn();
+}
+
+function renderTurn(){
+  const ev = decadeEvents[gameState.turn];
+  document.getElementById('eventBadge').textContent = `${ev.decade}のイベント`;
+  document.getElementById('eventTitle').textContent = ev.title;
+  document.getElementById('eventDesc').textContent = ev.desc;
+  document.getElementById('eventImpact').textContent = ev.impact;
+
+  const fill = document.getElementById('boardFill');
+  if(fill) fill.style.width = `${gameState.turn * 20}%`;
+  document.querySelectorAll('.board-node').forEach((n, i) => n.classList.toggle('active', i === gameState.turn));
+
+  document.getElementById('dashAgeJob').textContent = `${ev.decade} (${gameState.turn + 1}/5)`;
+  document.getElementById('dashCash').textContent = `¥${gameState.cash.toLocaleString()}万`;
+  document.getElementById('dashInvest').textContent = `¥${gameState.invest.toLocaleString()}万`;
+  document.getElementById('dashTotal').textContent = `¥${(gameState.cash + gameState.invest).toLocaleString()}万`;
+
+  renderHand();
+}
+
+function renderHand(){
+  const container = document.getElementById('handContainer');
+  if(!container) return;
+  container.innerHTML = hand.map((c, i) => `
+    <div class="action-card ${gameState.selectedIdx === i ? 'selected' : ''}" onclick="selectCard(${i})">
+      <div>
+        <span class="card-cat ${c.cat}">${c.catName}</span>
+        <div style="font-size:24px;margin:2px 0">${c.icon}</div>
+        <div style="font-size:12.5px;font-weight:900">${c.name}</div>
+      </div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:4px">${c.eff}</div>
+    </div>
+  `).join('');
+}
+
+function selectCard(idx){
+  gameState.selectedIdx = idx;
+  renderHand();
+  const btn = document.getElementById('playBtn');
+  if(btn) btn.disabled = false;
+}
+
+function swapCard(){
+  if(!gameState.canSwap || gameState.selectedIdx < 0) return;
+  hand[gameState.selectedIdx] = allCards[Math.floor(Math.random() * allCards.length)];
+  gameState.canSwap = false;
+  const btn = document.getElementById('swapBtn'); if(btn) btn.disabled = true;
+  renderHand();
+}
+
+function playSelectedCard(){ playCard(gameState.selectedIdx); }
+
+function playCard(idx){
+  const ev = decadeEvents[gameState.turn];
+  const inc = slotOptions[1][slotSelectedIdx[1]].inc;
+  
+  let resultText = `10年間で手取り収入 +¥${inc}万円が入りました。<br>支出: ¥${ev.cost}万円。`;
+
+  if(ev.crash && gameState.invest > 0){
+    const loss = Math.round(gameState.invest * ev.crash);
+    gameState.invest -= loss;
+    resultText += `<br>📉 株安ショックにより投資資産が -¥${loss}万円 一時的に目減りしました。`;
+  }
+
+  if(idx >= 0){
+    const c = hand[idx];
+    if(c.cat === 'savings'){ gameState.cash += 500; resultText += `<br>🐷 【${c.name}】を発動！現金を +500万円 確保！`; }
+    else if(c.cat === 'invest'){ gameState.cash -= 200; gameState.invest += 400; resultText += `<br>🌱 【${c.name}】を発動！投資資産へ +400万円 を振分！`; }
+    else if(c.cat === 'shield'){ gameState.cash += 300; resultText += `<br>🛡️ 【${c.name}】を発動！保険手当等により支出を300万抑えられました！`; }
+    else if(c.cat === 'study'){ gameState.cash += 400; resultText += `<br>📚 【${c.name}】を発動！自己投資により手取りが +400万円 UP！`; }
+  }
+
+  gameState.cash += (inc - ev.cost);
+  if(gameState.invest > 0) gameState.invest = Math.round(gameState.invest * 1.2); // 10年成長
+
+  document.getElementById('resTitle').textContent = `🎉 ${ev.decade}の結果発表！`;
+  document.getElementById('resBody').innerHTML = resultText;
+  document.getElementById('turnResult').style.display = 'block';
+
+  if(idx >= 0) hand[idx] = allCards[Math.floor(Math.random() * allCards.length)];
+}
+
+function nextTurn(){
+  gameState.turn++;
+  document.getElementById('turnResult').style.display = 'none';
+  gameState.selectedIdx = -1;
+  const btn = document.getElementById('playBtn'); if(btn) btn.disabled = true;
+
+  if(gameState.turn >= 5) showResult();
+  else renderTurn();
+}
+
+function showResult(){
+  document.getElementById('gamePlay').style.display = 'none';
+  document.getElementById('gameResult').style.display = 'block';
+  
+  const total = gameState.cash + gameState.invest;
+  document.getElementById('resCash').textContent = `¥${gameState.cash.toLocaleString()}万円`;
+  document.getElementById('resInvest').textContent = `¥${gameState.invest.toLocaleString()}万円`;
+  document.getElementById('resTotal').textContent = `¥${total.toLocaleString()}万円 (★★★★★)`;
+  
+  markStampCleared('game');
+}
+
+function restartSlotGame(){
+  startSlotSpinning();
+}
+
+/* 3. QUIZ (25 QUESTIONS FULLY EXPANDED) */
+const quizThemes = [
+  { id: 'tax', title: '🏛️ お金の基本・社会保障と税金', desc: '全5問：手取り、控除、高額療養費、雇用保険、住民税など' },
+  { id: 'invest', title: '📈 投資の基本・株式投資とNISA', desc: '全5問：株のリスク、投資信託、NISA非課税、配当金、積立' },
+  { id: 'compound', title: '🌱 お金の増やし方・複利効果', desc: '全5問：単利と複利、72の法則、長期・積立・分散、インフレ' },
+  { id: 'budget', title: '⚖️ 家計管理・生活費と投資', desc: '全5問：先取り貯金、生活防衛資金、固定費見直し、資金配分' },
+  { id: 'credit', title: '🛡️ 注意点・クレジットカードと契約', desc: '全5問：リボ払い、18歳成人、クーリング・オフ、投資詐欺' }
+];
+
+const quizMasterData = {
+  tax: [
+    { q: '1. 給与明細で「額面給与」から引かれる「控除」。主に何が含まれている？', opts: ['家賃と電気代', '税金（所得税・住民税）と社会保険料', '会社のランチ代'], a: 1, easy: '「額面給料」から法律で決まった税金・社会保険料が引かれた残りが「手取り」です。', example: '💡 額面22万の場合、約4.5万が引かれ手取りは約17.5万になります。', key: '📌 額面 − (税金 ＋ 社会保険料) ＝ 使える手取り！' },
+    { q: '2. 1ヶ月の医療費が高額になったとき、一定の上限を超えた分が戻ってくる国の制度は？', opts: ['高額療養費制度', '確定申告手当', '医療費全額無料制度'], a: 0, easy: '病院に払うお金が高くなっても、年収に応じた上限を超えた分は国が補填してくれます。', example: '💡 100万円の医療費でも、自己負担は約8万〜9万円程度で済む場合があります！', key: '📌 急な大病でも慌てず高額療養費制度を申請しよう！' },
+    { q: '3. 会社を辞めて転職活動をしている間、生活費をサポートしてくれる公的保険は？', opts: ['労災保険', '雇用保険（基本手当・失業保険）', '厚生年金'], a: 1, easy: '働く人が入る雇用保険から、再就職までの期間、給与の約5〜8割の手当が支給されます。', example: '💡 突然の退職でも次の準備をするための大切なセーフティネットです。', key: '📌 働く人はみんな雇用保険で守られている！' },
+    { q: '4. 「年末調整」や「確定申告」をする主な目的はどれ？', opts: ['会社にお金を寄付するため', '1年間納めた税金の過不足を正しく計算・精算するため', '銀行口座を作るため'], a: 1, easy: '毎月仮で引かれていた税金を年末に正しく計算し直し、納めすぎた税金を返してもらう手続きです。', example: '💡 保険料控除などを申請すると数万円が手元に戻ってくることがあります！', key: '📌 控除をしっかり申請して納めすぎた税金を取り戻そう！' },
+    { q: '5. 住民税に関する説明として正しいものはどれ？', opts: ['何歳でも全員同じ金額を払う', '前年の所得（収入）に応じて金額が決まり翌年支払う', '買い物をするたびにレジで払う'], a: 1, easy: '住民税は「前年の収入」に応じて計算され、社会人2年目から給料から引き落とされ始めます。', example: '💡 社会人2年目は1年目より手取りが減ったように感じることがあるので注意！', key: '📌 住民税は前年の収入に応じて後からやってくる！' }
+  ],
+  invest: [
+    { q: '1. 株式投資の「メリット」と「リスク」の組み合わせとして正解はどれ？', opts: ['メリット:値上がり益 / リスク:元本割れ', 'メリット:絶対に損しない / リスク:なし', 'メリット:国が保証 / リスク:利息ゼロ'], a: 0, easy: '企業成長により利益を狙えますが、株価変動により買った値段を下回るリスクがあります。', example: '💡 1,000円の株が800円になると200円の損（元本割れ）になります。', key: '📌 投資には必ず元本割れリスクがある！' },
+    { q: '2. 1つの商品でたくさんの会社にまとめて分散投資できる詰め合わせ商品は？', opts: ['定期預金', '投資信託（ファンド）', '暗号資産'], a: 1, easy: '投資信託はプロがたくさんの会社に小分けして投資してくれる「詰め合わせパック」です。', example: '💡 100円から世界中の企業にまとめて分散投資できます。', key: '📌 1社だけに賭けず投資信託で分散するのが基本！' },
+    { q: '3. NISA（ニーサ）制度の最大のメリットは？', opts: ['必ず利益が2倍になる', '通常約20%かかる投資の利益への税金が0円（非課税）になる', '国からお小遣いがもらえる'], a: 1, easy: '通常、投資の増えた分には20.315%の税金がかかりますが、NISAなら全額手元に残ります。', example: '💡 10万円増えた場合、通常は2万円減りますがNISAなら10万円まるまる手元に！', key: '📌 NISAは税金が得になる国の非課税制度！' },
+    { q: '4. 毎月同じ金額でコツコツ買い続ける「ドルコスト平均法」の効果は？', opts: ['安い時に多く、高い時に少なく買えて平均単価が抑えられる', '株価の暴落を100%防げる', '手数料がゼロになる'], a: 0, easy: '価格に関わらず「毎月1万円分」など定額で買い続けることで購入単価を平滑化できます。', example: '💡 値下がり期は安くたくさん買えるため、将来の値上がりで利益が出やすくなります。', key: '📌 時間を味方につけて定額購入を続けよう！' },
+    { q: '5. 株を持っている企業から、業績に応じて還元される現金のお返しを何という？', opts: ['利息', '配当金（はいとうきん）', 'キャッシュバック'], a: 1, easy: '企業が儲かった利益の一部を株主に還元するのが「配当金」です。', example: '💡 配当利回り3%なら、10万円分の株で年間約3,000円がもらえます。', key: '📌 企業の成長と一緒に配当金を受け取る楽しみがある！' }
+  ],
+  compound: [
+    { q: '1. 「複利（ふくり）」の説明として正しいものはどれ？', opts: ['元本だけ利息がつくこと', '元本についた利息にもさらに利息がつくこと', '利息が途中でゼロになること'], a: 1, easy: '複利はお金がお金を産む仕組み。「雪だるま式」に増えるのが特徴です。', example: '💡 100万円が5%増えて105万になると、翌年は105万に対して5%の利息がつきます！', key: '📌 時間が経つほど複利のパワーは絶大になる！' },
+    { q: '2. 複利でお金が「2倍」になる年数がすぐわかる便利な計算式「72の法則」はどれ？', opts: ['72 × 金利', '72 ÷ 金利', '72 ＋ 金利'], a: 1, easy: '72を想定利回りで割ると、何年で資産が2倍になるかがすぐ計算できます。', example: '💡 年利4%なら、72 ÷ 4 ＝ 約18年でお金が2倍になります！', key: '📌 72 ÷ 利回り ＝ 2倍になるまでの年数！' },
+    { q: '3. 資産運用の3大原則「長期・積立・◯◯」。最後の1つは？', opts: ['集中', '一括', '分散'], a: 2, easy: '「長期・積立・分散」の3つを揃えることが、リスクを抑えて資産を育てる鉄則です。', example: '💡 地域の分散・資産種類の分散・購入時期の分散を心がけよう。', key: '📌 長期・積立・分散でリスクを賢く抑えよう！' },
+    { q: '4. インフレ（物価上昇）が続くと、銀行の現金貯金の価値はどうなる？', opts: ['価値が上がる', '価値が下がる（実質減る）', '全く変わらない'], a: 1, easy: 'モノの値段が上がると、同じ100円で買える量が減るため、現金の価値は実質下がります。', example: '💡 100円で買えていたパンが150円になると、100円玉の価値が目減りしたのと同じ！', key: '📌 貯金だけだとインフレで購買力が下がるリスクがある！' },
+    { q: '5. 「リスクが高い商品ほど、期待できるリターンも高い」この関係を何という？', opts: ['ハイリスク・ハイリターン', 'ローリスク・ハイリターン', 'ノーリスク・ハイリターン'], a: 0, easy: '金融の世界に「ノーリスクで大儲け」は絶対にありません。高いリターンには相応のリスクがあります。', example: '💡 大きく増える可能性がある商品は、大きく減る可能性もセットです。', key: '📌 ローリスク・ハイリターンをうたう話は100%詐欺！' }
+  ],
+  budget: [
+    { q: '1. 毎月の給料から最初にお金を貯金・投資に回す手法を何という？', opts: ['残ったら貯金', '先取り貯金（投資）', '全額使い切り'], a: 1, easy: '給料が入ったらまず貯蓄分を別口座に移し、残ったお金で生活するのが確実に貯まるコツです。', example: '💡 20万円の手取りから先に3万円を引いて、残り17万円で暮らす習慣を作ろう！', key: '📌 貯めるコツは「使って残った分」ではなく「先取り」！' },
+    { q: '2. 急な病気や失業に備えて、現金で確保しておくべき「生活防衛資金」の目安は？', opts: ['1日分', '生活費の3〜6ヶ月分', '10年分'], a: 1, easy: '万が一の事故や転職時も安心できるように、生活費の3〜6ヶ月分はすぐ出せる現金で残します。', example: '💡 毎月15万円で暮らす人なら、45万〜90万円は預金に残して残りを投資へ。', key: '📌 投資の前にまずは3〜6ヶ月分の生活防衛資金！' },
+    { q: '3. 毎月のお金の節約で、一番効果が大きくて持続しやすいのはどれ？', opts: ['食費を限界まで削る', 'スマホ代やサブスクなどの「固定費」を見直す', '電気をこまめに消す'], a: 1, easy: '毎月自動でかかる固定費（格安SIMへの変更、不要なサブスク解約）は一度見直せばずっと節約できます。', example: '💡 スマホ代を月8,000円から2,000円に下げれば、年間7.2万円の節約！', key: '📌 節約はガマンする食費より「固定費の見直し」から！' },
+    { q: '4. 理想的な収入の使い道として、よく推奨される「50:30:20の法則」の「20」は？', opts: ['趣味・遊興費', '生活必需費', '貯金・投資（将来の備え）'], a: 2, easy: '手取りの50%を生活費、30%を欲しいものや趣味、20%を将来のための貯金・投資に充てる考え方です。', example: '💡 手取り20万円なら、10万が生活費、6万が趣味、4万が貯蓄・投資。', key: '📌 貯蓄・投資の目標ラインは手取りの20%！' },
+    { q: '5. 使う時期が「3年以内」の近いお金の管理場所として最も適しているのは？', opts: ['値動きの激しい個別株', '安全性の高い銀行預金', '暗号資産'], a: 1, easy: '数年以内に使う予定が決まっているお金は、元本割れしない預金で守るのが鉄則です。', example: '💡 旅行代や引っ越し費用などは株式投資に回さず現金で置いておこう。', key: '📌 使う時期が近いお金は元本保証の預金で守る！' }
+  ],
+  credit: [
+    { q: '1. クレジットカードの「リボ払い（リボルビング払い）」が危険とされる理由は？', opts: ['ポイントが貯まらないから', '毎月の返済額は一定だが高額な手数料（年約15%）がかかり残高が減りにくいから', 'お店で使えないから'], a: 1, easy: 'いくら買い物をしても毎月の支払いが一定に見えますが、裏で非常に高い利息が膨らみ続けます。', example: '💡 20万円買っても月5千円返済だと、手数料だけで数万円取られることになります！', key: '📌 リボ払いは手数料が非常に高いため絶対に避けよう！' },
+    { q: '2. 18歳成人の法律上の大きな変化として正しいものはどれ？', opts: ['親の同意なしで一人でローンやクレジットカードの契約ができる（自己責任）', 'お酒やタバコが解禁される', '税金が免除される'], a: 0, easy: '18歳になると親の同意なしで契約できるようになりますが、騙されても簡単に解約できなくなります。', example: '💡 契約の責任はすべて自分にかかってくるため、慎重な判断が必要です。', key: '📌 18歳成人は自由と同時に「自己責任」が発生する！' },
+    { q: '3. 強引な勧誘等で契約してしまっても、一定期間内なら無条件で解約できる権利は？', opts: ['クーリング・オフ制度', 'リセット保証', 'ワンタップキャンセル'], a: 0, easy: '訪問販売や強引な勧誘で契約した場合、8日以内など指定期間内なら書面等で契約を無効にできます。', example: '💡 困ったときは188（消費者ホットライン）にすぐ相談しよう！', key: '📌 怪しい契約はクーリング・オフと188へ相談！' },
+    { q: '4. SNSで「SNSで知り合った人から必ず儲かる投資グループに誘われた」時の正しい対処は？', opts: ['すぐに送金して参加する', '絶対に払わず無視・ブロックし信頼できる大人や警察に相談する', '友達を誘う'], a: 1, easy: 'SNSやマッチングアプリを通じた「SNS投資詐欺」が急増しています。「絶対儲かる」は詐欺です。', example: '💡 見知らぬ人からの投資の勧誘は100%詐欺だと疑おう！', key: '📌 SNSでの「必ず儲かる投資話」は100%詐欺！' },
+    { q: '5. クレジットカードの支払いやスマホ本体の分割払いを遅延すると記録される情報は？', opts: ['検索履歴', '信用情報（クレジットヒストリー）', '学校の通知表'], a: 1, easy: '支払いを遅延すると「指定信用情報機関」に記録が残り、将来ローンが組めなくなります。', example: '💡 スマホの分割代金をうっかり滞納すると将来住宅ローンが組めなくなることも！', key: '📌 支払い期日は絶対に守って信用情報を守ろう！' }
+  ]
+};
+
+let quizState = { currentThemeId: '', questions: [], currentIndex: 0, score: 0, streak: 0, answered: false };
+
+function initQuizView(){
+  renderQuizThemeGrid();
+  document.getElementById('quizThemeSelect').style.display = 'block';
+  document.getElementById('quizPlayArea').style.display = 'none';
+  document.getElementById('quizResultArea').style.display = 'none';
+}
+
+function renderQuizThemeGrid(){
+  const grid = document.getElementById('quizThemeGrid'); if(!grid) return;
+  grid.innerHTML = quizThemes.map(t => `
+    <div class="quiz-theme-card" onclick="startQuizTheme('${t.id}')">
+      <div>
+        <h4 style="font-size:16px;margin:0 0 6px;font-weight:900">${t.title}</h4>
+        <p style="font-size:12px;color:var(--muted);margin:0">${t.desc}</p>
+      </div>
+      <div style="text-align:right;margin-top:14px"><button class="btn btn-outline" style="padding:6px 14px;font-size:12px">挑戦する ➔</button></div>
+    </div>
+  `).join('');
+}
+
+function startQuizTheme(themeId){
+  quizState.currentThemeId = themeId; quizState.currentIndex = 0; quizState.score = 0; quizState.streak = 0; quizState.answered = false;
+  quizState.questions = quizMasterData[themeId] || quizMasterData['tax'];
+  
+  document.getElementById('quizThemeSelect').style.display = 'none';
+  document.getElementById('quizPlayArea').style.display = 'block';
+  document.getElementById('quizResultArea').style.display = 'none';
+  renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+  const q = quizState.questions[quizState.currentIndex]; quizState.answered = false;
+  document.getElementById('quizNumBadge').textContent = `QUESTION 0${quizState.currentIndex + 1} / 0${quizState.questions.length}`;
+  document.getElementById('quizStreakBadge').textContent = `🔥 ${quizState.streak}連続正解`;
+  document.getElementById('quizScoreDisplay').textContent = `Score: ${quizState.score}`;
+  document.getElementById('quizQuestionText').textContent = q.q;
+
+  const bar = document.getElementById('quizProgressBar');
+  if(bar) bar.style.width = `${((quizState.currentIndex) / quizState.questions.length) * 100}%`;
+
+  const optsContainer = document.getElementById('quizOptionsList');
+  optsContainer.innerHTML = q.opts.map((opt, i) => `
+    <button class="quiz-opt-btn" id="quizOptBtn_${i}" onclick="selectQuizAnswer(${i})"><span>${opt}</span></button>
+  `).join('');
+  document.getElementById('quizExplanationBox').style.display = 'none';
+}
+
+function selectQuizAnswer(optIdx){
+  if(quizState.answered) return;
+  quizState.answered = true;
+  const q = quizState.questions[quizState.currentIndex];
+  const isCorrect = (optIdx === q.a);
+
+  if(isCorrect){ quizState.score += 100; quizState.streak++; } else { quizState.streak = 0; }
+
+  q.opts.forEach((_, i) => {
+    const btn = document.getElementById(`quizOptBtn_${i}`);
+    if(btn){
+      btn.disabled = true;
+      if(i === q.a) btn.classList.add('correct');
+      else if(i === optIdx) btn.classList.add('wrong');
+    }
+  });
+
+  const expBox = document.getElementById('quizExplanationBox'); expBox.style.display = 'block';
+  expBox.style.background = isCorrect ? 'var(--green-light)' : 'var(--pink-light)';
+  expBox.style.borderColor = isCorrect ? 'var(--green)' : 'var(--pink)';
+  
+  document.getElementById('quizResultStatus').innerHTML = isCorrect ? `<span style="color:var(--green)">🎉 大正解！</span>` : `<span style="color:#d63051">💡 おしい！解説を見てみよう</span>`;
+  document.getElementById('quizEasyExplain').textContent = q.easy;
+  document.getElementById('quizExampleCard').innerHTML = q.example;
+  document.getElementById('quizKeyPoint').textContent = q.key;
+  document.getElementById('quizNextBtn').textContent = (quizState.currentIndex === quizState.questions.length - 1) ? '結果を見る 🏆' : '次の問題へ ➔';
+}
+
+function nextQuestion(){
+  quizState.currentIndex++;
+  if(quizState.currentIndex >= quizState.questions.length) showQuizResult();
+  else renderCurrentQuestion();
+}
+
+function showQuizResult(){
+  document.getElementById('quizPlayArea').style.display = 'none';
+  document.getElementById('quizResultArea').style.display = 'block';
+  
+  const totalQ = quizState.questions.length;
+  const correctCount = quizState.score / 100;
+  const rate = Math.round((correctCount / totalQ) * 100);
+
+  document.getElementById('quizResultScoreText').textContent = `${correctCount} / ${totalQ}問`;
+  document.getElementById('quizResultRateText').textContent = `${rate}%`;
+  
+  let medal = '銅メダル 🥉';
+  if(rate === 100) medal = '金メダル 🥇';
+  else if(rate >= 80) medal = '銀メダル 🥈';
+  document.getElementById('quizResultTitleBadge').textContent = medal;
+
+  markStampCleared('quiz');
+}
+
+function backToQuizThemes(){ initQuizView(); }
+function restartCurrentTheme(){ startQuizTheme(quizState.currentThemeId); }
+
+/* 4. LIFE (ALL 12 VISUAL CARDS FULLY RESTORED) */
+const lifeStageData = {
+  student: {
+    name: '18歳〜学生',
+    systems: [
+      {
+        icon: '🎓', title: '奨学金制度（給付型・貸与型）',
+        catchphrase: '返済不要の給付型と授業料減免で、進学の夢をサポート！',
+        step1: '高校や大学で申請条件を確認', step2: '採用決定で月々口座に入金', step3: '給付型なら返済なしで学業に専念',
+        beforeText: '学費＋生活費 全額自己負担', afterText: '給付型＋減免で負担大幅減！',
+        sliderTitle: '月々の生活サポート受給額', sliderMin: 20000, sliderMax: 75000, sliderStep: 5000, sliderVal: 45000, unit: '円/月',
+        owlTip: '高校3年の予約採用（4〜6月頃）が一番のチャンス！まずは学校の窓口へ。'
+      },
+      {
+        icon: '📝', title: '学生納付特例制度（年金の猶予）',
+        catchphrase: '20歳になったら年金！学業中は保険料の支払いが猶予される制度。',
+        step1: '20歳になると年金機構から書類到着', step2: '市区役所やWebで特例申請', step3: '承認で在学中の保険料支払いが猶予！',
+        beforeText: '毎月 約1.7万円を無理に支払う', afterText: '申請すれば在学中は支払い猶予！',
+        sliderTitle: '年間で猶予される保険料', sliderMin: 200000, sliderMax: 200000, sliderStep: 1, sliderVal: 200000, unit: '円/年',
+        owlTip: '未納のまま放置すると万が一の障害年金が出なくなるリスクが！必ず特例申請を出そう。'
+      },
+      {
+        icon: '🏥', title: '健康保険の扶養 ＆ 国民健康保険',
+        catchphrase: '親の扶養に入っていれば、医療費3割負担で医者にかかれる！',
+        step1: '親の健康保険証を提示', step2: '病院の窓口で3割負担を支払う', step3: '残り7割は保険組合がカバー',
+        beforeText: '医療費 100%全額自己負担', afterText: '保険証提示で3割負担のみ！',
+        sliderTitle: '病院代1万円の場合の窓口支払い', sliderMin: 10000, sliderMax: 10000, sliderStep: 1, sliderVal: 3000, unit: '円',
+        owlTip: 'アルバイトで年収103万・130万の壁を超えると扶養から外れることがあるので注意！'
+      }
+    ]
+  },
+  worker: {
+    name: '20代〜就職',
+    systems: [
+      {
+        icon: '🏢', title: '社会保険（健康保険・厚生年金）',
+        catchphrase: '会社と自分が折半で保険料を払う！病気や老後の強力なガード。',
+        step1: '毎月の給料から社会保険料が引き落とし', step2: '会社が同じ額（半分）を上乗せして納付', step3: '将来の年金や傷病時の手当が手厚くなる！',
+        beforeText: '全額自分で保険料を負担', afterText: '会社が半分（折半）払ってくれる！',
+        sliderTitle: '月収25万円の場合の会社負担分', sliderMin: 250000, sliderMax: 250000, sliderStep: 1, sliderVal: 36000, unit: '円/月お得',
+        owlTip: '給料から引かれて損した気分になりますが、会社が半分払ってくれているメリットは絶大です。'
+      },
+      {
+        icon: '💼', title: '雇用保険（働く人のセーフティネット）',
+        catchphrase: '失業時だけでなく、育休や資格取得のスクール代もサポート！',
+        step1: '毎月わずかな保険料を負担', step2: '育休や離職、指定講座受講時に申請', step3: '手当や給付金が口座へ支給される',
+        beforeText: 'スキルアップ代 全額自己負担', afterText: '指定講座なら受講料の最大70%支給！',
+        sliderTitle: '10万円の講座を受講した場合の給付金', sliderMin: 100000, sliderMax: 100000, sliderStep: 1, sliderVal: 50000, unit: '円戻る',
+        owlTip: '「教育訓練給付金」を使えば、英語やITスキルのスクール代が国から補助されます！'
+      },
+      {
+        icon: '🧾', title: '年末調整・医療費控除・ふるさと納税',
+        catchphrase: '納めすぎた税金を取り戻す！会社員でもできる節税の第一歩。',
+        step1: '11月頃に会社に控除書類を提出', step2: '税金が再計算される', step3: '12月の給料で納めすぎた税金が戻る！',
+        beforeText: '税金をそのまま納めっぱなし', afterText: '年末調整で数万円が還付される！',
+        sliderTitle: '生命保険料控除等による平均還付額', sliderMin: 10000, sliderMax: 100000, sliderStep: 5000, sliderVal: 25000, unit: '円戻る',
+        owlTip: 'ふるさと納税を使うと実質2,000円で地方の返礼品がもらえてお得です。'
+      }
+    ]
+  },
+  pinch: {
+    name: '病気・ケガ・失業',
+    systems: [
+      {
+        icon: '🏥', title: '高額療養費制度（医療費の上限）',
+        catchphrase: '1ヶ月の医療費がどれだけ高くなっても、上限以上は国がカバー！',
+        step1: '病院で高額な医療費が発生', step2: '限度額適用認定証を提示', step3: '年収に応じた上限（約8.7万円等）のみ支払い',
+        beforeText: '医療費 30万円全額支払い', afterText: '高額療養費で約8.7万円のみ！',
+        sliderTitle: '1ヶ月の総医療費（100%分）', sliderMin: 100000, sliderMax: 2000000, sliderStep: 100000, sliderVal: 1000000, unit: '円',
+        owlTip: '事前または事後に手続きすれば、100万円の医療費でも自己負担は9万円前後に収まります！'
+      },
+      {
+        icon: '🛌', title: '傷病手当金（休職中の給料保障）',
+        catchphrase: '病気やケガで連続4日以上休んだら、給料の約2/3が最長1年6ヶ月出る！',
+        step1: '病気で働けず連続4日以上休業', step2: '医師の証明をもらい申請', step3: '給料の約3分の2が毎月支給！',
+        beforeText: '休業中 収入がゼロになる', afterText: '給料の約67%が支給され安心！',
+        sliderTitle: '月収（標準報酬月額）', sliderMin: 150000, sliderMax: 600000, sliderStep: 10000, sliderVal: 300000, unit: '円/月',
+        owlTip: 'うつ病などのメンタル不調での休業にも適応されます。焦らず療養に専念できます。'
+      },
+      {
+        icon: '🔍', title: '失業手当・基本手当（再就職サポート）',
+        catchphrase: '会社を辞めて次の仕事を探す間、生活費を毎月サポート！',
+        step1: 'ハローワークで求職の申し込み', step2: '失業認定を定期的に受ける', step3: '前職給与の5〜8割が支給される',
+        beforeText: '転職活動中 収入が途絶える', afterText: '毎月の手当をもらい安心して就活！',
+        sliderTitle: '退職前のアパート・生活費補助手当', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 180000, unit: '円/月支給',
+        owlTip: '自己都合退職でも一定期間後に給付されます。ハローワークに相談しましょう。'
+      }
+    ]
+  },
+  family: {
+    name: '結婚・出産・育児',
+    systems: [
+      {
+        icon: '👶', title: '出産育児一時金（原則50万円支給）',
+        catchphrase: '赤ちゃん1人の出産につき、原則50万円が国から手当として出る！',
+        step1: '病院で直接支払制度を申請', step2: '出産費用に50万円が直接充当', step3: '足が出た分だけ窓口で支払い',
+        beforeText: '出産費用50万円 全額自己負担', afterText: '50万円支給で自己負担ゼロ近くに！',
+        sliderTitle: '国からの出産一時金支給額', sliderMin: 500000, sliderMax: 500000, sliderStep: 1, sliderVal: 500000, unit: '円',
+        owlTip: '病院へ直接振り込まれる「直接支払制度」を使えば、事前に大金を用意する必要がありません。'
+      },
+      {
+        icon: '🍼', title: '育児休業給付金 ＆ 児童手当',
+        catchphrase: '育休中の給与補填（最大67%）＋高校生まで毎月の児童手当！',
+        step1: '会社を通じて育休給付金を申請', step2: '育休前半は給与の67%が支給', step3: '毎月（または隔月）児童手当も支給！',
+        beforeText: '子育て休業中 収入ゼロ', afterText: '育休手当＋児童手当で生活サポート！',
+        sliderTitle: '育休中の手当（月収30万の場合）', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 201000, unit: '円/月支給',
+        owlTip: '児童手当は高校卒業（18歳到達後の最初の3月31日）まで延長され、第3子以降は月3万円に増額！'
+      }
+    ]
+  },
+  senior: {
+    name: '老後・シニア',
+    systems: [
+      {
+        icon: '🌳', title: '公的年金（老齢基礎年金・厚生年金）',
+        catchphrase: '原則65歳から死ぬまで一生涯もらえる！人生100年時代の土台。',
+        step1: '現役時代に保険料を納める', step2: '65歳になると受給権が発生', step3: '死ぬまで偶数月に年金が口座振込！',
+        beforeText: '老後の生活費 貯金切り崩しのみ', afterText: '一生涯の定期収入が確保される！',
+        sliderTitle: '平均的な夫婦の年金受給例', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 220000, unit: '円/月受給',
+        owlTip: '公的年金は「投資」ではなく「一生涯の保険」です。長生きするリスクに一番強いのが特徴！'
+      }
+    ]
+  }
+};
+
+let activeLifeStageKey = 'student', activeLifeSystemIdx = 0;
+
+function initLifeView(){ switchLifeStage('student'); }
+
+function switchLifeStage(stageKey){
+  activeLifeStageKey = stageKey; activeLifeSystemIdx = 0;
+  
+  document.querySelectorAll('.roadmap-tab').forEach(t => t.className = 'roadmap-tab');
+  const activeTab = document.getElementById(`tab-${stageKey}`);
+  if(activeTab) activeTab.classList.add(`active-${stageKey}`);
+
+  renderLifeStageGrid();
+  renderLifeSystemDetail();
+}
+
+function renderLifeStageGrid(){
+  const grid = document.getElementById('systemSelectGrid'); if(!grid) return;
+  const stage = lifeStageData[activeLifeStageKey] || lifeStageData['student'];
+  
+  grid.innerHTML = stage.systems.map((sys, idx) => `
+    <div class="system-select-card ${idx === activeLifeSystemIdx ? 'active' : ''}" onclick="selectLifeSystem(${idx})">
+      <div class="system-card-icon">${sys.icon}</div>
+      <div>
+        <strong style="font-size:14px">${sys.title}</strong>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectLifeSystem(idx){
+  activeLifeSystemIdx = idx;
+  renderLifeStageGrid();
+  renderLifeSystemDetail();
+}
+
+function renderLifeSystemDetail(){
+  const panel = document.getElementById('systemDetailPanel'); if(!panel) return;
+  const stage = lifeStageData[activeLifeStageKey] || lifeStageData['student'];
+  const sys = stage.systems[activeLifeSystemIdx] || stage.systems[0];
+
+  let calcResultVal = sys.sliderVal;
+  if(sys.title.includes('高額療養費')){
+    // 概算自己負担額
+    calcResultVal = Math.round(80100 + (sys.sliderVal - 267000) * 0.01);
+    if(calcResultVal < 80100) calcResultVal = 80100;
+  }
+
+  panel.innerHTML = `
+    <div class="system-detail-panel">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="font-size:36px">${sys.icon}</span>
+        <div>
+          <h3 style="font-size:22px;margin:0;font-weight:900">${sys.title}</h3>
+          <p style="margin:0;color:var(--muted);font-size:13px">${sys.catchphrase}</p>
+        </div>
+      </div>
+
+      <h4 style="font-size:15px;margin:18px 0 8px;font-weight:900;color:var(--purple-dark)">📌 3ステップ使い方の流れ</h4>
+      <div class="flow-steps-grid">
+        <div class="flow-step-item"><span class="flow-step-num">STEP 1</span><div style="font-size:12.5px;font-weight:800;margin-top:4px">${sys.step1}</div></div>
+        <div class="flow-step-item"><span class="flow-step-num">STEP 2</span><div style="font-size:12.5px;font-weight:800;margin-top:4px">${sys.step2}</div></div>
+        <div class="flow-step-item"><span class="flow-step-num">STEP 3</span><div style="font-size:12.5px;font-weight:800;margin-top:4px">${sys.step3}</div></div>
+      </div>
+
+      <div class="compare-bars-grid" style="margin:16px 0">
+        <div class="bar-box no-system"><small>❌ 制度を知らない・使わない場合</small><br><strong>${sys.beforeText}</strong></div>
+        <div class="bar-box has-system"><small>⭕ 制度を知ってしっかり申請した場合</small><br><strong>${sys.afterText}</strong></div>
+      </div>
+
+      <div class="mini-calc-panel">
+        <strong style="font-size:13.5px;color:var(--orange-dark)">🧮 さわって試す！ ${sys.sliderTitle}</strong>
+        <div style="margin:10px 0">
+          <input type="range" min="${sys.sliderMin}" max="${sys.sliderMax}" step="${sys.sliderStep}" value="${sys.sliderVal}" oninput="updateLifeCalc(this.value)">
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px;font-weight:900">
+            <span>設定金額: <span id="lifeSliderValText">¥${sys.sliderVal.toLocaleString()}</span></span>
+            <span style="color:var(--green)">結果: <span id="lifeCalcResultText">¥${calcResultVal.toLocaleString()} ${sys.unit}</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--paper);border:2px solid var(--purple-light);border-radius:18px;padding:14px 16px;font-size:13px;line-height:1.6">
+        🦉 <strong>フクロウ先生のアドバイス:</strong> ${sys.owlTip}
+      </div>
+    </div>
+  `;
+}
+
+function updateLifeCalc(val){
+  const stage = lifeStageData[activeLifeStageKey] || lifeStageData['student'];
+  const sys = stage.systems[activeLifeSystemIdx] || stage.systems[0];
+  const num = parseInt(val);
+  
+  const valTxt = document.getElementById('lifeSliderValText');
+  const resTxt = document.getElementById('lifeCalcResultText');
+  if(valTxt) valTxt.textContent = `¥${num.toLocaleString()}`;
+
+  let calcRes = num;
+  if(sys.title.includes('高額療養費')){
+    calcRes = Math.round(80100 + (num - 267000) * 0.01);
+    if(calcRes < 80100) calcRes = 80100;
+    if(resTxt) resTxt.textContent = `自己負担約 ¥${calcRes.toLocaleString()} 円のみ！`;
+  } else {
+    if(resTxt) resTxt.textContent = `¥${num.toLocaleString()} ${sys.unit}`;
+  }
+}
+
+function jumpToLifeSystem(stageKey, systemIdx){
+  switchLifeStage(stageKey);
+  selectLifeSystem(systemIdx);
+  markStampCleared('life');
+}
+
+/* 5. START GUIDE VIEW */
+let currentStepIdx = 1;
+const stepData = [
+  { title: 'STEP 1 · 公式サイトで条件チェック', desc: '広告やSNSの噂だけで決めず、各ネット証券の公式サイトで年齢条件・手数料を確認します。', tip: '💡 18歳未満の方は保護者の同意や未成年口座が必要です。' },
+  { title: 'STEP 2 · スマホで申し込み入力', desc: '氏名・住所を入力。確定申告が自動化される「特定口座（源泉徴収あり）」が初心者向け。', tip: '💡 特定口座を選ぶと面倒な確定申告が不要になります。' },
+  { title: 'STEP 3 · スマホで本人確認 (eKYC)', desc: 'マイナンバーカードと自分の顔写真を撮影して送信。郵送不要でスピーディ。', tip: '💡 明るい場所で撮影するのがスピード審査のコツ。' },
+  { title: 'STEP 4 · 審査完了 ＆ 初期設定', desc: '口座開設完了の案内が届きます。口座開設自体は無料です。', tip: '💡 実際に注文を出すまでお金は一切かかりません。' },
+  { title: 'STEP 5 · 少額からつみたてスタート！', desc: '月100円〜1,000円など無理のない金額から設定してみましょう。', tip: '💡 最初は「つみたて投資枠」の低コストファンドがおすすめ。' }
+];
+
+function initStartView(){ switchStartTab('bank'); renderStepper(); }
+
+function switchStartTab(tabId){
+  document.querySelectorAll('.start-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.start-sub-panel').forEach(p => p.style.display = 'none');
+  const tab = document.getElementById(`startTab-${tabId}`);
+  const panel = document.getElementById(`startPanel-${tabId}`);
+  if(tab) tab.classList.add('active');
+  if(panel) panel.style.display = 'block';
+}
+
+function goStep(stepNum){ currentStepIdx = stepNum; renderStepper(); }
+function changeStep(delta){ currentStepIdx = Math.max(1, Math.min(5, currentStepIdx + delta)); renderStepper(); }
+
+function renderStepper(){
+  const s = stepData[currentStepIdx - 1];
+  const box = document.getElementById('stepperContent');
+  if(box){
+    box.innerHTML = `
+      <h4 style="font-size:18px;margin:4px 0 10px;font-weight:900">${s.title}</h4>
+      <p style="font-size:13.5px;color:var(--ink);line-height:1.7;margin:0 0 14px">${s.desc}</p>
+      <div style="background:#fff;border-radius:14px;padding:12px 16px;border:2px solid var(--orange);font-size:12.5px;font-weight:800;color:var(--orange-dark)">${s.tip}</div>
+    `;
+  }
+  document.querySelectorAll('.step-pill').forEach((pill, idx) => {
+    pill.className = 'step-pill';
+    if(idx + 1 === currentStepIdx) pill.classList.add('active');
+    else if(idx + 1 < currentStepIdx) pill.classList.add('completed');
+  });
+  const prev = document.getElementById('prevStepBtn');
+  const next = document.getElementById('nextStepBtn');
+  if(prev) prev.disabled = (currentStepIdx === 1);
+  if(next) next.disabled = (currentStepIdx === 5);
+}
+
+function toggleChecklist(el){
+  el.classList.toggle('checked');
+  const total = document.querySelectorAll('.checklist-item').length;
+  const checked = document.querySelectorAll('.checklist-item.checked').length;
+  if(checked === total) markStampCleared('start');
+}
+
+function updateNisaCalc(val){
+  const v = parseInt(val);
+  const tax = Math.round(v * 0.20315);
+  const normalNet = v - tax;
+  document.getElementById('valNisaProfit').textContent = `¥${v.toLocaleString()}円`;
+  document.getElementById('valNormalNet').textContent = `約 ¥${normalNet.toLocaleString()}円`;
+  document.getElementById('valNisaNet').textContent = `¥${v.toLocaleString()}円 まるごと残る！`;
+}
+
+/* 6. DICTIONARY SYSTEM (24 TERMS FULLY EXPANDED) */
+const dictMasterData = [
+  { term: '複利 (ふくり)', cat: 'invest', desc: '元本についた利息を次の元本に組み入れて、さらに利息を生み出す仕組み。「雪だるま式」にお金が増える効果。', example: '100万円が利回り5%なら、2年目は105万円に対して5%がつく！' },
+  { term: '単利 (たんり)', cat: 'invest', desc: '最初に預けた元本だけに毎年一定の利息がつく計算方法。複利と比べると増え方がゆるやか。', example: '100万円を毎年5%で運用しても、毎年もらえる利息は5万円固定。' },
+  { term: 'NISA (ニーサ)', cat: 'invest', desc: '通常、投資の利益にかかる約20%の税金が「0円」になる日本の非課税制度。', example: '10万円の利益が出ても税金を取られず10万円まるまる受け取れる！' },
+  { term: '投資信託 (とうししんたく)', cat: 'invest', desc: 'たくさんの投資家から集めたお金をプロがまとめて多様な株や債券に投資する詰め合わせパック。', example: '1つ買うだけで世界中数百社の株に小額で分散投資できる！' },
+  { term: '分散投資 (ぶんさんとうし)', cat: 'invest', desc: '「卵を一つのカゴに盛るな」の教え通り、複数の国・会社・時期にお金を分けてリスクを下げる手法。', example: 'A社が倒産しても、B社やC社が伸びていれば全体のダメージは少ない！' },
+  { term: '元本割れ (がんぽんわれ)', cat: 'invest', desc: '投資した金額よりも売却したときの価値が下がって損をしてしまうこと。', example: '10万円で買った株が、市場暴落で8万円になってしまう状態。' },
+  { term: 'インフレ (インフレーション)', cat: 'tax', desc: 'モノやサービスの値段が上がり、お金（現金）の実質的な価値が下がってしまう現象。', example: '昔100円で買えたジュースが150円になり、100円玉の価値が薄まること。' },
+  { term: '額面と手取り (がくめんとてどり)', cat: 'tax', desc: '額面は会社から支払われる総給与。手取りはそこから税金や保険料が引かれ自分の口座に入るお金。', example: '額面25万円の給料でも、約5万円引かれて口座に入る手取りは20万円。' },
+  { term: '控除 (こうじょ)', cat: 'tax', desc: '税金を計算するとき、一定の金額をマイナスして税金の負担を軽くてすむようにする仕組み。', example: '基礎控除や配偶者控除、生命保険料控除などがある。' },
+  { term: '72の法則 (72のほうそく)', cat: 'invest', desc: '複利運用で「お金が2倍になるまでの年数」が概算できる便利な計算式（72 ÷ 年利 ＝ 年数）。', example: '年利4%なら、72 ÷ 4 ＝ 約18年でお金が2倍になる！' },
+  { term: '生活防衛資金 (せいかつぼうえいしきん)', cat: 'credit', desc: '失業や病気、急なトラブルに備えて、投資に回さず現金で残しておく生活費（3〜6ヶ月分）。', example: '毎月20万で生活する人なら、60万〜120万円は普通預金に残す。' },
+  { term: 'リボ払い (リボばらい)', cat: 'credit', desc: 'クレジットカードの利用額に関わらず、毎月一定額だけ支払う方法。手数料（金利）が超高額。', example: '10万円買い物しても毎月5,000円返済でOKに見えるが、裏で高額利息が膨らむ罠！' },
+  { term: '高額療養費制度 (こうがくりょうようひせいど)', cat: 'life', desc: '1ヶ月の医療費が高額になったとき、年齢や収入に応じた上限を超えた分が戻ってくる公的保険。', example: '100万円の医療費がかかっても、自己負担は実質約9万円前後で済む！' },
+  { term: '傷病手当金 (しょうびょうてあてきん)', cat: 'life', desc: '病気やケガで長期間会社を休んだ際、給料の約3分の2が最大1年6ヶ月支給される手当。', example: '休職中も毎月の生活費がカバーされるため安心して療養できる！' },
+  { term: '雇用保険 (こようほけん)', cat: 'life', desc: '会社員が加入する保険。会社を辞めたときの「失業手当」や「育児休業給付金」が出る。', example: '仕事を休んだり探している間、給料の50〜80%程度の手当がもらえる。' },
+  { term: '奨学金 (しょうがくきん)', cat: 'life', desc: '進学のための資金援助。返還不要の「給付型」と、卒業後に返す「貸与型」がある。', example: '給付型＋授業料減免制度を使えば、学費の負担を大きく減らせる！' },
+  { term: 'ドルコスト平均法', cat: 'invest', desc: '価格が変動する商品を「毎月一定額」買い続ける手法。高い時は少なく、安い時は多く買える。', example: '価格を気にせず毎月1万円分買い続けることで平均購入単価を抑える。' },
+  { term: 'クレジットヒストリー (クレヒス)', cat: 'credit', desc: 'クレジットカードやローンの支払いの履歴。遅れずに払っていると社会的信用が高まる。', example: 'スマホ代の割賦払いを遅延すると、将来住宅ローンが組めなくなることも！' },
+  { term: 'クーリング・オフ', cat: 'credit', desc: '強引な勧誘等で契約してしまった後でも、一定期間内なら理由を問わず無条件で契約解除できる権利。', example: '訪問販売等で購入した場合でも、8日以内なら書面やメールで解約可能！' },
+  { term: '配当金 (はいとうきん)', cat: 'invest', desc: '企業が事業で得た利益の一部を、株を買ってくれた株主に還元する現金のこと。', example: '10万円分の株を保有していて配当利回り3%なら、年間3,000円がもらえる。' },
+  { term: '年末調整 (ねんまつちょうせい)', cat: 'tax', desc: '会社員が1年間に納めた所得税の過不足を年末に再計算し、納めすぎた税金を返してもらう手続き。', example: '生命保険の証明書を提出すると、数万円が口座に返還される！' },
+  { term: '確定申告 (かくていしんこく)', cat: 'tax', desc: '1年間の所得と税金を自分で計算し、税務署に申告・納税する手続き。フリーランス等は必須。', example: '医療費がたくさんかかった年は医療費控除の確定申告で税金が安くなる！' },
+  { term: '18歳成人 (じゅうはっさいせいじん)', cat: 'credit', desc: '民法改正により18歳から成人となり、親の同意なしでクレジットカード等の契約が可能になったこと。', example: '自由に契約できる反面、自己責任となるため悪質な投資詐欺等に注意！' },
+  { term: '社会保険料 (しゃかいほけんりょう)', cat: 'tax', desc: '健康保険、厚生年金、雇用保険などの合計。給料から天引きされるが会社も半分負担している。', example: '手取りが減る原因に見えるが、大病時や老後、失業時の巨大なガードになる！' }
+];
+
+let activeDictCat = 'all';
+
+function openDictModal(){
+  const modal = document.getElementById('dictModalOverlay');
+  if(modal) modal.classList.add('active');
+  renderDictCards();
+}
+
+function closeDictModal(){
+  const modal = document.getElementById('dictModalOverlay');
+  if(modal) modal.classList.remove('active');
+}
+
+function closeDictOnOverlay(e){
+  if(e.target.id === 'dictModalOverlay') closeDictModal();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closeDictModal();
+});
+
+function filterDictCat(cat, btn){
+  activeDictCat = cat;
+  btn.parentNode.querySelectorAll('.dict-cat-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDictCards();
+}
+
+function filterDict(){ renderDictCards(); }
+
+function renderDictCards(){
+  const container = document.getElementById('dictGridContainer');
+  const query = (document.getElementById('dictSearchInput')?.value || '').toLowerCase().trim();
+  if(!container) return;
+
+  const filtered = dictMasterData.filter(item => {
+    const matchCat = (activeDictCat === 'all' || item.cat === activeDictCat);
+    const matchQuery = !query || item.term.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+    return matchCat && matchQuery;
+  });
+
+  if(filtered.length === 0){
+    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted)">🔍 該当する用語が見つかりませんでした。別のキーワードで探してみてね！</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => `
+    <div class="dict-card">
+      <div class="dict-term">
+        <span>${item.term}</span>
+        <span class="dict-tag">${getCatName(item.cat)}</span>
+      </div>
+      <p class="dict-desc">${item.desc}</p>
+      <div class="dict-example">💡 <strong>たとえば:</strong> ${item.example}</div>
+    </div>
+  `).join('');
+}
+
+function getCatName(cat){
+  if(cat === 'tax') return '基本・税金';
+  if(cat === 'invest') return '投資・NISA';
+  if(cat === 'credit') return 'カード・契約';
+  if(cat === 'life') return '社会保障';
+  return '用語';
+}
+</script>
+</body>
+</html>
