@@ -297,6 +297,31 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 .panic-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
 .panic-meter { background: var(--pink); color: #fff; padding: 4px 12px; border-radius: 99px; font-weight: 900; font-size: 12px; }
 
+.source-box {
+  background: var(--paper);
+  border: 2px solid var(--green);
+  border-left: 6px solid var(--green);
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin-top: 22px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.source-box h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.source-box ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink);
+}
+.source-box li { margin-bottom: 4px; }
+
 /* SVG AXIS STYLES */
 .chart-axis-line { stroke: #b2bec3; stroke-width: 2; }
 .chart-grid-line { stroke: #f1f2f6; stroke-width: 1; stroke-dasharray: 4 4; }
@@ -349,6 +374,8 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 
 .quiz-opt-btn { background: #fff; border: 3px solid #dfe6e9; border-radius: 16px; padding: 14px 18px; text-align: left; font-weight: 900; font-size: 14px; color: var(--ink); transition: .15s; display: flex; align-items: center; gap: 12px; width: 100%; }
 .quiz-opt-btn:hover:not(:disabled) { border-color: var(--purple); background: var(--purple-light); transform: translateX(4px); }
+.quiz-opt-btn.correct { border-color: var(--green); background: var(--green-light); color: var(--green-dark); }
+.quiz-opt-btn.wrong { border-color: var(--pink); background: var(--pink-light); color: var(--pink-dark); }
 
 /* LIFE & SOCIAL SECURITY SPECIFIC */
 .quick-help-strip { display: flex; align-items: center; gap: 10px; background: #fff; border: 3px solid var(--line); border-radius: 20px; padding: 12px 18px; margin-bottom: 20px; flex-wrap: wrap; box-shadow: 0 4px 0 rgba(0,0,0,0.04); }
@@ -378,20 +405,57 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 .flow-step-num { font-size: 11px; font-weight: 900; color: var(--purple); display: inline-block; background: var(--purple-light); padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
 
 .compare-bars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
-.bar-box { border-radius: 16px; padding: 14px; font-size: 12.5px; }
+.bar-box { border-radius: 16px; padding: 14px; font-size: 13px; }
 .bar-box.no-system { background: #fff1f2; border: 2px dashed #f43f5e; color: #9f1239; }
 .bar-box.has-system { background: #ecfdf5; border: 2px solid #10b981; color: #065f46; }
 
 .mini-calc-panel { background: linear-gradient(135deg, var(--paper), #fff); border: 2px solid var(--yellow); border-radius: 20px; padding: 18px; margin: 16px 0; }
 .mini-calc-panel input[type="range"] { width: 100%; accent-color: var(--green); cursor: pointer; }
 
-/* START GUIDE SPECIFIC */
+/* START GUIDE & INVESTMENT TYPES COMPARISON */
 .start-tab-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 14px; margin-bottom: 20px; }
-.start-tab { flex: 1; min-width: 140px; background: #fff; border: 3px solid #dfe6e9; border-radius: 20px; padding: 12px; text-align: center; cursor: pointer; font-weight: 900; font-size: 13px; color: var(--ink); transition: all .2s; box-shadow: 0 4px 0 #dfe6e9; }
+.start-tab { flex: 1; min-width: 135px; background: #fff; border: 3px solid #dfe6e9; border-radius: 20px; padding: 12px; text-align: center; cursor: pointer; font-weight: 900; font-size: 13px; color: var(--ink); transition: all .2s; box-shadow: 0 4px 0 #dfe6e9; }
 .start-tab:hover { transform: translateY(-2px); }
 .start-tab.active { background: var(--orange-light); border-color: var(--orange); color: var(--orange-dark); box-shadow: 0 6px 0 var(--orange); }
 
 .start-sub-panel { background: #fff; border: 3px solid var(--line); border-radius: 26px; padding: 24px; box-shadow: var(--shadow-pop); animation: fadeIn .3s ease; }
+
+.invest-filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.invest-filter-btn { background: var(--paper); border: 2px solid #dfe6e9; border-radius: 99px; padding: 7px 15px; font-size: 12.5px; font-weight: 900; color: var(--ink); transition: .15s; }
+.invest-filter-btn:hover { border-color: var(--green); }
+.invest-filter-btn.active { background: var(--green); border-color: var(--green); color: #fff; box-shadow: 0 3px 0 var(--green-dark); }
+
+.invest-compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.invest-type-card {
+  background: #fff;
+  border: 3px solid #dfe6e9;
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: .18s;
+}
+.invest-type-card:hover { transform: translateY(-3px); }
+.invest-type-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+.invest-badge { font-size: 10.5px; font-weight: 900; padding: 3px 9px; border-radius: 99px; }
+.risk-meter-box { background: var(--paper); border-radius: 12px; padding: 8px 10px; margin: 10px 0; border: 1px solid var(--line); }
+.risk-bar-bg { height: 8px; background: #dfe6e9; border-radius: 99px; overflow: hidden; margin-top: 4px; }
+.risk-bar-fill { height: 100%; border-radius: 99px; }
+.merit-box { background: #ecfdf5; border: 1.5px solid #6ee7b7; border-radius: 14px; padding: 10px 12px; font-size: 12.5px; color: #065f46; margin-bottom: 8px; line-height: 1.55; }
+.demerit-box { background: #fff1f2; border: 1.5px solid #fda4af; border-radius: 14px; padding: 10px 12px; font-size: 12.5px; color: #9f1239; line-height: 1.55; }
+
+.conclusion-highlight {
+  margin-top: 22px;
+  background: linear-gradient(135deg, var(--yellow-light), var(--green-light));
+  border: 3px solid var(--green);
+  border-radius: 22px;
+  padding: 20px 24px;
+  box-shadow: 0 6px 0 var(--green-light);
+}
+.conclusion-highlight h4 { margin: 0 0 8px; font-size: 18px; font-weight: 900; color: var(--green-dark); }
+.conclusion-highlight p { margin: 0; font-size: 14px; line-height: 1.75; color: var(--ink); font-weight: 700; }
 
 .stepper-nav { display: flex; justify-content: space-between; align-items: center; position: relative; margin: 20px 0 24px; gap: 8px; }
 .step-pill { flex: 1; background: var(--paper); border: 2px solid #dfe6e9; border-radius: 16px; padding: 10px 8px; text-align: center; font-size: 12px; font-weight: 900; color: var(--muted); cursor: pointer; transition: .15s; }
@@ -426,8 +490,8 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 .dict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .dict-card { background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 16px; transition: .15s; }
 .dict-card:hover { border-color: var(--purple); background: #fff; transform: translateY(-2px); }
-.dict-term { font-size: 16px; font-weight: 900; color: var(--purple-dark); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; }
-.dict-tag { font-size: 10px; font-weight: 900; background: var(--purple-light); color: var(--purple-dark); padding: 2px 8px; border-radius: 99px; }
+.dict-term { font-size: 16px; font-weight: 900; color: var(--purple-dark); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.dict-tag { font-size: 10px; font-weight: 900; background: var(--purple-light); color: var(--purple-dark); padding: 2px 8px; border-radius: 99px; flex-shrink: 0; }
 .dict-desc { font-size: 12.5px; color: var(--ink); line-height: 1.6; margin: 0 0 8px; }
 .dict-example { font-size: 11.5px; background: #fff; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); }
 
@@ -450,6 +514,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   .grid { grid-template-columns: repeat(3, 1fr); }
   .quiz-theme-grid { grid-template-columns: repeat(2, 1fr); }
   .system-select-grid { grid-template-columns: repeat(2, 1fr); }
+  .invest-compare-grid { grid-template-columns: repeat(2, 1fr); }
   .game-play-area { grid-template-columns: 1fr; }
   .dict-grid { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: repeat(2, 1fr); }
@@ -460,6 +525,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   .grid { grid-template-columns: 1fr; }
   .quiz-theme-grid { grid-template-columns: 1fr; }
   .system-select-grid { grid-template-columns: 1fr; }
+  .invest-compare-grid { grid-template-columns: 1fr; }
   .big-summary-cards { grid-template-columns: 1fr; }
   .compare-bars-grid { grid-template-columns: 1fr; }
   .slot-grid { grid-template-columns: 1fr; }
@@ -479,7 +545,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     <div>MONEY QUEST<small>LEARN · EXPERIENCE · CHOOSE</small></div>
   </div>
   <div class="header-right">
-    <button class="dict-btn-head" onclick="openDictModal()">📖 用語辞典 (24語)</button>
+    <button class="dict-btn-head" onclick="openDictModal()">📖 用語辞典 (32語)</button>
     <div class="top-pill">🎮 お金の冒険をはじめよう</div>
   </div>
 </header>
@@ -564,21 +630,21 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
       <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
       <div class="tile-icon">🧠</div>
       <h3>お金の知識クイズ</h3>
-      <p>全5テーマ×各5問（25問）＋ミックスモード！図解と解説でマスター！</p>
+      <p>全5テーマ×各5問（25問）！図解と解説で楽しくマスター！</p>
     </button>
 
     <button class="tile blue" id="tile-life" onclick="showView('life')">
       <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
       <div class="tile-icon">🏡</div>
       <h3>社会保障と生活</h3>
-      <p>全12制度を図解・Before/After比較・試算スライダーで丸わかり！</p>
+      <p>全12制度を図解・Before/After比較でわかりやすく紹介！</p>
     </button>
 
     <button class="tile orange" id="tile-start" onclick="showView('start')">
       <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go">➔</span>
       <div class="tile-icon">🌱</div>
       <h3>投資の始め方</h3>
-      <p>口座開設の5ステップやNISA非課税シミュレーター、準備チェック！</p>
+      <p>株・金・FXなど投資の種類比較や口座開設5ステップ、NISA試算！</p>
     </button>
   </section>
 
@@ -605,14 +671,14 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
   <div class="section-tag" style="background:var(--green)">01 · INVESTMENT LAB</div>
   <h2 class="page-title">📈 長期投資ラボ</h2>
-  <p class="lead">時間の「全体像」と「暴落の怖さ」をリアルな縦横軸目盛り付きで比較体験！過去50年のデータと未来50年AI予測です。</p>
+  <p class="lead">時間の「全体像」と「暴落の怖さ」をリアルな縦横軸目盛り付きで比較体験！過去50年のモデルデータと未来50年AI予測です。</p>
 
   <div class="game-container">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
       <div>
         <span style="font-size:12px;font-weight:900;color:var(--blue);background:var(--blue-light);padding:4px 10px;border-radius:99px">PART 1 · 1976年 〜 2026年</span>
         <h3 style="font-size:22px;margin:6px 0 2px">⏰ タイムマシン実験！過去50年間コツコツ続けたら？</h3>
-        <p style="color:var(--muted);font-size:13px;margin:0">ブラックマンデーやリーマンショックを乗り越えた実データシミュレーター。</p>
+        <p style="color:var(--muted);font-size:13px;margin:0">株式指数（世界中の優良企業の詰め合わせ）を毎月積立投資したモデルシミュレーター。</p>
       </div>
       <div>
         <label style="font-size:11px;font-weight:900;color:var(--muted);display:block;margin-bottom:4px">毎月の積み立て額を選ぶ</label>
@@ -715,9 +781,23 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
 
     <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <h4 style="font-size:16px;margin:0;font-weight:900">🎯 未来の節目予想額</h4>
-      <button class="btn btn-outline" onclick="showView('start')" style="padding:6px 14px;font-size:12px">🌱 実際の投資の始め方ガイドを見る ➔</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-outline" onclick="openInvestComparison()" style="padding:6px 14px;font-size:12px">🔍 株・金・FXなど投資の種類をくらべる ➔</button>
+        <button class="btn btn-outline" onclick="showView('start')" style="padding:6px 14px;font-size:12px">🌱 実際の投資の始め方ガイドを見る ➔</button>
+      </div>
     </div>
     <div class="stat-grid" id="futureMilestones" style="margin-top:10px"></div>
+
+    <!-- 出典・計算前提ボックス -->
+    <div class="source-box">
+      <h4>📊 シミュレーションの出典・計算前提について</h4>
+      <ul>
+        <li><strong>投資対象と買い方のモデル：</strong>特定の1社の株ではなく、市場全体の動きを表す<strong>「株式指数（米国株式 S&amp;P500 や全世界株式など）」</strong>を、毎月同じ金額でコツコツ買い続ける<strong>「積立投資（ドルコスト平均法）」</strong>の学習用モデルです。</li>
+        <li><strong>過去50年データ（1976〜2026年）の根拠：</strong>米国株式・全世界株式の過去約50年間の年次リターン推移をもとに、バブル崩壊（1990年）・リーマンショック（2008年）・コロナショック（2020年）などの歴史的な暴落と回復の局面を反映しています。</li>
+        <li><strong>未来50年AI予測（2026〜2076年）の仕組み：</strong>過去の株式市場の平均リターン（成長コース年率7%前後・バランス年率5%前後）と価格変動幅をもとに、統計的な確率モデルを用いて将来の資産推移を試算しています。</li>
+        <li><strong>ご留意点：</strong>本シミュレーションは探究学習・金融教育を目的とした試算であり、税金・手数料・為替変動は簡易化しています。将来の投資成果を保証するものではありません。</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -804,7 +884,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         <div>
           <span style="font-size:11px;font-weight:900;background:#fff;padding:4px 10px;border-radius:99px" id="eventBadge">20代のイベント</span>
           <h3 style="font-size:20px;margin:10px 0 6px;font-weight:900" id="eventTitle">社会人生活のスタート！</h3>
-          <p style="font-size:13歳;color:var(--muted);line-height:1.6;margin:0" id="eventDesc">まずは基礎的な貯蓄習慣をつくる大切な時期。</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:0" id="eventDesc">まずは基礎的な貯蓄習慣をつくる大切な時期。</p>
         </div>
         <div style="background:#fff;padding:12px;border-radius:14px;font-size:12.5px;font-weight:900;margin-top:14px" id="eventImpact">
           生活費支出: -¥1,500万 / 10年
@@ -855,12 +935,12 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
   <div class="section-tag" style="background:var(--pink)">03 · MONEY QUIZ</div>
   <h2 class="page-title">🧠 お金の知識クイズ</h2>
-  <p class="lead">全5テーマ×各5問（合計25問）＋全ジャンルミックス！好きなテーマを選んでマスターしよう！</p>
+  <p class="lead">全5テーマ×各5問（合計25問）！好きなテーマを選んでマスターしよう！</p>
 
   <div id="quizThemeSelect" class="game-container">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
       <h3 style="font-size:22px;margin:0;font-weight:900">挑戦するテーマを選んでね</h3>
-      <span style="font-size:12px;font-weight:900;color:var(--purple);background:var(--purple-light);padding:6px 14px;border-radius:99px">全5テーマ ＋ ミックス</span>
+      <span style="font-size:12px;font-weight:900;color:var(--purple);background:var(--purple-light);padding:6px 14px;border-radius:99px">全5テーマ（25問）</span>
     </div>
 
     <div class="quiz-theme-grid" id="quizThemeGrid"></div>
@@ -923,7 +1003,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
   <div class="section-tag" style="background:var(--blue)">04 · LIFE & SOCIAL SECURITY</div>
   <h2 class="page-title">🏡 人生の安心マップ 〜もしもの時の社会保障〜</h2>
-  <p class="lead">ライフステージを選び、全12制度の気になるカードをタップ！図解・Before/After比較・試算スライダーで丸わかり！</p>
+  <p class="lead">ライフステージを選び、全12制度の気になるカードをタップ！3ステップの使い方・Before/After比較で丸わかり！</p>
 
   <div class="quick-help-strip">
     <span style="font-size:12px;font-weight:900;color:var(--purple);display:flex;align-items:center;gap:4px">⚡ ピンチから探す:</span>
@@ -964,18 +1044,154 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
 <!-- START GUIDE VIEW -->
 <section id="start" class="view">
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
-  <div class="section-tag" style="background:var(--orange)">05 · HOW TO START</div>
-  <h2 class="page-title">🌱 投資の始め方ガイド</h2>
-  <p class="lead">「口座ってどう開くの？」「NISAって結局なに？」初心者や中高生でもゼロからわかるように図解とステップで解説！</p>
+  <div class="section-tag" style="background:var(--orange)">05 · HOW TO START & COMPARE</div>
+  <h2 class="page-title">🌱 投資の種類くらべ ＆ 始め方ガイド</h2>
+  <p class="lead">株・金・FXなどの違いやリスクを視覚的に比較！口座開設の5ステップやNISAの非課税メリットもわかるよ。</p>
 
   <div class="start-tab-bar">
-    <div class="start-tab active" id="startTab-bank" onclick="switchStartTab('bank')">🏦 銀行と証券の違い</div>
+    <div class="start-tab active" id="startTab-types" onclick="switchStartTab('types')">📊 投資の種類くらべ</div>
+    <div class="start-tab" id="startTab-bank" onclick="switchStartTab('bank')">🏦 銀行と証券の違い</div>
     <div class="start-tab" id="startTab-step" onclick="switchStartTab('step')">👣 口座開設の5ステップ</div>
     <div class="start-tab" id="startTab-nisa" onclick="switchStartTab('nisa')">🔍 証券会社とNISA</div>
     <div class="start-tab" id="startTab-rules" onclick="switchStartTab('rules')">🛡️ 始める前の5つの鉄則</div>
   </div>
 
-  <div class="start-sub-panel" id="startPanel-bank">
+  <!-- TAB 1: 投資の種類比較＆結論 -->
+  <div class="start-sub-panel" id="startPanel-types">
+    <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">📊 投資の種類をくらべてみよう！（メリット・デメリット・リスク）</h3>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 14px">
+      「積立」は毎月コツコツ買い続ける<strong>『買い方のルール』</strong>のこと。株式だけでなく、金（純金積立）や投資信託・REITでも積立ができます！
+    </p>
+
+    <div class="invest-filter-row">
+      <button class="invest-filter-btn active" onclick="filterInvestTypes('all', this)">すべて表示 (6種)</button>
+      <button class="invest-filter-btn" onclick="filterInvestTypes('tsumitate', this)">🌱 コツコツ資産形成向け</button>
+      <button class="invest-filter-btn" onclick="filterInvestTypes('mamori', this)">🛡️ 守り・分散向け</button>
+      <button class="invest-filter-btn" onclick="filterInvestTypes('caution', this)">⚠️ ハイリスク注意</button>
+    </div>
+
+    <div class="invest-compare-grid" id="investCompareGrid">
+      <!-- 1. 株式（インデックス積立） -->
+      <div class="invest-type-card" data-cat="tsumitate" style="border-top:6px solid var(--green)">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:var(--green-light);color:var(--green-dark)">王道・積立と相性◎</span>
+            <span style="font-size:11.5px;font-weight:900;color:var(--orange-dark)">リスク度 ★★★☆☆</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:var(--green-dark)">📈 株式（インデックス積立）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">世界中の企業の詰め合わせ（株式指数）などに毎月コツコツ投資。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>中リスク・中リターン</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:60%;background:var(--green)"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>10年以上の長期で大きな成長が期待でき、少額から世界中の企業に分散できる。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>不況やショック時に一時的に大きく値下がり（元本割れ）することがある。</div>
+      </div>
+
+      <!-- 2. 債券 -->
+      <div class="invest-type-card" data-cat="mamori" style="border-top:6px solid var(--blue)">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:var(--blue-light);color:var(--blue-dark)">安全性重視・守り</span>
+            <span style="font-size:11.5px;font-weight:900;color:var(--blue-dark)">リスク度 ★☆☆☆☆</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:var(--blue-dark)">🏛️ 債券（個人向け国債など）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">国や企業にお金を貸して、定期的に決まった利息を受け取る仕組み。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>低リスク・低リターン</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:20%;background:var(--blue)"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>値動きが小さく安全性が高い。満期まで持てば元本と利息が戻る仕組み。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>利息が低いためお金を大きく増やす力や、物価上昇（インフレ）に弱い。</div>
+      </div>
+
+      <!-- 3. 投資信託（バランス型） -->
+      <div class="invest-type-card" data-cat="tsumitate mamori" style="border-top:6px solid #0d9488">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:#ccfbf1;color:#115e59">おまかせ分散パック</span>
+            <span style="font-size:11.5px;font-weight:900;color:#0f766e">リスク度 ★★☆☆☆</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:#115e59">🍱 投資信託（バランス型）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">株・債券・不動産などをプロがバランスよく組み合わせた詰め合わせ。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>分散で値動きマイルド</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:45%;background:#0d9488"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>1本買うだけで複数の資産に自動分散でき、株100%より値動きが穏やか。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>保有中は手数料（信託報酬）がかかり続け、元本保証ではない。</div>
+      </div>
+
+      <!-- 4. 金（ゴールド） -->
+      <div class="invest-type-card" data-cat="tsumitate mamori" style="border-top:6px solid var(--yellow-dark)">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:var(--yellow-light);color:var(--yellow-dark)">有事の守り・純金積立</span>
+            <span style="font-size:11.5px;font-weight:900;color:var(--orange-dark)">リスク度 ★★★☆☆</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:var(--yellow-dark)">🪙 金（ゴールド・純金積立）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">世界共通の価値を持つ実物資産。毎月1,000円〜の純金積立も可能。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>インフレ・危機に強い</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:55%;background:var(--yellow-dark)"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>インフレや戦争・不況など「有事の金」と呼ばれ強く、価値がゼロになりにくい。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>金そのものは利息や配当金を生まない。為替（円高・円安）の影響も受ける。</div>
+      </div>
+
+      <!-- 5. 不動産（REIT） -->
+      <div class="invest-type-card" data-cat="tsumitate" style="border-top:6px solid var(--purple)">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:var(--purple-light);color:var(--purple-dark)">家賃収入の分配</span>
+            <span style="font-size:11.5px;font-weight:900;color:var(--orange-dark)">リスク度 ★★★☆☆</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:var(--purple-dark)">🏢 不動産（REIT：リート）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">資金を出し合い、ビルやマンションなどの家賃収入を分け合う投資。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>中リスク・分配金狙い</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:60%;background:var(--purple)"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>少額から不動産オーナー気分で投資でき、定期的な分配金とインフレ対策になる。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>不況で空室が増えたり、金利が上昇したりすると価格や分配金が下がる。</div>
+      </div>
+
+      <!-- 6. FX -->
+      <div class="invest-type-card" data-cat="caution" style="border-top:6px solid var(--pink-dark)">
+        <div>
+          <div class="invest-type-header">
+            <span class="invest-badge" style="background:var(--pink-light);color:var(--pink-dark)">短期トレード向き</span>
+            <span style="font-size:11.5px;font-weight:900;color:var(--pink-dark)">リスク度 ★★★★★</span>
+          </div>
+          <h4 style="font-size:17px;margin:4px 0;font-weight:900;color:var(--pink-dark)">💱 FX（外国為替証拠金取引）</h4>
+          <p style="font-size:12.5px;color:var(--muted);margin:0">円とドルなど2つの通貨の交換レートの値動きを予測して売買する取引。</p>
+          <div class="risk-meter-box">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:900"><span>リスク・リターン目安</span><span>超ハイリスク・短期勝負</span></div>
+            <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:100%;background:var(--pink-dark)"></div></div>
+          </div>
+          <div class="merit-box"><strong>⭕ メリット：</strong>24時間取引でき、レバレッジ（最大25倍）で少額から大きな金額を動かせる。</div>
+        </div>
+        <div class="demerit-box"><strong>⚠️ デメリット・リスク：</strong>予想と逆に動くと一瞬で大きな損失が出る。長期の資産形成には不向き。</div>
+      </div>
+    </div>
+
+    <!-- 結論ボックス -->
+    <div class="conclusion-highlight">
+      <h4>💡 MONEY QUESTの結論：将来に向けた資産形成には何が向いている？</h4>
+      <p>
+        投資には守りの「債券・金」から短期勝負の「FX」までさまざまな種類がありますが、<strong>これから将来に向けてコツコツ資産を育てたい初心者には、「株式（インデックス）などの積立投資」が向いています。</strong><br>
+        短期的な値動きに一喜一憂せず、「長期・積立・分散」で時間を味方につけることが、リスクを抑えて未来のお金を育てる王道の選択です。
+      </p>
+    </div>
+  </div>
+
+  <!-- TAB 2: 銀行と証券の違い -->
+  <div class="start-sub-panel" id="startPanel-bank" style="display:none">
     <h3 style="font-size:22px;margin:0 0 12px;font-weight:900">🏦 銀行口座と証券口座ってどう違うの？</h3>
     <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">投資を始めるとき、最初に「証券会社（しょうけんがいしゃ）」で専用の口座をつくる必要があります。</p>
 
@@ -1000,6 +1216,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
   </div>
 
+  <!-- TAB 3: 口座開設の5ステップ -->
   <div class="start-sub-panel" id="startPanel-step" style="display:none">
     <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">👣 スマホで完了！口座開設の5ステップ</h3>
     <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px">店舗に行かなくてもスマホで10分〜15分ほどで申し込みができます！</p>
@@ -1028,6 +1245,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
   </div>
 
+  <!-- TAB 4: 証券会社とNISA -->
   <div class="start-sub-panel" id="startPanel-nisa" style="display:none">
     <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">🔍 証券会社選びとNISAの税金メリット</h3>
     <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">NISA口座を使うと、通常かかる約20%の税金が「0円」になります！</p>
@@ -1051,6 +1269,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
   </div>
 
+  <!-- TAB 5: 始める前の5つの鉄則 -->
   <div class="start-sub-panel" id="startPanel-rules" style="display:none">
     <h3 style="font-size:22px;margin:0 0 6px;font-weight:900">🛡️ 始める前の「5つの鉄則」</h3>
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
@@ -1126,17 +1345,17 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
 <div class="modal-overlay" id="dictModalOverlay" onclick="closeDictOnOverlay(event)">
   <div class="modal-box">
     <div class="modal-header">
-      <h3 class="modal-title">📖 お金の用語ミニ辞典 (全24語)</h3>
+      <h3 class="modal-title">📖 お金の用語ミニ辞典 (全32語)</h3>
       <button class="modal-close" onclick="closeDictModal()">✕</button>
     </div>
 
     <div class="modal-body">
       <div class="dict-search-box">
-        <input type="text" class="dict-input" id="dictSearchInput" placeholder="キーワードで検索 (例: 複利, NISA, 手取り, リボ払い)..." oninput="filterDict()">
+        <input type="text" class="dict-input" id="dictSearchInput" placeholder="キーワードで検索 (例: 積立, インデックス, 債券, FX, 金)..." oninput="filterDict()">
       </div>
 
       <div class="dict-cat-pills">
-        <button class="dict-cat-pill active" onclick="filterDictCat('all', this)">すべて (24)</button>
+        <button class="dict-cat-pill active" onclick="filterDictCat('all', this)">すべて (32)</button>
         <button class="dict-cat-pill" onclick="filterDictCat('tax', this)">基本・税金</button>
         <button class="dict-cat-pill" onclick="filterDictCat('invest', this)">投資・NISA</button>
         <button class="dict-cat-pill" onclick="filterDictCat('credit', this)">カード・契約</button>
@@ -1219,6 +1438,11 @@ function showView(id){
     else if(id === 'life') { initLifeView(); }
     else if(id === 'start') { initStartView(); }
   } catch(e) { console.warn("Section init warning:", e); }
+}
+
+function openInvestComparison(){
+  showView('start');
+  switchStartTab('types');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1328,7 +1552,6 @@ function renderHistChart(){
   const getX = i => padL + (i / (slice.length - 1 || 1)) * gW;
   const getY = val => padT + gH - ((val - minV) / (maxV - minV || 1)) * gH;
 
-  // GRIDLINES & Y-AXIS LABELS
   let gridHtml = '';
   const yTicks = 5;
   for(let i = 0; i <= yTicks; i++){
@@ -1340,7 +1563,6 @@ function renderHistChart(){
     gridHtml += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" class="chart-axis-text">${labelText}</text>`;
   }
 
-  // X-AXIS LABELS
   let xLabelsHtml = '';
   if(currentZoom === 'all'){
     const years = [1976, 1986, 1996, 2006, 2016, 2026];
@@ -1623,7 +1845,7 @@ function playCard(idx){
   }
 
   gameState.cash += (inc - ev.cost);
-  if(gameState.invest > 0) gameState.invest = Math.round(gameState.invest * 1.2); // 10年成長
+  if(gameState.invest > 0) gameState.invest = Math.round(gameState.invest * 1.2);
 
   document.getElementById('resTitle').textContent = `🎉 ${ev.decade}の結果発表！`;
   document.getElementById('resBody').innerHTML = resultText;
@@ -1731,6 +1953,10 @@ function startQuizTheme(themeId){
   quizState.currentThemeId = themeId; quizState.currentIndex = 0; quizState.score = 0; quizState.streak = 0; quizState.answered = false;
   quizState.questions = quizMasterData[themeId] || quizMasterData['tax'];
   
+  const themeObj = quizThemes.find(t => t.id === themeId);
+  const badge = document.getElementById('quizThemeBadge');
+  if(badge && themeObj) badge.textContent = themeObj.title;
+
   document.getElementById('quizThemeSelect').style.display = 'none';
   document.getElementById('quizPlayArea').style.display = 'block';
   document.getElementById('quizResultArea').style.display = 'none';
@@ -1810,7 +2036,7 @@ function showQuizResult(){
 function backToQuizThemes(){ initQuizView(); }
 function restartCurrentTheme(){ startQuizTheme(quizState.currentThemeId); }
 
-/* 4. LIFE (ALL 12 VISUAL CARDS FULLY RESTORED) */
+/* 4. LIFE (ALL 12 VISUAL CARDS - CLEANED UP WITHOUT CONFUSING SLIDER) */
 const lifeStageData = {
   student: {
     name: '18歳〜学生',
@@ -1820,7 +2046,6 @@ const lifeStageData = {
         catchphrase: '返済不要の給付型と授業料減免で、進学の夢をサポート！',
         step1: '高校や大学で申請条件を確認', step2: '採用決定で月々口座に入金', step3: '給付型なら返済なしで学業に専念',
         beforeText: '学費＋生活費 全額自己負担', afterText: '給付型＋減免で負担大幅減！',
-        sliderTitle: '月々の生活サポート受給額', sliderMin: 20000, sliderMax: 75000, sliderStep: 5000, sliderVal: 45000, unit: '円/月',
         owlTip: '高校3年の予約採用（4〜6月頃）が一番のチャンス！まずは学校の窓口へ。'
       },
       {
@@ -1828,7 +2053,6 @@ const lifeStageData = {
         catchphrase: '20歳になったら年金！学業中は保険料の支払いが猶予される制度。',
         step1: '20歳になると年金機構から書類到着', step2: '市区役所やWebで特例申請', step3: '承認で在学中の保険料支払いが猶予！',
         beforeText: '毎月 約1.7万円を無理に支払う', afterText: '申請すれば在学中は支払い猶予！',
-        sliderTitle: '年間で猶予される保険料', sliderMin: 200000, sliderMax: 200000, sliderStep: 1, sliderVal: 200000, unit: '円/年',
         owlTip: '未納のまま放置すると万が一の障害年金が出なくなるリスクが！必ず特例申請を出そう。'
       },
       {
@@ -1836,7 +2060,6 @@ const lifeStageData = {
         catchphrase: '親の扶養に入っていれば、医療費3割負担で医者にかかれる！',
         step1: '親の健康保険証を提示', step2: '病院の窓口で3割負担を支払う', step3: '残り7割は保険組合がカバー',
         beforeText: '医療費 100%全額自己負担', afterText: '保険証提示で3割負担のみ！',
-        sliderTitle: '病院代1万円の場合の窓口支払い', sliderMin: 10000, sliderMax: 10000, sliderStep: 1, sliderVal: 3000, unit: '円',
         owlTip: 'アルバイトで年収103万・130万の壁を超えると扶養から外れることがあるので注意！'
       }
     ]
@@ -1849,7 +2072,6 @@ const lifeStageData = {
         catchphrase: '会社と自分が折半で保険料を払う！病気や老後の強力なガード。',
         step1: '毎月の給料から社会保険料が引き落とし', step2: '会社が同じ額（半分）を上乗せして納付', step3: '将来の年金や傷病時の手当が手厚くなる！',
         beforeText: '全額自分で保険料を負担', afterText: '会社が半分（折半）払ってくれる！',
-        sliderTitle: '月収25万円の場合の会社負担分', sliderMin: 250000, sliderMax: 250000, sliderStep: 1, sliderVal: 36000, unit: '円/月お得',
         owlTip: '給料から引かれて損した気分になりますが、会社が半分払ってくれているメリットは絶大です。'
       },
       {
@@ -1857,7 +2079,6 @@ const lifeStageData = {
         catchphrase: '失業時だけでなく、育休や資格取得のスクール代もサポート！',
         step1: '毎月わずかな保険料を負担', step2: '育休や離職、指定講座受講時に申請', step3: '手当や給付金が口座へ支給される',
         beforeText: 'スキルアップ代 全額自己負担', afterText: '指定講座なら受講料の最大70%支給！',
-        sliderTitle: '10万円の講座を受講した場合の給付金', sliderMin: 100000, sliderMax: 100000, sliderStep: 1, sliderVal: 50000, unit: '円戻る',
         owlTip: '「教育訓練給付金」を使えば、英語やITスキルのスクール代が国から補助されます！'
       },
       {
@@ -1865,7 +2086,6 @@ const lifeStageData = {
         catchphrase: '納めすぎた税金を取り戻す！会社員でもできる節税の第一歩。',
         step1: '11月頃に会社に控除書類を提出', step2: '税金が再計算される', step3: '12月の給料で納めすぎた税金が戻る！',
         beforeText: '税金をそのまま納めっぱなし', afterText: '年末調整で数万円が還付される！',
-        sliderTitle: '生命保険料控除等による平均還付額', sliderMin: 10000, sliderMax: 100000, sliderStep: 5000, sliderVal: 25000, unit: '円戻る',
         owlTip: 'ふるさと納税を使うと実質2,000円で地方の返礼品がもらえてお得です。'
       }
     ]
@@ -1877,8 +2097,7 @@ const lifeStageData = {
         icon: '🏥', title: '高額療養費制度（医療費の上限）',
         catchphrase: '1ヶ月の医療費がどれだけ高くなっても、上限以上は国がカバー！',
         step1: '病院で高額な医療費が発生', step2: '限度額適用認定証を提示', step3: '年収に応じた上限（約8.7万円等）のみ支払い',
-        beforeText: '医療費 30万円全額支払い', afterText: '高額療養費で約8.7万円のみ！',
-        sliderTitle: '1ヶ月の総医療費（100%分）', sliderMin: 100000, sliderMax: 2000000, sliderStep: 100000, sliderVal: 1000000, unit: '円',
+        beforeText: '医療費 100万円 全額支払い', afterText: '高額療養費で約8.7万円のみ！',
         owlTip: '事前または事後に手続きすれば、100万円の医療費でも自己負担は9万円前後に収まります！'
       },
       {
@@ -1886,7 +2105,6 @@ const lifeStageData = {
         catchphrase: '病気やケガで連続4日以上休んだら、給料の約2/3が最長1年6ヶ月出る！',
         step1: '病気で働けず連続4日以上休業', step2: '医師の証明をもらい申請', step3: '給料の約3分の2が毎月支給！',
         beforeText: '休業中 収入がゼロになる', afterText: '給料の約67%が支給され安心！',
-        sliderTitle: '月収（標準報酬月額）', sliderMin: 150000, sliderMax: 600000, sliderStep: 10000, sliderVal: 300000, unit: '円/月',
         owlTip: 'うつ病などのメンタル不調での休業にも適応されます。焦らず療養に専念できます。'
       },
       {
@@ -1894,7 +2112,6 @@ const lifeStageData = {
         catchphrase: '会社を辞めて次の仕事を探す間、生活費を毎月サポート！',
         step1: 'ハローワークで求職の申し込み', step2: '失業認定を定期的に受ける', step3: '前職給与の5〜8割が支給される',
         beforeText: '転職活動中 収入が途絶える', afterText: '毎月の手当をもらい安心して就活！',
-        sliderTitle: '退職前のアパート・生活費補助手当', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 180000, unit: '円/月支給',
         owlTip: '自己都合退職でも一定期間後に給付されます。ハローワークに相談しましょう。'
       }
     ]
@@ -1907,7 +2124,6 @@ const lifeStageData = {
         catchphrase: '赤ちゃん1人の出産につき、原則50万円が国から手当として出る！',
         step1: '病院で直接支払制度を申請', step2: '出産費用に50万円が直接充当', step3: '足が出た分だけ窓口で支払い',
         beforeText: '出産費用50万円 全額自己負担', afterText: '50万円支給で自己負担ゼロ近くに！',
-        sliderTitle: '国からの出産一時金支給額', sliderMin: 500000, sliderMax: 500000, sliderStep: 1, sliderVal: 500000, unit: '円',
         owlTip: '病院へ直接振り込まれる「直接支払制度」を使えば、事前に大金を用意する必要がありません。'
       },
       {
@@ -1915,7 +2131,6 @@ const lifeStageData = {
         catchphrase: '育休中の給与補填（最大67%）＋高校生まで毎月の児童手当！',
         step1: '会社を通じて育休給付金を申請', step2: '育休前半は給与の67%が支給', step3: '毎月（または隔月）児童手当も支給！',
         beforeText: '子育て休業中 収入ゼロ', afterText: '育休手当＋児童手当で生活サポート！',
-        sliderTitle: '育休中の手当（月収30万の場合）', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 201000, unit: '円/月支給',
         owlTip: '児童手当は高校卒業（18歳到達後の最初の3月31日）まで延長され、第3子以降は月3万円に増額！'
       }
     ]
@@ -1928,7 +2143,6 @@ const lifeStageData = {
         catchphrase: '原則65歳から死ぬまで一生涯もらえる！人生100年時代の土台。',
         step1: '現役時代に保険料を納める', step2: '65歳になると受給権が発生', step3: '死ぬまで偶数月に年金が口座振込！',
         beforeText: '老後の生活費 貯金切り崩しのみ', afterText: '一生涯の定期収入が確保される！',
-        sliderTitle: '平均的な夫婦の年金受給例', sliderMin: 100000, sliderMax: 300000, sliderStep: 10000, sliderVal: 220000, unit: '円/月受給',
         owlTip: '公的年金は「投資」ではなく「一生涯の保険」です。長生きするリスクに一番強いのが特徴！'
       }
     ]
@@ -1975,13 +2189,6 @@ function renderLifeSystemDetail(){
   const stage = lifeStageData[activeLifeStageKey] || lifeStageData['student'];
   const sys = stage.systems[activeLifeSystemIdx] || stage.systems[0];
 
-  let calcResultVal = sys.sliderVal;
-  if(sys.title.includes('高額療養費')){
-    // 概算自己負担額
-    calcResultVal = Math.round(80100 + (sys.sliderVal - 267000) * 0.01);
-    if(calcResultVal < 80100) calcResultVal = 80100;
-  }
-
   panel.innerHTML = `
     <div class="system-detail-panel">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
@@ -1999,20 +2206,9 @@ function renderLifeSystemDetail(){
         <div class="flow-step-item"><span class="flow-step-num">STEP 3</span><div style="font-size:12.5px;font-weight:800;margin-top:4px">${sys.step3}</div></div>
       </div>
 
-      <div class="compare-bars-grid" style="margin:16px 0">
-        <div class="bar-box no-system"><small>❌ 制度を知らない・使わない場合</small><br><strong>${sys.beforeText}</strong></div>
-        <div class="bar-box has-system"><small>⭕ 制度を知ってしっかり申請した場合</small><br><strong>${sys.afterText}</strong></div>
-      </div>
-
-      <div class="mini-calc-panel">
-        <strong style="font-size:13.5px;color:var(--orange-dark)">🧮 さわって試す！ ${sys.sliderTitle}</strong>
-        <div style="margin:10px 0">
-          <input type="range" min="${sys.sliderMin}" max="${sys.sliderMax}" step="${sys.sliderStep}" value="${sys.sliderVal}" oninput="updateLifeCalc(this.value)">
-          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px;font-weight:900">
-            <span>設定金額: <span id="lifeSliderValText">¥${sys.sliderVal.toLocaleString()}</span></span>
-            <span style="color:var(--green)">結果: <span id="lifeCalcResultText">¥${calcResultVal.toLocaleString()} ${sys.unit}</span></span>
-          </div>
-        </div>
+      <div class="compare-bars-grid" style="margin:18px 0">
+        <div class="bar-box no-system"><small>❌ 制度を知らない・使わない場合</small><br><strong style="font-size:15px">${sys.beforeText}</strong></div>
+        <div class="bar-box has-system"><small>⭕ 制度を知ってしっかり申請した場合</small><br><strong style="font-size:15px">${sys.afterText}</strong></div>
       </div>
 
       <div style="background:var(--paper);border:2px solid var(--purple-light);border-radius:18px;padding:14px 16px;font-size:13px;line-height:1.6">
@@ -2022,32 +2218,13 @@ function renderLifeSystemDetail(){
   `;
 }
 
-function updateLifeCalc(val){
-  const stage = lifeStageData[activeLifeStageKey] || lifeStageData['student'];
-  const sys = stage.systems[activeLifeSystemIdx] || stage.systems[0];
-  const num = parseInt(val);
-  
-  const valTxt = document.getElementById('lifeSliderValText');
-  const resTxt = document.getElementById('lifeCalcResultText');
-  if(valTxt) valTxt.textContent = `¥${num.toLocaleString()}`;
-
-  let calcRes = num;
-  if(sys.title.includes('高額療養費')){
-    calcRes = Math.round(80100 + (num - 267000) * 0.01);
-    if(calcRes < 80100) calcRes = 80100;
-    if(resTxt) resTxt.textContent = `自己負担約 ¥${calcRes.toLocaleString()} 円のみ！`;
-  } else {
-    if(resTxt) resTxt.textContent = `¥${num.toLocaleString()} ${sys.unit}`;
-  }
-}
-
 function jumpToLifeSystem(stageKey, systemIdx){
   switchLifeStage(stageKey);
   selectLifeSystem(systemIdx);
   markStampCleared('life');
 }
 
-/* 5. START GUIDE VIEW */
+/* 5. START GUIDE VIEW & INVESTMENT TYPES FILTER */
 let currentStepIdx = 1;
 const stepData = [
   { title: 'STEP 1 · 公式サイトで条件チェック', desc: '広告やSNSの噂だけで決めず、各ネット証券の公式サイトで年齢条件・手数料を確認します。', tip: '💡 18歳未満の方は保護者の同意や未成年口座が必要です。' },
@@ -2057,7 +2234,7 @@ const stepData = [
   { title: 'STEP 5 · 少額からつみたてスタート！', desc: '月100円〜1,000円など無理のない金額から設定してみましょう。', tip: '💡 最初は「つみたて投資枠」の低コストファンドがおすすめ。' }
 ];
 
-function initStartView(){ switchStartTab('bank'); renderStepper(); }
+function initStartView(){ switchStartTab('types'); renderStepper(); }
 
 function switchStartTab(tabId){
   document.querySelectorAll('.start-tab').forEach(t => t.classList.remove('active'));
@@ -2066,6 +2243,18 @@ function switchStartTab(tabId){
   const panel = document.getElementById(`startPanel-${tabId}`);
   if(tab) tab.classList.add('active');
   if(panel) panel.style.display = 'block';
+}
+
+function filterInvestTypes(cat, btn){
+  btn.parentNode.querySelectorAll('.invest-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.invest-type-card').forEach(card => {
+    if(cat === 'all' || card.dataset.cat.includes(cat)){
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 }
 
 function goStep(stepNum){ currentStepIdx = stepNum; renderStepper(); }
@@ -2108,17 +2297,25 @@ function updateNisaCalc(val){
   document.getElementById('valNisaNet').textContent = `¥${v.toLocaleString()}円 まるごと残る！`;
 }
 
-/* 6. DICTIONARY SYSTEM (24 TERMS FULLY EXPANDED) */
+/* 6. DICTIONARY SYSTEM (32 TERMS FULLY EXPANDED) */
 const dictMasterData = [
+  { term: '積立投資 (つみたてとうし)', cat: 'invest', desc: '毎月1万円など決まった金額で定期的に買い続ける「買い方のルール」。株式だけでなく金やREITなどでもできる。', example: '一括で買うタイミングに迷わず、毎月自動でコツコツ買い続けられる！' },
+  { term: 'インデックス投資', cat: 'invest', desc: '日経平均やS&P500など、市場全体の動き（指数）と同じ値動きを目指す投資方法。手数料が安く分散しやすい。', example: '特定の1社に賭けるのではなく、世界中の優良企業パックにまとめて投資！' },
+  { term: '債券 (さいけん)', cat: 'invest', desc: '国や企業が資金を集めるために発行する「借用証書」のようなもの。満期まで持てば元本と決まった利息が戻る。', example: '個人向け国債などがあり、株式に比べて値動きが穏やかで安全性が高い。' },
+  { term: 'REIT (リート／不動産投資信託)', cat: 'invest', desc: '多くの人から集めたお金でビルやマンションなどを買い、家賃収入や売却益を分配する仕組み。', example: '数万円の少額から不動産オーナーのように家賃収入の分配を受け取れる！' },
+  { term: '金・ゴールド (純金積立)', cat: 'invest', desc: '世界中で価値が認められている実物資産。利息や配当は生まないが、インフレや経済危機（有事）に強い。', example: '株価が暴落する場面で値上がりしやすく、資産全体の守り（保険）になる。' },
+  { term: 'FX (外国為替証拠金取引)', cat: 'invest', desc: '円とドルなど2つの通貨の交換レート差を狙って売買する取引。短期で大きな損益が出やすくハイリスク。', example: '1ドル140円で買って150円で売ると差額が利益になるが、逆だと大損する！' },
+  { term: 'レバレッジ', cat: 'invest', desc: '「てこの原理」のように、預けた資金の数倍〜最大25倍（FXの場合）の金額を動かす仕組み。', example: '10万円の資金で250万円分の取引ができる反面、少しの値動きで資金を失う危険も。' },
+  { term: 'インフレヘッジ', cat: 'invest', desc: '物価上昇（インフレ）によって現金の価値が目減りするのを防ぐため、株・金・不動産などに資産を分けて守ること。', example: '銀行預金だけでなく、物価と一緒に価値が上がりやすい資産を持つ対策！' },
   { term: '複利 (ふくり)', cat: 'invest', desc: '元本についた利息を次の元本に組み入れて、さらに利息を生み出す仕組み。「雪だるま式」にお金が増える効果。', example: '100万円が利回り5%なら、2年目は105万円に対して5%がつく！' },
   { term: '単利 (たんり)', cat: 'invest', desc: '最初に預けた元本だけに毎年一定の利息がつく計算方法。複利と比べると増え方がゆるやか。', example: '100万円を毎年5%で運用しても、毎年もらえる利息は5万円固定。' },
   { term: 'NISA (ニーサ)', cat: 'invest', desc: '通常、投資の利益にかかる約20%の税金が「0円」になる日本の非課税制度。', example: '10万円の利益が出ても税金を取られず10万円まるまる受け取れる！' },
-  { term: '投資信託 (とうししんたく)', cat: 'invest', desc: 'たくさんの投資家から集めたお金をプロがまとめて多様な株や債券に投資する詰め合わせパック。', example: '1つ買うだけで世界中数百社の株に小額で分散投資できる！' },
+  { term: '投資信託 (とうししんたく)', cat: 'invest', desc: 'たくさんの投資家から集めたお金をプロがまとめて多様な株や債券に投資する詰め合わせパック。', example: '1つ買うだけで世界中数百社の株に少額で分散投資できる！' },
   { term: '分散投資 (ぶんさんとうし)', cat: 'invest', desc: '「卵を一つのカゴに盛るな」の教え通り、複数の国・会社・時期にお金を分けてリスクを下げる手法。', example: 'A社が倒産しても、B社やC社が伸びていれば全体のダメージは少ない！' },
   { term: '元本割れ (がんぽんわれ)', cat: 'invest', desc: '投資した金額よりも売却したときの価値が下がって損をしてしまうこと。', example: '10万円で買った株が、市場暴落で8万円になってしまう状態。' },
   { term: 'インフレ (インフレーション)', cat: 'tax', desc: 'モノやサービスの値段が上がり、お金（現金）の実質的な価値が下がってしまう現象。', example: '昔100円で買えたジュースが150円になり、100円玉の価値が薄まること。' },
   { term: '額面と手取り (がくめんとてどり)', cat: 'tax', desc: '額面は会社から支払われる総給与。手取りはそこから税金や保険料が引かれ自分の口座に入るお金。', example: '額面25万円の給料でも、約5万円引かれて口座に入る手取りは20万円。' },
-  { term: '控除 (こうじょ)', cat: 'tax', desc: '税金を計算するとき、一定の金額をマイナスして税金の負担を軽くてすむようにする仕組み。', example: '基礎控除や配偶者控除、生命保険料控除などがある。' },
+  { term: '控除 (こうじょ)', cat: 'tax', desc: '税金を計算するとき、一定の金額をマイナスして税金の負担が軽くなるようにする仕組み。', example: '基礎控除や配偶者控除、生命保険料控除などがある。' },
   { term: '72の法則 (72のほうそく)', cat: 'invest', desc: '複利運用で「お金が2倍になるまでの年数」が概算できる便利な計算式（72 ÷ 年利 ＝ 年数）。', example: '年利4%なら、72 ÷ 4 ＝ 約18年でお金が2倍になる！' },
   { term: '生活防衛資金 (せいかつぼうえいしきん)', cat: 'credit', desc: '失業や病気、急なトラブルに備えて、投資に回さず現金で残しておく生活費（3〜6ヶ月分）。', example: '毎月20万で生活する人なら、60万〜120万円は普通預金に残す。' },
   { term: 'リボ払い (リボばらい)', cat: 'credit', desc: 'クレジットカードの利用額に関わらず、毎月一定額だけ支払う方法。手数料（金利）が超高額。', example: '10万円買い物しても毎月5,000円返済でOKに見えるが、裏で高額利息が膨らむ罠！' },
