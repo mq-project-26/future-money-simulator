@@ -476,7 +476,7 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 
 .event-box { background: linear-gradient(135deg, var(--yellow-light), var(--pink-light)); border: 3px solid var(--yellow); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
 .hand-box { background: #f8fafc; border: 3px dashed #b2bec3; border-radius: 24px; padding: 18px; }
-.cards-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+.cards-wrapper { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0; }
 
 .action-card { background: #fff; border: 3px solid #dfe6e9; border-radius: 18px; padding: 12px; cursor: pointer; transition: all .18s ease; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 165px; }
 .action-card:hover { transform: translateY(-4px); border-color: var(--green); box-shadow: 0 8px 15px rgba(38,153,107,0.2); }
@@ -486,6 +486,45 @@ h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.25; margin: 8px 0 12px; l
 .card-cat.invest { background: var(--green); }
 .card-cat.shield { background: var(--purple); }
 .card-cat.study { background: var(--orange); }
+
+
+/* EVENT HINT FLIP */
+.hint-flip-wrap {
+  margin-top: 10px;
+}
+.hint-flip-btn {
+  background: #fff;
+  border: 2px dashed var(--purple);
+  color: var(--purple-dark);
+  border-radius: 12px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: .18s;
+  box-shadow: 0 3px 0 var(--purple-light);
+}
+.hint-flip-btn:hover {
+  background: var(--purple-light);
+  transform: translateY(-1px);
+}
+.hint-flip-card {
+  display: none;
+  margin-top: 8px;
+  background: #fff;
+  border: 2px solid var(--purple);
+  border-radius: 14px;
+  padding: 11px 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink);
+  animation: flipReveal .25s ease;
+}
+.hint-flip-card.open {
+  display: block;
+}
 
 /* QUIZ SPECIFIC */
 .quiz-theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -724,12 +763,12 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
   </section>
 
-  <!-- ZONE 1: MAIN 6 QUESTS (TOP PRIORITY ZONE) -->
+  <!-- ZONE 1: MAIN 5 QUESTS (TOP PRIORITY ZONE) -->
   <section class="main-quest-zone">
     <span class="zone-badge-main">STEP 1：まずはここから体験しよう！（メインメニュー）</span>
     <div class="section-head">
       <div>
-        <h2>👇 下の6つから好きなカードを1つタップしてスタート！</h2>
+        <h2>👇 下の5つから好きなカードを1つタップしてスタート！</h2>
         <p>どれから遊んでもOK！体験すると下のスタンプが自動で貯まります。</p>
       </div>
       <span class="tap-badge">どれを押してもOK！👆</span>
@@ -1168,7 +1207,10 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         <div>
           <span style="font-size:11px;font-weight:900;background:#fff;padding:4px 10px;border-radius:99px" id="eventBadge">20代のイベント</span>
           <h3 style="font-size:20px;margin:10px 0 6px;font-weight:900" id="eventTitle">社会人生活のスタート！</h3>
-          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:0" id="eventDesc">まずは基礎的な貯蓄習慣をつくる大切な時期。</p>
+          <div class="hint-flip-wrap">
+            <button type="button" class="hint-flip-btn" id="eventHintBtn" onclick="toggleEventHint()">💡 ヒントをめくって状況アドバイスを見る 👆</button>
+            <div class="hint-flip-card" id="eventHintCard"></div>
+          </div>
         </div>
         <div style="background:#fff;padding:12px;border-radius:14px;font-size:12.5px;font-weight:900;margin-top:14px" id="eventImpact">
           生活費支出: -¥1,500万 / 10年
@@ -2209,7 +2251,7 @@ function renderFutureChart(){
   }
 }
 
-/* 2. GAME (CAREER TRAITS + TRAP ROUTES + TURNING POINT GRAPH) */
+/* 2. GAME (CAREER TRAITS + TRAP ROUTES + DYNAMIC HINTS + TURNING POINT GRAPH) */
 const slotOptions = [
   [
     { icon:'🎂', title:'22歳・新卒スタート' },
@@ -2219,7 +2261,7 @@ const slotOptions = [
   [
     {
       icon:'💼', title:'IT会社員', inc:3200, trait:'balance',
-      badge:'標準バランス型',
+      badge:'昇給・副業バランス型',
       desc:'【メリット】昇給・副業イベントで収入が伸びやすい。【弱点】不況時のリストラ・減給イベントは普通にダメージを受ける。'
     },
     {
@@ -2236,6 +2278,26 @@ const slotOptions = [
       icon:'🚀', title:'起業家志望', inc:4200, trait:'founder',
       badge:'ハイリスク・ハイリターン',
       desc:'【メリット】手取り最高クラス＆好景気時の投資リターン1.2倍！。【弱点】事業ローン(-500万)スタート＆暴落ダメージ1.5倍！'
+    },
+    {
+      icon:'🩺', title:'看護師・医療職', inc:3500, trait:'medical_pro',
+      badge:'医療費・不況に強い専門職',
+      desc:'【メリット】医療知識と職場保障で病気・ケガの支出を半減＆不況にも強い！。【弱点】激務のため見栄・ストレス消費イベントの支出が増えやすい。'
+    },
+    {
+      icon:'🎨', title:'クリエイター・デザイナー', inc:2900, trait:'creator',
+      badge:'ヒット一発逆転＆自己投資◎',
+      desc:'【メリット】副業・好景気イベント時の収入ボーナスが＋400万円上乗せ！。【弱点】基本給がやや控えめで、不況時は収入が落ち込みやすい。'
+    },
+    {
+      icon:'🏭', title:'大手メーカー技術職', inc:3600, trait:'maker',
+      badge:'退職金＆住宅手当が手厚い',
+      desc:'【メリット】30代の住宅・結婚コストを-500万軽減＆60代の退職金が+500万上乗せ！。【弱点】副業規定が厳しく、副業ボーナスは半分になる。'
+    },
+    {
+      icon:'🍳', title:'飲食店・ショップオーナー', inc:3400, trait:'shop',
+      badge:'好景気爆発・災害不況に弱い',
+      desc:'【メリット】好景気イベント時の手取りが+700万増加！。【弱点】自然災害・不況イベント時の店舗修繕・減収ダメージが+600万増加。'
     }
   ],
   [
@@ -2300,40 +2362,40 @@ const decadeFatePool = [
   {
     decade: '20代',
     cards: [
-      { title: '✨ 副業＆昇給ラッシュ！', type:'bonus', desc: '仕事が軌道に乗り副収入が増加！ただし公務員は副業規定でボーナス対象外。', impact: '基本生活費: -¥1,900万 / 副業ボーナス: +¥500万', cost: 1400, market: 1.25, crash: 0, shieldable: false },
-      { title: '💎 SNSで見栄張り生活（固定費増の罠）', type:'vanity', desc: '高級マンション＆ブランド品でSNS映え！ガードカードを使わないと毎ターン固定費が+600万増加！', impact: '生活費: -¥2,200万 ＋ 以降毎ターン固定費+600万の罠', cost: 2200, market: 1.20, crash: 0, shieldable: true },
-      { title: '🚨 悪質な投資詐欺＆リボ払いの罠！', type:'scam', desc: 'SNSの甘い話とリボ払いで大損失！知識・ガードカードがあれば被害を食い止められる！', impact: '基本生活費＋詐欺・利息損失: -¥3,100万', cost: 3100, market: 1.15, crash: 0, shieldable: true }
+      { title: '✨ 副業＆昇給ラッシュ！', type:'bonus', desc: '仕事が軌道に乗り副収入が増加！', impact: '基本生活費: -¥1,900万 / 副業ボーナス: +¥500万', cost: 1400, market: 1.25, crash: 0, shieldable: false },
+      { title: '💎 SNSで見栄張り生活（固定費増の罠）', type:'vanity', desc: '高級マンション＆ブランド品でSNS映え！', impact: '生活費: -¥2,200万 ＋ 以降毎ターン固定費+600万の罠', cost: 2200, market: 1.20, crash: 0, shieldable: true },
+      { title: '🚨 悪質な投資詐欺＆リボ払いの罠！', type:'scam', desc: 'SNSの甘い話とリボ払いで大損失の危機！', impact: '基本生活費＋詐欺・利息損失: -¥3,100万', cost: 3100, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '30代',
     cards: [
-      { title: '🏠 マイホーム購入＆結婚ラッシュ', type:'normal', desc: '人生の大きなイベントが重なり、まとまった現金が一気に必要になる時期！', impact: '生活費＋住宅頭金: -¥2,800万 / 市場成長: +25%', cost: 2800, market: 1.25, crash: 0, shieldable: false },
+      { title: '🏠 マイホーム購入＆結婚ラッシュ', type:'housing', desc: '人生の大きなイベントが重なり、まとまった現金が一気に必要になる時期！', impact: '生活費＋住宅頭金: -¥2,800万 / 市場成長: +25%', cost: 2800, market: 1.25, crash: 0, shieldable: false },
       { title: '💼 キャリアアップ転職成功！', type:'bonus', desc: 'スキルが認められ収入アップ！投資を続けていれば複利が効き始める。', impact: '生活費: -¥2,100万 / 市場成長: +30%', cost: 2100, market: 1.30, crash: 0, shieldable: false },
-      { title: '🏥 急な入院・手術で長期休職！', type:'medical', desc: '予期せぬ病気で出費がかさむ！フリーランスは傷病手当がなくダメージ大。保険ガードが有効！', impact: '生活費＋医療費: -¥3,200万', cost: 3200, market: 1.15, crash: 0, shieldable: true }
+      { title: '🏥 急な入院・手術で長期休職！', type:'medical', desc: '予期せぬ病気で出費がかさむ！', impact: '生活費＋医療費: -¥3,200万', cost: 3200, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '40代',
     cards: [
-      { title: '⚡ 教育費ピーク ＆ 世界同時株安ショック！', type:'crash', desc: '子供の学費が重なる中、市場で大暴落が発生！現金がないと暴落中に株を安値で売る羽目に！', impact: '教育費: -¥2,700万 / 投資資産 -35%大暴落', cost: 2700, market: 1.0, crash: 0.35, shieldable: false },
-      { title: '📚 教育費＆住宅ローン本格化', type:'normal', desc: '毎月の固定費が一番重くなる10年間。先取り貯金や収入UPで乗り切ろう！', impact: '教育・生活費: -¥2,500万 / 市場成長: +20%', cost: 2500, market: 1.20, crash: 0, shieldable: false },
-      { title: '📉 景気後退による減給＆リストラ危機', type:'recession', desc: '会社の業績悪化で収入ダウン！公務員はダメージ半減、自己投資カードでも跳ね返せる！', impact: '生活費＋減収分: -¥3,200万 / 投資資産 -20%', cost: 3200, market: 1.0, crash: 0.20, shieldable: true }
+      { title: '⚡ 教育費ピーク ＆ 世界同時株安ショック！', type:'crash', desc: '子供の学費が重なる中、市場で大暴落が発生！', impact: '教育費: -¥2,700万 / 投資資産 -35%大暴落', cost: 2700, market: 1.0, crash: 0.35, shieldable: false },
+      { title: '📚 教育費＆住宅ローン本格化', type:'normal', desc: '毎月の固定費が一番重くなる10年間。', impact: '教育・生活費: -¥2,500万 / 市場成長: +20%', cost: 2500, market: 1.20, crash: 0, shieldable: false },
+      { title: '📉 景気後退による減給＆リストラ危機', type:'recession', desc: '会社の業績悪化で収入ダウン！', impact: '生活費＋減収分: -¥3,200万 / 投資資産 -20%', cost: 3200, market: 1.0, crash: 0.20, shieldable: true }
     ]
   },
   {
     decade: '50代',
     cards: [
-      { title: '🏥 親の介護 ＆ 自身の健康メンテナンス', type:'medical', desc: '医療や介護の突発的な出費が増加。保険・備えカードが輝く10年間！', impact: '生活・介護費: -¥2,600万 / 市場成長: +25%', cost: 2600, market: 1.25, crash: 0, shieldable: true },
-      { title: '🚀 ラストスパート好景気！', type:'boom', desc: '子育てが落ち着き、これまで積み立ててきた投資資産が大きく花開くボーナスタイム！', impact: '生活費: -¥2,000万 / 市場成長: +38%', cost: 2000, market: 1.38, crash: 0, shieldable: false },
-      { title: '🌪️ 自然災害による自宅修繕トラブル', type:'disaster', desc: '予期せぬ災害で高額な修繕費が発生！生活防衛資金（現金）の重要性が試される！', impact: '生活費＋修繕費: -¥3,000万 / 市場成長: +15%', cost: 3000, market: 1.15, crash: 0, shieldable: true }
+      { title: '🏥 親の介護 ＆ 自身の健康メンテナンス', type:'medical', desc: '医療や介護の突発的な出費が増加。', impact: '生活・介護費: -¥2,600万 / 市場成長: +25%', cost: 2600, market: 1.25, crash: 0, shieldable: true },
+      { title: '🚀 ラストスパート好景気！', type:'boom', desc: '子育てが落ち着き、資産が大きく花開くボーナスタイム！', impact: '生活費: -¥2,000万 / 市場成長: +38%', cost: 2000, market: 1.38, crash: 0, shieldable: false },
+      { title: '🌪️ 自然災害による自宅修繕トラブル', type:'disaster', desc: '予期せぬ災害で高額な修繕費が発生！', impact: '生活費＋修繕費: -¥3,000万 / 市場成長: +15%', cost: 3000, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '60代',
     cards: [
-      { title: '🌅 円満定年退職 ＆ 退職金ゲット！', type:'normal', desc: '無事に定年を迎え退職金を獲得！セカンドライフに向けた最後の資産調整。', impact: '退職金プラス: +¥1,000万 / 生活費: -¥1,800万', cost: 800, market: 1.20, crash: 0, shieldable: false },
-      { title: '📉 定年直前の大暴落リセッション', type:'crash', desc: '退職直前に株価が急落！現金をしっかり残していれば売らずに耐えられる！', impact: '退職金: +¥600万 / 生活費: -¥1,900万 / 投資 -25%', cost: 1300, market: 1.0, crash: 0.25, shieldable: false },
+      { title: '🌅 円満定年退職 ＆ 退職金ゲット！', type:'retire', desc: '無事に定年を迎え退職金を獲得！', impact: '退職金プラス: +¥1,000万 / 生活費: -¥1,800万', cost: 800, market: 1.20, crash: 0, shieldable: false },
+      { title: '📉 定年直前の大暴落リセッション', type:'crash', desc: '退職直前に株価が急落！', impact: '退職金: +¥600万 / 生活費: -¥1,900万 / 投資 -25%', cost: 1300, market: 1.0, crash: 0.25, shieldable: false },
       { title: '🎉 健康長寿＆セカンドキャリア収入', type:'boom', desc: '元気に働き続けながら年金＋運用益でゆとりあるシニア生活へ！', impact: '退職金＋副収入: +¥1,400万 / 生活費: -¥1,600万', cost: 200, market: 1.25, crash: 0, shieldable: false }
     ]
   }
@@ -2342,15 +2404,20 @@ const decadeFatePool = [
 let gameState = {
   turn: 0, cash: 80, invest: 0, hearts: 5,
   selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false,
-  vanityPenalty: false, historyLog: [], bankruptEarly: false
+  vanityPenalty: false, historyLog: [], bankruptEarly: false, hintOpened: false
 };
 
+// 全9種類のアクションカード（ハイリスク勝負カード搭載）
 const allCards = [
-  { name:'先取り貯金', cat:'savings', catName:'守り・現金', eff:'現金 +600万確保', icon:'🐷' },
+  { name:'先取り貯金', cat:'savings', catName:'守り・現金', eff:'現金 +600万を確実に確保', icon:'🐷' },
   { name:'つみたてNISA投資', cat:'invest', catName:'育てる・長期', eff:'現金400万→投資460万へ', icon:'🌱' },
   { name:'医療・公的保障ガード', cat:'shield', catName:'保険・知識', eff:'ピンチ支出・罠を大幅軽減', icon:'🛡️' },
   { name:'スキルアップ自己投資', cat:'study', catName:'収入UP', eff:'手取り収入 +700万UP', icon:'📚' },
-  { name:'SNS話題株・暗号資産全ツッパ', cat:'yolo', catName:'超ハイリスク罠', eff:'投資全額が2.5倍 or 1/10に暴落！', icon:'💣' }
+  { name:'一攫千金・ハイリスク勝負', cat:'gamble', catName:'ギャンブル枠', eff:'投資額が2.5倍か1/10に激変！', icon:'🎰' },
+  { name:'固定費ダイエット術', cat:'diet', catName:'支出カット', eff:'支出-450万＆見栄の罠を解除', icon:'✂️' },
+  { name:'高配当株・債券バランス', cat:'dividend', catName:'安定運用', eff:'投資+300万＆毎年配当現金+250万', icon:'🏦' },
+  { name:'副業・週末ビジネス挑戦', cat:'sidejob', catName:'収入ブースト', eff:'手取り+550万（公務員は効果小）', icon:'💻' },
+  { name:'災害・緊急予備ファンド', cat:'emergency', catName:'危機回避', eff:'暴落・災害の損失を半分に軽減', icon:'🛟' }
 ];
 let hand = [];
 
@@ -2367,9 +2434,10 @@ function startCardGame(){
     selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false,
     vanityPenalty: false,
     historyLog: [{ label: '開始', total: startCash, delta: 0, event: 'スタート', action: '初期状態' }],
-    bankruptEarly: false
+    bankruptEarly: false,
+    hintOpened: false
   };
-  hand = [allCards[0], allCards[1], allCards[2]];
+  hand = [allCards[0], allCards[1], allCards[2], allCards[3]];
   const alertEl = document.getElementById('fixedCostAlert');
   if(alertEl) alertEl.style.display = 'none';
   
@@ -2401,6 +2469,94 @@ function updateDashboard(){
   document.getElementById('dashHearts').textContent = '❤️'.repeat(h) + '🖤'.repeat(5 - h);
 }
 
+// 状況（現金・投資・職業・手札・イベント・見栄ペナルティ）に応じて毎回文章が変わるヒント生成関数
+function buildSituationalHint(ev){
+  const jobOpt = slotOptions[1][slotSelectedIdx[1]];
+  const cash = gameState.cash;
+  const inv = gameState.invest;
+  const netCashAfterTurn = cash + jobOpt.inc - ev.cost - (gameState.vanityPenalty ? 600 : 0);
+
+  const hasCard = (cat) => hand.find(c => c.cat === cat);
+  const cShield = hasCard('shield');
+  const cDiet = hasCard('diet');
+  const cSavings = hasCard('savings');
+  const cInvest = hasCard('invest');
+  const cStudy = hasCard('study');
+  const cDividend = hasCard('dividend');
+  const cEmergency = hasCard('emergency');
+  const cGamble = hasCard('gamble');
+
+  if(gameState.vanityPenalty && cDiet){
+    return `今は見栄の固定費で毎ターン600万円も余計に出ていく苦しい状況だから、手札にある「${cDiet.name}」で固定費の悪循環を断ち切るのが一番おすすめです！`;
+  }
+  if((ev.type === 'scam' || ev.type === 'vanity') && cShield){
+    return `目の前に大きな出費や固定費増加につながる罠が迫っている状況だから、「${cShield.name}」を使って被害を未然にブロックするのがおすすめです！`;
+  }
+  if(ev.type === 'vanity' && cDiet){
+    return `SNSの見栄消費で今後の固定費が膨らみそうな場面だから、「${cDiet.name}」を選んで支出をスリムに抑えておくのがおすすめです！`;
+  }
+  if((ev.type === 'crash' || ev.type === 'disaster') && cEmergency){
+    return `市場の急落や災害で資産が大きく削られそうな状況だから、今は「${cEmergency.name}」でダメージを半分に食い止めるのがおすすめです！`;
+  }
+  if(ev.type === 'crash' && inv >= 1500 && netCashAfterTurn < 600){
+    return `投資額（¥${inv.toLocaleString()}万）が大きく育っている一方で現金がギリギリな状況だから、暴落中に株を売らされないよう${cSavings ? `「${cSavings.name}」で現金を厚くしておく` : '手元の現金を守る'}のがおすすめです！`;
+  }
+  if(ev.type === 'medical'){
+    if(jobOpt.trait === 'freelance'){
+      return `フリーランスは傷病手当金がなく医療費が重くのしかかる状況だから、${cShield ? `「${cShield.name}」で支出を減らす` : cSavings ? `「${cSavings.name}」で現金を補う` : '現金の減少を最小限に抑える'}のがおすすめです！`;
+    }
+    if(cShield){
+      return `病気や介護で突発的な出費がかさむ局面だから、公的保障を活かせる「${cShield.name}」で自己負担を軽くするのがおすすめです！`;
+    }
+  }
+  if(netCashAfterTurn < 300){
+    if(cSavings){
+      return `この10年の出費を引くと現金が¥${netCashAfterTurn.toLocaleString()}万まで減って赤字転落しかねない状況だから、まずは「${cSavings.name}」で現金を確保するのがおすすめです！`;
+    }
+    if(cStudy){
+      return `手元の現金余力がかなり少なくなっている状況だから、「${cStudy.name}」で収入そのものを底上げして赤字を防ぐのがおすすめです！`;
+    }
+  }
+  if((ev.type === 'boom' || ev.type === 'bonus') && cash >= 1000){
+    if(cInvest){
+      return `手元に現金（¥${cash.toLocaleString()}万）の余裕があり、市場の追い風も吹いている好機だから、「${cInvest.name}」で資産を雪だるま式に育てるのがおすすめです！`;
+    }
+    if(cDividend){
+      return `資金にゆとりがあって相場も上向きな状況だから、「${cDividend.name}」で資産を増やしつつ毎ターンの配当現金も受け取るのがおすすめです！`;
+    }
+  }
+  if(inv === 0 && cash >= 800 && (cInvest || cDividend)){
+    const pick = cInvest || cDividend;
+    return `まだ投資資産が0円で現金（¥${cash.toLocaleString()}万）だけに偏っている状況だから、そろそろ「${pick.name}」でお金にも働いてもらうのがおすすめです！`;
+  }
+  if(cGamble && cash >= 1500 && inv >= 1000 && gameState.hearts >= 4){
+    return `現金も安心度（❤️${gameState.hearts}）も十分に余裕がある状況だから、堅実に行くなら「${hand[0].name}」、スリルを狙うなら「${cGamble.name}」で勝負に出るのも面白い展開です！`;
+  }
+  if(jobOpt.trait === 'stable' && cStudy){
+    return `公務員は副業が制限されるぶん本業のスキル評価がカギになる状況だから、「${cStudy.name}」で着実に手取りを伸ばすのがおすすめです！`;
+  }
+  if(jobOpt.trait === 'founder' && cash < 800 && cSavings){
+    return `起業家は好景気に強い反面、手元資金が薄いとピンチに弱い特徴があるから、今は「${cSavings.name}」で守りの現金を固めておくのがおすすめです！`;
+  }
+
+  const fallbackCard = cInvest || cStudy || cDividend || hand[0];
+  return `現在の資産（現金¥${cash.toLocaleString()}万・投資¥${inv.toLocaleString()}万）は比較的安定している状況だから、「${fallbackCard.name}」を使って次の年代に向けた土台をさらに強くしておくのがおすすめです！`;
+}
+
+function toggleEventHint(){
+  const card = document.getElementById('eventHintCard');
+  const btn = document.getElementById('eventHintBtn');
+  if(!card || !btn) return;
+  gameState.hintOpened = !gameState.hintOpened;
+  if(gameState.hintOpened){
+    card.classList.add('open');
+    btn.textContent = '🔽 ヒントを閉じる';
+  } else {
+    card.classList.remove('open');
+    btn.textContent = '💡 ヒントをめくって状況アドバイスを見る 👆';
+  }
+}
+
 function flipFateCard(cardIdx){
   const stage = decadeFatePool[gameState.turn];
   const shuffled = [...stage.cards].sort(() => Math.random() - 0.5);
@@ -2408,17 +2564,28 @@ function flipFateCard(cardIdx){
   gameState.currentFate = picked;
   gameState.cardPlayed = false;
   gameState.selectedIdx = -1;
+  gameState.hintOpened = false;
 
   document.getElementById('fatePickArea').style.display = 'none';
   document.getElementById('gameActionRow').style.display = 'grid';
 
+  const safePool = allCards.filter(c => c.cat !== 'gamble');
+  const shuffledSafe = [...safePool].sort(() => Math.random() - 0.5);
+  hand = [shuffledSafe[0], shuffledSafe[1], shuffledSafe[2], shuffledSafe[3]];
+  if(gameState.turn >= 1 && Math.random() > 0.35){
+    hand[3] = allCards.find(c => c.cat === 'gamble');
+  }
+
   document.getElementById('eventBadge').textContent = `${stage.decade}の運命イベント`;
   document.getElementById('eventTitle').textContent = picked.title;
-  document.getElementById('eventDesc').textContent = picked.desc;
   document.getElementById('eventImpact').textContent = picked.impact;
 
-  if(gameState.turn >= 1 && !hand.some(c => c.cat === 'yolo') && Math.random() > 0.45){
-    hand[2] = allCards[4];
+  const hintCard = document.getElementById('eventHintCard');
+  const hintBtn = document.getElementById('eventHintBtn');
+  if(hintCard && hintBtn){
+    hintCard.classList.remove('open');
+    hintCard.textContent = buildSituationalHint(picked);
+    hintBtn.textContent = '💡 ヒントをめくって状況アドバイスを見る 👆';
   }
 
   const btn = document.getElementById('playBtn');
@@ -2430,9 +2597,9 @@ function renderHand(){
   const container = document.getElementById('handContainer');
   if(!container) return;
   container.innerHTML = hand.map((c, i) => `
-    <div class="action-card ${gameState.selectedIdx === i ? 'selected' : ''}" onclick="selectCard(${i})" style="${c.cat === 'yolo' ? 'border-color:var(--pink);background:#fff5f7;' : ''}">
+    <div class="action-card ${gameState.selectedIdx === i ? 'selected' : ''}" onclick="selectCard(${i})" style="${c.cat === 'gamble' ? 'border-color:var(--pink);background:#fff5f7;' : ''}">
       <div>
-        <span class="card-cat ${c.cat === 'yolo' ? 'shield' : c.cat}" style="${c.cat === 'yolo' ? 'background:var(--pink-dark);' : ''}">${c.catName}</span>
+        <span class="card-cat ${c.cat === 'gamble' ? 'shield' : (c.cat === 'dividend' ? 'invest' : (c.cat === 'diet' || c.cat === 'emergency' ? 'shield' : (c.cat === 'sidejob' ? 'study' : c.cat)))}" style="${c.cat === 'gamble' ? 'background:var(--pink-dark);' : ''}">${c.catName}</span>
         <div style="font-size:24px;margin:2px 0">${c.icon}</div>
         <div style="font-size:12.5px;font-weight:900">${c.name}</div>
       </div>
@@ -2451,10 +2618,17 @@ function selectCard(idx){
 
 function swapCard(){
   if(!gameState.canSwap || gameState.selectedIdx < 0 || gameState.cardPlayed) return;
-  const safePool = [allCards[0], allCards[1], allCards[2], allCards[3]];
-  hand[gameState.selectedIdx] = safePool[Math.floor(Math.random() * safePool.length)];
+  const currentNames = hand.map(c => c.name);
+  const candidates = allCards.filter(c => !currentNames.includes(c.name));
+  if(candidates.length > 0){
+    hand[gameState.selectedIdx] = candidates[Math.floor(Math.random() * candidates.length)];
+  }
   gameState.canSwap = false;
   const btn = document.getElementById('swapBtn'); if(btn) btn.disabled = true;
+  if(gameState.currentFate){
+    const hintCard = document.getElementById('eventHintCard');
+    if(hintCard) hintCard.textContent = buildSituationalHint(gameState.currentFate);
+  }
   renderHand();
 }
 
@@ -2471,27 +2645,63 @@ function playCard(idx){
   let actionLabel = '手札未使用';
   let resultLines = [`💼 【${jobOpt.title}】10年間の手取り収入 <strong>+¥${jobOpt.inc.toLocaleString()}万円</strong>`];
 
-  if(ev.type === 'bonus' && jobOpt.trait === 'stable'){
-    actualCost += 500;
-    resultLines.push(`🏛️ 【公務員特性】副業規定により副業ボーナス（500万円）は受け取れませんでした。`);
+  if(ev.type === 'bonus'){
+    if(jobOpt.trait === 'stable'){
+      actualCost += 500;
+      resultLines.push(`🏛️ 【公務員特性】副業規定により副業ボーナス（500万円）は受け取れませんでした。`);
+    } else if(jobOpt.trait === 'maker'){
+      actualCost += 250;
+      resultLines.push(`🏭 【大手メーカー特性】副業制限によりボーナスは半分の250万円になりました。`);
+    } else if(jobOpt.trait === 'creator'){
+      actualCost -= 400;
+      resultLines.push(`🎨 【クリエイター特性】副業・制作案件がヒットし、さらに <strong>+400万円</strong> 収入UP！`);
+    }
   }
-  if(ev.type === 'medical' && jobOpt.trait === 'freelance'){
-    const extra = Math.round(actualCost * 0.35);
-    actualCost += extra;
-    resultLines.push(`💻 【フリーランス弱点】傷病手当金がないため、医療・休職コストが <strong>+¥${extra}万円</strong> 増加！`);
+  if(ev.type === 'housing' && jobOpt.trait === 'maker'){
+    actualCost -= 500;
+    resultLines.push(`🏭 【大手メーカー特性】手厚い住宅手当・社宅制度により住宅コストを <strong>-500万円</strong> 軽減！`);
   }
-  if(ev.type === 'recession' && jobOpt.trait === 'stable'){
+  if(ev.type === 'retire' && jobOpt.trait === 'maker'){
+    actualCost -= 500;
+    resultLines.push(`🏭 【大手メーカー特性】退職金上乗せでさらに <strong>+500万円</strong> 獲得！`);
+  }
+  if(ev.type === 'medical'){
+    if(jobOpt.trait === 'freelance'){
+      const extra = Math.round(actualCost * 0.35);
+      actualCost += extra;
+      resultLines.push(`💻 【フリーランス弱点】傷病手当金がないため、医療・休職コストが <strong>+¥${extra}万円</strong> 増加！`);
+    } else if(jobOpt.trait === 'medical_pro'){
+      actualCost = Math.round(actualCost * 0.6);
+      resultLines.push(`🩺 【医療職メリット】職場の医療補助と専門知識で医療・介護出費を40%カット！`);
+    }
+  }
+  if(ev.type === 'recession'){
+    if(jobOpt.trait === 'stable' || jobOpt.trait === 'medical_pro'){
+      actualCost -= 600;
+      resultLines.push(`🛡️ 【${jobOpt.title}メリット】雇用が安定しているため、不況・減給ダメージを <strong>-600万円</strong> 軽減！`);
+    } else if(jobOpt.trait === 'creator' || jobOpt.trait === 'shop'){
+      actualCost += 500;
+      resultLines.push(`⚠️ 【${jobOpt.title}弱点】景気悪化の直撃を受け、減収ダメージが <strong>+500万円</strong> 増加！`);
+    }
+  }
+  if(ev.type === 'boom' && (jobOpt.trait === 'shop' || jobOpt.trait === 'creator')){
     actualCost -= 600;
-    resultLines.push(`🏛️ 【公務員メリット】雇用が守られているため、不況・減給ダメージを <strong>-600万円</strong> 軽減！`);
+    resultLines.push(`✨ 【${jobOpt.title}メリット】好景気の波に乗り、売上が大きく伸びて <strong>+600万円</strong> 収入UP！`);
+  }
+  if(ev.type === 'disaster' && jobOpt.trait === 'shop'){
+    actualCost += 600;
+    resultLines.push(`🍳 【オーナー弱点】店舗の修繕・休業損失が重なり <strong>+600万円</strong> 追加支出！`);
   }
 
   if(ev.type === 'vanity'){
-    if(idx >= 0 && hand[idx].cat === 'shield'){
+    if(idx >= 0 && (hand[idx].cat === 'shield' || hand[idx].cat === 'diet')){
       resultLines.push(`🛡️ 見栄を張らずに堅実な生活を選択！固定費増加の罠を回避しました！`);
     } else {
       gameState.vanityPenalty = true;
       document.getElementById('fixedCostAlert').style.display = 'block';
-      resultLines.push(`💸 <strong>罠発動！</strong> 高級マンション＆ブランド生活にハマり、以降毎ターン固定費が +600万円 増えます！`);
+      const extraStress = jobOpt.trait === 'medical_pro' ? 200 : 0;
+      actualCost += extraStress;
+      resultLines.push(`💸 <strong>罠発動！</strong> 高級マンション＆ブランド生活にハマり、以降毎ターン固定費が +600万円 増えます！${extraStress ? '（ストレス消費+200万追加）' : ''}`);
     }
   }
   if(gameState.vanityPenalty){
@@ -2500,7 +2710,11 @@ function playCard(idx){
   }
 
   if(ev.crash > 0 && gameState.invest > 0){
-    const crashRate = jobOpt.trait === 'founder' ? Math.min(0.6, ev.crash * 1.5) : ev.crash;
+    let crashRate = jobOpt.trait === 'founder' ? Math.min(0.6, ev.crash * 1.5) : ev.crash;
+    if(idx >= 0 && hand[idx].cat === 'emergency'){
+      crashRate *= 0.5;
+      resultLines.push(`🛟 【災害・緊急予備ファンド】分散と安全資産のおかげで暴落ダメージを半分に軽減！`);
+    }
     const loss = Math.round(gameState.invest * crashRate);
     gameState.invest -= loss;
     resultLines.push(`📉 市場暴落ショックにより投資資産が <strong>-¥${loss.toLocaleString()}万円</strong> 減少！${jobOpt.trait === 'founder' ? '（起業家特性でダメージ拡大）' : ''}`);
@@ -2525,27 +2739,54 @@ function playCard(idx){
       actualCost = Math.max(0, actualCost - cut);
       resultLines.push(`🛡️ 【${c.name}】を発動！公的制度・保険・知識のガードで支出を <strong>-${cut}万円</strong> 軽減！`);
     } else if(c.cat === 'study'){
-      const bonus = jobOpt.trait === 'freelance' ? 900 : 700;
+      const bonus = (jobOpt.trait === 'freelance' || jobOpt.trait === 'creator') ? 900 : 700;
       gameState.cash += bonus;
       resultLines.push(`📚 【${c.name}】を発動！スキルアップで手取り収入が <strong>+¥${bonus}万円</strong> UP！`);
-    } else if(c.cat === 'yolo'){
+    } else if(c.cat === 'diet'){
+      actualCost = Math.max(0, actualCost - 450);
+      if(gameState.vanityPenalty){
+        gameState.vanityPenalty = false;
+        document.getElementById('fixedCostAlert').style.display = 'none';
+        resultLines.push(`✂️ 【${c.name}】を発動！支出を-450万円削減し、さらに「見栄の固定費ペナルティ」を完全解除しました！`);
+      } else {
+        resultLines.push(`✂️ 【${c.name}】を発動！サブスクや固定費を見直して支出を <strong>-450万円</strong> カット！`);
+      }
+    } else if(c.cat === 'dividend'){
+      if(gameState.cash >= 250){
+        gameState.cash -= 250;
+        gameState.invest += 300;
+        gameState.cash += 250;
+        resultLines.push(`🏦 【${c.name}】を発動！投資資産を+300万円増やしつつ、配当金で現金 <strong>+250万円</strong> を受け取りました！`);
+      } else {
+        gameState.cash += 200;
+        resultLines.push(`🏦 【${c.name}】を発動！現金不足のため少額運用に切り替わり、現金 <strong>+200万円</strong> を確保！`);
+      }
+    } else if(c.cat === 'sidejob'){
+      const sideBonus = (jobOpt.trait === 'stable' || jobOpt.trait === 'maker') ? 200 : 550;
+      gameState.cash += sideBonus;
+      resultLines.push(`💻 【${c.name}】を発動！週末の副業ビジネスで手取り収入が <strong>+¥${sideBonus}万円</strong> UP！`);
+    } else if(c.cat === 'emergency'){
+      const cut = ev.type === 'disaster' ? 1200 : 500;
+      actualCost = Math.max(0, actualCost - cut);
+      resultLines.push(`🛟 【${c.name}】を発動！緊急時の備えが機能し、支出を <strong>-${cut}万円</strong> 抑えました！`);
+    } else if(c.cat === 'gamble'){
       if(gameState.invest === 0 && gameState.cash >= 500){
         gameState.cash -= 500;
         gameState.invest = 500;
       }
       if(gameState.invest > 0){
         if(Math.random() > 0.55){
-          const beforeYolo = gameState.invest;
+          const beforeGamble = gameState.invest;
           gameState.invest = Math.round(gameState.invest * 2.5);
-          resultLines.push(`🎰 【全ツッパ大成功！】投資資産 ¥${beforeYolo}万 が一気に <strong>¥${gameState.invest.toLocaleString()}万円</strong> に暴騰！！`);
+          resultLines.push(`🎰 【ハイリスク勝負・大当たり！】投資資産 ¥${beforeGamble}万 が一気に <strong>¥${gameState.invest.toLocaleString()}万円</strong> に急騰！！`);
         } else {
-          const beforeYolo = gameState.invest;
+          const beforeGamble = gameState.invest;
           gameState.invest = Math.round(gameState.invest * 0.1);
           gameState.hearts = Math.max(0, gameState.hearts - 2);
-          resultLines.push(`💀 <strong>【全ツッパ大暴落！】</strong> 話題の銘柄が暴落し、投資資産 ¥${beforeYolo}万 が <strong>¥${gameState.invest}万円（10分の1）</strong> に溶けました…！`);
+          resultLines.push(`💀 <strong>【ハイリスク勝負・大暴落！】</strong> 相場が急反転し、投資資産 ¥${beforeGamble}万 が <strong>¥${gameState.invest}万円（10分の1）</strong> に激減しました…！`);
         }
       } else {
-        resultLines.push(`⚠️ 投資資金が足りず全ツッパは不発に終わりました。`);
+        resultLines.push(`⚠️ 投資資金が足りずギャンブル勝負は見送りになりました。`);
       }
     }
   } else {
@@ -2596,11 +2837,6 @@ function playCard(idx){
   document.getElementById('resTitle').textContent = `🎉 ${stage.decade}の結果発表！`;
   document.getElementById('resBody').innerHTML = resultLines.join('<br>');
   document.getElementById('turnResult').style.display = 'block';
-
-  if(idx >= 0){
-    const nextPool = [allCards[0], allCards[1], allCards[2], allCards[3]];
-    hand[idx] = nextPool[Math.floor(Math.random() * nextPool.length)];
-  }
 }
 
 function nextTurn(){
