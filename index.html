@@ -653,6 +653,80 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   .stamp-grid { grid-template-columns: repeat(2, 1fr); }
   .bottom-grid { grid-template-columns: 1fr; }
 }
+  /* REAL DEFENSE MINIGAMES (SCAM & SOLO LIVING) */
+.phone-frame {
+  max-width: 460px;
+  margin: 0 auto;
+  background: #1e293b;
+  border-radius: 36px;
+  padding: 14px;
+  box-shadow: 0 16px 35px rgba(0,0,0,0.25);
+  border: 4px solid #334155;
+}
+.phone-screen {
+  background: #f1f5f9;
+  border-radius: 26px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.phone-topbar {
+  background: #0f172a;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chat-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.chat-bubble {
+  max-width: 85%;
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  position: relative;
+}
+.chat-bubble.them {
+  background: #fff;
+  border: 2px solid #cbd5e1;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.chat-bubble.me {
+  background: var(--green-light);
+  border: 2px solid var(--green);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  font-weight: 700;
+}
+.contract-fineprint {
+  background: #fffbeb;
+  border: 2px dashed #f59e0b;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: #78350f;
+  margin-top: 6px;
+}
+.solo-config-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 14px 0;
+}
+@media(max-width:640px){
+  .solo-config-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -677,6 +751,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   <button class="nav-btn" id="nav-quiz" onclick="showView('quiz')">🧠 お金クイズ</button>
   <button class="nav-btn" id="nav-life" onclick="showView('life')">🏡 社会保障と生活</button>
   <button class="nav-btn" id="nav-start" onclick="showView('start')">🌱 投資の始め方</button>
+  <button class="nav-btn" id="nav-guard" onclick="showView('guard')">📱 リアル防衛ミッション</button>
   <button class="nav-btn" id="nav-about" onclick="showView('about')">💡 サイト紹介</button>
 </nav>
 
@@ -706,24 +781,35 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
 
     <div class="grid">
+<div class="grid" style="grid-template-columns: repeat(3, 1fr);">
       <button class="tile green" id="tile-lab" onclick="showView('lab')">
         <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go tap-badge">TAP! 👆</span>
         <div>
           <div class="tile-icon">📈</div>
           <h3>長期投資ラボ</h3>
-          <p>縦横軸の目盛り付き！過去50年のズームと未来50年のAI予測を体験！</p>
+          <p>過去50年の暴落ズーム＆「運命の2択」体験、未来50年AI予測！</p>
         </div>
         <div class="tile-cta">ここを押して実験する ▶</div>
       </button>
 
       <button class="tile yellow" id="tile-game" onclick="showView('game')">
-        <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go tap-badge">NEW! 👆</span>
+        <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go tap-badge">TAP! 👆</span>
         <div>
           <div class="tile-icon">🃏</div>
           <h3>人生お金ゲーム</h3>
-          <p>運命カードをめくって選択！手札の判断で結果がリアルに分岐！</p>
+          <p>職業の弱点と罠を見極めろ！最後に人生ターニングポイント診断！</p>
         </div>
         <div class="tile-cta">ここを押して遊ぶ ▶</div>
+      </button>
+
+      <button class="tile pink" id="tile-guard" onclick="showView('guard')">
+        <span class="tile-clear-badge">CLEAR! ⭐</span><span class="go tap-badge">NEW! 👆</span>
+        <div>
+          <div class="tile-icon">🛡️</div>
+          <h3>防衛・生活サバイバル</h3>
+          <p>怪しいDM撃退＆初めての一人暮らしやりくりサバイバルの2本立て！</p>
+        </div>
+        <div class="tile-cta">ここを押して挑戦する ▶</div>
       </button>
 
       <button class="tile pink" id="tile-quiz" onclick="showView('quiz')">
@@ -764,28 +850,29 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
           <span style="font-size:24px">🏅</span>
           <div>
             <h3>あなたの冒険クリアスタンプ帳</h3>
-            <p style="margin:0;font-size:12px;color:var(--muted)">上の5つのコーナーを体験して、スタンプをコンプリートしよう！</p>
+            <p style="margin:0;font-size:12px;color:var(--muted)">上の6つのコーナーを体験して、スタンプをコンプリートしよう！</p>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:12px">
           <div class="stamp-progress-bar">
             <div class="stamp-progress-fill" id="stampProgressFill"></div>
           </div>
-          <strong id="stampRatioText" style="font-size:14px;color:var(--purple-dark)">0 / 5 CLEAR</strong>
+          <strong id="stampRatioText" style="font-size:14px;color:var(--purple-dark)">0 / 6 CLEAR</strong>
           <button onclick="resetStamps()" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline">リセット</button>
         </div>
       </div>
 
-      <div class="stamp-grid">
+      <div class="stamp-grid" style="grid-template-columns: repeat(6, 1fr);">
         <div class="stamp-item" id="stamp-lab"><span class="stamp-check">✓</span><div class="stamp-icon">📈</div><div class="stamp-name">長期投資ラボ</div></div>
         <div class="stamp-item" id="stamp-game"><span class="stamp-check">✓</span><div class="stamp-icon">🃏</div><div class="stamp-name">人生お金ゲーム</div></div>
+        <div class="stamp-item" id="stamp-guard"><span class="stamp-check">✓</span><div class="stamp-icon">🛡️</div><div class="stamp-name">防衛サバイバル</div></div>
         <div class="stamp-item" id="stamp-quiz"><span class="stamp-check">✓</span><div class="stamp-icon">🧠</div><div class="stamp-name">お金の知識クイズ</div></div>
         <div class="stamp-item" id="stamp-life"><span class="stamp-check">✓</span><div class="stamp-icon">🏡</div><div class="stamp-name">社会保障と生活</div></div>
         <div class="stamp-item" id="stamp-start"><span class="stamp-check">✓</span><div class="stamp-icon">🌱</div><div class="stamp-name">投資の始め方</div></div>
       </div>
 
       <div class="all-clear-banner" id="allClearBanner">
-        🎉 コンプリート達成！あなたは素晴らしい「マネーマスター」です！お金の知識と経験値がレベルUPしました！
+        🎉 全6コーナー・コンプリート達成！あなたは素晴らしい「マネーマスター」です！お金の知識と経験値がレベルUPしました！
       </div>
     </div>
   </section>
@@ -902,13 +989,40 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
       </div>
     </div>
 
-    <!-- CHART WITH AXES -->
+   <!-- CHART WITH AXES -->
     <div style="background:#fff;border:2px solid #dfe6e9;border-radius:20px;padding:18px 18px 10px;position:relative">
-      <svg id="histSvg" viewBox="0 0 780 300" width="100%" height="auto"></svg>
-      <div style="display:flex;justify-content:center;gap:24px;font-size:12px;font-weight:900;margin-top:8px">
-        <span id="legendAsset" style="color:var(--green)">━━ 資産評価額（値動きあり）</span>
-        <span style="color:#b2bec3">┈┈ 累計貯金額（元本）</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+        <span style="font-size:12px;font-weight:900;color:var(--muted)">📊 資産推移グラフ</span>
+        <label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:900;color:var(--orange-dark);background:var(--orange-light);padding:4px 12px;border-radius:99px;cursor:pointer;border:1.5px solid var(--orange)">
+          <input type="checkbox" id="toggleInflation" onchange="renderHistChart()" style="accent-color:var(--orange);cursor:pointer">
+          🔥 インフレ（物価年2%上昇）の壁を重ねる
+        </label>
       </div>
+      <svg id="histSvg" viewBox="0 0 780 300" width="100%" height="auto"></svg>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:18px;font-size:12px;font-weight:900;margin-top:8px">
+        <span id="legendAsset" style="color:var(--green)">━━ 積立を続けた場合</span>
+        <span style="color:#b2bec3">┈┈ 累計貯金額（元本）</span>
+        <span id="legendInflation" style="color:var(--orange);display:none">┈┈ 物価上昇ライン（年2%）</span>
+        <span id="legendPanicSell" style="color:#d63031;display:none">┈┈ 途中で売って現金化した場合</span>
+      </div>
+    </div>
+
+    <!-- 暴落時の運命の2択パネル（ズーム時のみ出現） -->
+    <div id="crashChoiceBox" style="display:none;background:linear-gradient(135deg,#fff0f3,#ffe3ea);border:3px solid var(--pink);border-radius:22px;padding:18px 20px;margin-top:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span class="tap-badge" style="background:var(--pink);box-shadow:0 2px 0 var(--pink-dark)">緊急2択シミュレーション！👆</span>
+        <strong style="font-size:16px;color:var(--pink-dark)" id="crashChoiceQuestion">資産が大きく値下がりしています！あなたならどう行動する？</strong>
+      </div>
+      <p style="margin:0 0 12px;font-size:13px;color:var(--ink)">どちらか選んで、2026年までの結果の差をグラフで確かめてみよう！</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <button class="btn" style="background:#fff;border:2.5px solid var(--pink);color:var(--pink-dark);box-shadow:0 4px 0 var(--pink)" onclick="chooseCrashAction('sell')">
+          😱 怖くなって全部売る（狼狽売り）
+        </button>
+        <button class="btn" style="background:var(--green);color:#fff;box-shadow:0 4px 0 var(--green-dark)" onclick="chooseCrashAction('hold')">
+          💎 信じて積み立てを続ける（ガチホ）
+        </button>
+      </div>
+      <div id="crashActionFeedback" style="display:none;margin-top:14px;background:#fff;border-radius:16px;padding:14px 16px;border:2px solid var(--pink);font-size:13.5px;line-height:1.7"></div>
     </div>
 
     <div class="panic-card">
@@ -916,6 +1030,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         <strong style="font-size:17px;color:#d63031" id="panicTitle">🔭 50年全体の振り返り（1976〜2026）</strong>
         <span class="panic-meter" id="panicMeter">ハラハラ度：★☆☆☆☆ (安心)</span>
       </div>
+      <div id="panicMetaBadges" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
       <p style="margin:0 0 10px;font-size:13.5px;line-height:1.7;color:var(--ink)" id="panicDesc">
         50年間全体で見ると、途中で何度も暴落を挟みながらもきれいな右肩上がりの成長曲線を描いています！
       </p>
@@ -923,8 +1038,6 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         💡 <strong>ポイント:</strong> 虫めがねボタンでリーマンショックなどにズームすると、横軸が月単位に変わり、暴落の怖さが体感できます。
       </div>
     </div>
-  </div>
-
   <div class="game-container" style="margin-top:28px">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
       <div>
@@ -986,18 +1099,18 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   </div>
 </section>
 
-<!-- GAME VIEW (SLOT + FATE CARD FLIP + REALISTIC BRANCHING) -->
+<!-- GAME VIEW (SLOT + FATE CARD FLIP + REALISTIC BRANCHING + TURNING POINT GRAPH) -->
 <section id="game" class="view">
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
-  <div class="guide-banner"><span>👇 操作ガイド：まずはスロットを3つ止めてキャラ決定！そのあと各年代で「運命カード」をめくって手札を選ぼう！</span></div>
+  <div class="guide-banner"><span>👇 操作ガイド：まずはスロットを3つ止めてキャラ決定！職業ごとの「弱点」と「罠」に気をつけながら70歳を目指そう！</span></div>
   <div class="section-tag" style="background:var(--yellow);color:#5f3e02">02 · LIFE MONEY GAME</div>
-  <h2 class="page-title">🃏 人生お金ゲーム（運命カードめくり＆リアル分岐版）</h2>
-  <p class="lead">スロットで人生スタート！20代〜60代で運命のカードをめくり、手札の使い分け次第で「★5 資産マスター」から「★1 破産ピンチ」まで結果が変化します。</p>
+  <h2 class="page-title">🃏 人生お金ゲーム（波乱の選択＆ターニングポイント診断）</h2>
+  <p class="lead">職業ごとのメリット・弱点を見極めよう！欲張りすぎや現金不足は「★1 破産転落」に直結。最後にあなたの人生グラフを自動診断します。</p>
 
   <div id="gameSlot" class="game-container" style="text-align:center">
     <div style="font-size:40px;margin-bottom:4px">🎰</div>
     <h3 style="font-size:24px;margin:0 0 4px;font-weight:900">STEP 1 · 高速スロットを止めよう！ <span class="tap-badge">3つ押してね 👆</span></h3>
-    <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">「🛑 ストップ！」を順番に押して、今回のキャラクターを決定！</p>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px">「🛑 ストップ！」を順番に押して、今回のキャラクターと職業特性を決定！</p>
 
     <div class="slot-machine">
       <div class="slot-grid">
@@ -1011,7 +1124,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         </div>
 
         <div class="slot-col yellow">
-          <div style="font-size:12px;font-weight:900;color:var(--yellow);margin-bottom:6px">REEL 2 · 職業と手取り</div>
+          <div style="font-size:12px;font-weight:900;color:var(--yellow);margin-bottom:6px">REEL 2 · 職業（特性あり）</div>
           <div class="slot-box" id="slotBox1">
             <div style="font-size:36px" id="slotIcon1">💼</div>
             <div style="font-size:15px;font-weight:900;margin-top:4px" id="slotTitle1">回転中...</div>
@@ -1020,7 +1133,7 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
         </div>
 
         <div class="slot-col blue">
-          <div style="font-size:12px;font-weight:900;color:var(--blue);margin-bottom:6px">REEL 3 · 初期貯金</div>
+          <div style="font-size:12px;font-weight:900;color:var(--blue);margin-bottom:6px">REEL 3 · 初期資金</div>
           <div class="slot-box" id="slotBox2">
             <div style="font-size:36px" id="slotIcon2">💰</div>
             <div style="font-size:15px;font-weight:900;margin-top:4px" id="slotTitle2">回転中...</div>
@@ -1032,12 +1145,12 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
 
     <div id="confirmedProf" style="display:none;background:var(--green-light);border:3px solid var(--green);border-radius:24px;padding:20px;margin-top:20px;text-align:left">
       <div style="font-size:12px;font-weight:900;color:var(--green)">✨ 決定したあなたのプロフィール</div>
-      <h3 style="font-size:22px;margin:6px 0" id="profName">22歳大卒 / 会社員</h3>
-      <p style="font-size:13px;color:var(--muted);margin:0 0 14px" id="profDesc">現金と投資のバランスを間違えるとピンチになるリアルモード！</p>
+      <h3 style="font-size:22px;margin:6px 0" id="profName">22歳大卒 / IT会社員</h3>
+      <p style="font-size:13.5px;color:var(--ink);margin:0 0 14px;font-weight:700" id="profDesc">職業特性が入ります</p>
       <div class="stat-grid" style="margin-bottom:16px">
         <div class="stat"><small>10年間の手取り収入</small><strong id="profIncome">¥3,200万</strong></div>
         <div class="stat"><small>初期貯蓄</small><strong id="profCash">¥80万</strong></div>
-        <div class="stat"><small>ゲームルール</small><strong id="profBonus" style="font-size:14px;color:var(--purple)">現金不足で強制売却ペナルティ</strong></div>
+        <div class="stat" style="border-color:var(--purple)"><small>職業のメリット・弱点</small><strong id="profBonus" style="font-size:13px;color:var(--purple-dark)">バランス型</strong></div>
       </div>
       <div style="text-align:right">
         <button class="btn btn-primary" onclick="startCardGame()">🎮 この人生でスタート！（運命カードを引く） 👆</button>
@@ -1058,18 +1171,22 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
 
     <div class="dashboard">
-      <div class="dash-item"><label>🎂 現在の年代</label><div class="val" id="dashAgeJob">20代 (1/5)</div></div>
-      <div class="dash-item"><label>💵 現金（貯金）</label><div class="val" id="dashCash">¥80万</div></div>
-      <div class="dash-item"><label>📈 投資資産</label><div class="val" id="dashInvest">¥0万</div></div>
+      <div class="dash-item"><label>🎂 年代・職業</label><div class="val" id="dashAgeJob" style="font-size:13.5px">20代 (1/5)</div></div>
+      <div class="dash-item"><label>💵 現金（守り）</label><div class="val" id="dashCash">¥80万</div></div>
+      <div class="dash-item"><label>📈 投資（攻め）</label><div class="val" id="dashInvest">¥0万</div></div>
       <div class="dash-item"><label>💰 合計資産</label><div class="val" id="dashTotal">¥80万</div></div>
       <div class="dash-item"><label>❤️ 安心度</label><div class="val" id="dashHearts">❤️❤️❤️❤️❤️</div></div>
+    </div>
+
+    <div id="fixedCostAlert" style="display:none;background:#fff1f2;border:2px solid var(--pink);border-radius:14px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;font-weight:900;color:var(--pink-dark)">
+      ⚠️ 見栄の固定費ペナルティ発動中：毎ターン生活費が +600万円 増加しています！
     </div>
 
     <!-- STEP A: FATE CARD PICK -->
     <div id="fatePickArea" class="fate-pick-area">
       <span class="tap-badge" style="font-size:12px;padding:4px 14px;">STEP 2：運命カードめくり 👆</span>
       <h3 style="font-size:21px;margin:10px 0 4px;font-weight:900" id="fatePickTitle">🔮 20代の運命カードを1枚タップしてめくろう！</h3>
-      <p style="margin:0;font-size:13px;color:var(--muted)">選んだカードによって、ラッキーな展開か大ピンチかが変わります！</p>
+      <p style="margin:0;font-size:13px;color:var(--muted)">選んだカードによって、絶好調の波か、破産につながる大ピンチかが決まります！</p>
       <div class="mystery-cards-grid">
         <div class="mystery-card" onclick="flipFateCard(0)">
           <div style="font-size:40px;margin-bottom:6px">🃏</div>
@@ -1126,20 +1243,49 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
     </div>
   </div>
 
+  <!-- RESULT & TURNING POINT GRAPH -->
   <div id="gameResult" class="game-container" style="display:none;text-align:center">
     <div style="font-size:50px" id="endEmoji">🎊</div>
     <div style="font-size:28px;margin:4px 0" id="endStars">★★★☆☆</div>
     <span class="tap-badge" id="endRankTitle" style="font-size:13px;padding:5px 16px;background:var(--purple);">称号</span>
-    <h3 style="font-size:26px;margin:10px 0 6px;font-weight:900">70歳！人生のゴール到達！</h3>
-    <p style="color:var(--ink);max-width:620px;margin:0 auto 20px;font-size:14.5px;line-height:1.75" id="endComment">50年間の資産管理おつかれさまでした！</p>
+    <h3 style="font-size:26px;margin:10px 0 6px;font-weight:900" id="endHeadline">70歳！人生のゴール到達！</h3>
+    <p style="color:var(--ink);max-width:640px;margin:0 auto 20px;font-size:14.5px;line-height:1.75" id="endComment">50年間の資産管理おつかれさまでした！</p>
 
-    <div class="stat-grid" style="max-width:720px;margin:0 auto 20px">
+    <div class="stat-grid" style="max-width:740px;margin:0 auto 22px">
       <div class="stat"><small>最終現金（守るお金）</small><strong id="resCash">¥0</strong></div>
       <div class="stat"><small>最終投資額（育てるお金）</small><strong id="resInvest">¥0</strong></div>
       <div class="stat" style="background:var(--green-light);border-color:var(--green)"><small>最終合計資産</small><strong id="resTotal" style="color:var(--green)">¥0</strong></div>
     </div>
 
-    <button class="btn btn-primary" onclick="restartSlotGame()">🎰 もう一度ちがう運命カードで遊ぶ 👆</button>
+    <!-- 人生ターニングポイントグラフ＆振り返り診断 -->
+    <div style="background:var(--paper);border:3px solid var(--purple);border-radius:24px;padding:20px;margin:0 auto 22px;max-width:800px;text-align:left">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:22px">📊</span>
+        <div>
+          <h4 style="margin:0;font-size:18px;font-weight:900;color:var(--purple-dark)">あなたの人生ターニングポイントグラフ</h4>
+          <p style="margin:0;font-size:12px;color:var(--muted)">20代〜70歳までの資産推移と、運命を変えた2つの分岐点を自動分析！</p>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:2px solid #dfe6e9;border-radius:18px;padding:12px">
+        <svg id="lifeResultSvg" viewBox="0 0 720 230" width="100%" height="auto"></svg>
+      </div>
+
+      <div class="compare-bars-grid" style="margin-top:14px">
+        <div class="bar-box has-system">
+          <small>🌟 一番資産が増えた「神判断」</small><br>
+          <strong id="tpBestTitle" style="font-size:14.5px">分析中...</strong>
+          <p id="tpBestDesc" style="margin:4px 0 0;font-size:12.5px;line-height:1.55"></p>
+        </div>
+        <div class="bar-box no-system">
+          <small>💥 一番ピンチを招いた「反省ポイント」</small><br>
+          <strong id="tpWorstTitle" style="font-size:14.5px">分析中...</strong>
+          <p id="tpWorstDesc" style="margin:4px 0 0;font-size:12.5px;line-height:1.55"></p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="restartSlotGame()">🎰 もう一度ちがう職業・運命カードで遊ぶ 👆</button>
   </div>
 </section>
 
@@ -1498,7 +1644,172 @@ footer { text-align: center; color: var(--muted); font-size: 11.5px; margin-top:
   </div>
 </section>
 
-<!-- ABOUT VIEW -->
+<!-- REAL DEFENSE MINIGAMES VIEW (SCAM & SOLO LIVING) -->
+<section id="guard" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="guide-banner"><span>👇 操作ガイド：2つのサバイバルゲームを切り替えて、日常の「契約トラブル」と「固定費・リボ払いの罠」から身を守る力を鍛えよう！</span></div>
+  <div class="section-tag" style="background:var(--purple)">06 · REAL LIFE DEFENSE</div>
+  <h2 class="page-title">📱 リアル防衛ミッション（2大サバイバル）</h2>
+  <p class="lead">18歳成人で狙われやすい悪質商法・**【ステップ3：新規ミニゲーム2種類の追加】**のコードです！
+
+ご提案していた**「📱 怪しいDM・広告を見破れ！（悪質商法・契約トラブル回避ゲーム）」**と**「🏠 初めての一人暮らし・手取りやりくりサバイバル（固定費＆リボ払いの罠体験）」**の**両方**を一つの「🛡️ サバイバル＆防衛ラボ」ページにまとめて遊べるようにしました！
+
+---
+
+### 今回のアップデート内容（新規ミニゲーム2本立て）
+1. **ナビゲーション＆ホーム画面に「🛡️ 防衛・生活サバイバル」を追加**
+   * クリアスタンプ帳も**全6種類（6 / 6 CLEAR）**にパワーアップ！
+2. **ミニゲーム①：スマホ風UI『怪しいDM・広告を見破れ！（全3ステージ）』**
+   * **STAGE 1**：SNSの副業DM（「スマホ10分で月収50万！先にマニュアル代3万円振り込んで」）
+   * **STAGE 2**：初回500円お試し定期購入の広告（「※小さな文字で『5回以上の継続購入が条件』と書いてある！」）
+   * **STAGE 3**：久しぶりの友人からのカフェ誘い（「絶対に儲かる暗号資産の投資グループに入らない？」マルチ商法・モノなしマルチ）
+   * それぞれ「⚠️ 怪しいポイントをタップして指摘」または「正しい返信・行動を選ぶ」ことで撃退し、クーリング・オフや消費者ホットライン「188」の使い方が身につきます。
+3. **ミニゲーム②：『初めての一人暮らし・手取り18万円やりくりサバイバル（4週間）』**
+   * 最初に**「家賃（駅近オートロック8.5万 vs 築浅6.5万 vs 築古5.5万）」「スマホ代（大手キャリア8,000円 vs 格安SIM 2,000円）」「サブスク契約数」**の固定費を決定！
+   * 1週目〜4週目まで毎週イベント（友達との旅行、急な発熱、家電の故障など）が発生し、固定費を高くしすぎると手元資金が尽きて**「💳 リボ払いに手を出す（手数料地獄）」**か**「😭 支払い滞納（信用情報に傷）」**になるリアルなサバイバル体験ができます。
+
+---
+
+### 置き換え・追加手順（4箇所コピペ）
+
+#### ① ナビゲーション＆ホーム画面のカード・スタンプ追加
+添付の `index (1).html` の **379行目〜387行目**（`<nav class="nav-pills" ...>` の中）に1ボタン追加し、**408行目〜475行目**（メイン5つのタイル＆スタンプ帳）を以下に置き換えてください。
+
+**1-A. `<nav class="nav-pills">` の中（`nav-start` のすぐ下）に1行追加：**
+```html
+  <button class="nav-btn" id="nav-guard" onclick="showView('guard')">🛡️ 防衛・生活サバイバル</button>
+  <!-- GUARD & SURVIVAL VIEW (SCAM DM + LIVING ALONE SURVIVAL) -->
+<section id="guard" class="view">
+  <button class="back" onclick="showView('home')">← ホームに戻る</button>
+  <div class="guide-banner"><span>👇 操作ガイド：上のタブで「📱 怪しいDM・広告を見破れ！」と「🏠 一人暮らしサバイバル」を切り替えて遊ぼう！</span></div>
+  <div class="section-tag" style="background:var(--pink)">06 · DEFENSE & SURVIVAL GAMES</div>
+  <h2 class="page-title">🛡️ 防衛・生活サバイバル（2大ミニゲーム）</h2>
+  <p class="lead">18歳成人で狙われやすい「SNS詐欺・悪質契約」と、新生活でハマりがちな「固定費＆リボ払いの罠」をリアルに体験！</p>
+
+  <div class="start-tab-bar">
+    <div class="start-tab active" id="guardTab-scam" onclick="switchGuardGame('scam')">📱 ゲーム①：怪しいDM・広告を見破れ！ 👆</div>
+    <div class="start-tab" id="guardTab-living" onclick="switchGuardGame('living')">🏠 ゲーム②：初めての一人暮らしサバイバル 👆</div>
+  </div>
+
+  <!-- MINI GAME 1: SCAM & CONTRACT TRAP -->
+  <div id="guardPanel-scam" class="game-container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+      <div>
+        <span style="font-size:12px;font-weight:900;color:var(--pink-dark);background:var(--pink-light);padding:4px 12px;border-radius:99px">全3ステージ・契約防衛シミュレーション</span>
+        <h3 style="font-size:21px;margin:6px 0 2px;font-weight:900">📱 スマホに届く「甘い罠」を見破ろう！</h3>
+      </div>
+      <div style="font-weight:900;font-size:14px;color:var(--purple-dark)" id="scamStageCounter">STAGE 1 / 3</div>
+    </div>
+
+    <!-- スマホ風UIフレーム -->
+    <div style="max-width:520px;margin:0 auto;background:#1e293b;border-radius:36px;padding:14px;box-shadow:0 14px 30px rgba(0,0,0,0.2)">
+      <div style="background:#f8fafc;border-radius:26px;overflow:hidden;border:2px solid #334155">
+        <!-- スマホ上部バー -->
+        <div style="background:#0f172a;color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:900">
+          <span id="phoneAppTitle">💬 SNSダイレクトメッセージ</span>
+          <span>📶 5G 🔋 88%</span>
+        </div>
+
+        <!-- メッセージ／広告画面 -->
+        <div id="phoneScreenBody" style="padding:18px;min-height:240px;display:flex;flex-direction:column;gap:12px"></div>
+
+        <!-- アクション選択肢 -->
+        <div id="phoneChoicesArea" style="background:#fff;border-top:2px solid #e2e8f0;padding:14px;display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+
+    <!-- 解説・結果パネル -->
+    <div id="scamFeedbackBox" style="display:none;max-width:640px;margin:20px auto 0;border-radius:22px;padding:20px;border:3px solid var(--green)">
+      <h4 id="scamFbTitle" style="margin:0 0 8px;font-size:19px;font-weight:900"></h4>
+      <p id="scamFbDesc" style="margin:0 0 12px;font-size:13.5px;line-height:1.7"></p>
+      <div style="background:#fff;border-radius:14px;padding:12px 14px;border:2px solid var(--line);font-size:12.5px;font-weight:800" id="scamFbTip"></div>
+      <div style="text-align:right;margin-top:14px">
+        <button class="btn btn-primary" id="scamNextBtn" onclick="nextScamStage()">次のステージへ ➔ 👆</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MINI GAME 2: LIVING ALONE SURVIVAL -->
+  <div id="guardPanel-living" class="game-container" style="display:none">
+    <div style="margin-bottom:16px">
+      <span style="font-size:12px;font-weight:900;color:var(--blue-dark);background:var(--blue-light);padding:4px 12px;border-radius:99px">手取り18万円・1ヶ月サバイバル</span>
+      <h3 style="font-size:21px;margin:6px 0 2px;font-weight:900">🏠 初めての一人暮らし！固定費と急な出費を乗り切れ！</h3>
+      <p style="margin:0;font-size:13px;color:var(--muted)">最初に毎月の「固定費」を決めたあと、4週間のリアルな誘惑・トラブルをやりくりしよう！</p>
+    </div>
+
+    <!-- STEP 1: 固定費セットアップ -->
+    <div id="livingSetupBox" style="background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:20px">
+      <h4 style="margin:0 0 12px;font-size:17px;font-weight:900;color:var(--blue-dark)">📋 STEP 1：毎月の固定費を選ぼう（手取り 180,000円 から引かれます）</h4>
+
+      <div style="margin-bottom:14px">
+        <strong style="font-size:13px;display:block;margin-bottom:6px">① お部屋の家賃（毎月必ずかかる最大固定費）</strong>
+        <div class="choice-row" style="margin:0">
+          <button class="choice selected" onclick="setLivingOpt('rent', 85000, this)">🏢 駅近オートロック新築 (85,000円)</button>
+          <button class="choice" onclick="setLivingOpt('rent', 65000, this)">🏠 徒歩10分・築浅ワンルーム (65,000円)</button>
+          <button class="choice" onclick="setLivingOpt('rent', 52000, this)">🚲 徒歩18分・築古アパート (52,000円)</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <strong style="font-size:13px;display:block;margin-bottom:6px">② スマホ通信費・ネット代</strong>
+        <div class="choice-row" style="margin:0">
+          <button class="choice selected" onclick="setLivingOpt('phone', 9000, this)">📱 大手キャリア無制限 (9,000円)</button>
+          <button class="choice" onclick="setLivingOpt('phone', 2500, this)">📶 格安SIMプラン (2,500円)</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px">
+        <strong style="font-size:13px;display:block;margin-bottom:6px">③ サブスク・ジム・光熱費などの固定支出</strong>
+        <div class="choice-row" style="margin:0">
+          <button class="choice selected" onclick="setLivingOpt('sub', 26000, this)">🎬 動画・音楽・ジム全部入り＋光熱費 (26,000円)</button>
+          <button class="choice" onclick="setLivingOpt('sub', 15000, this)">💡 必要なサブスク1つ＋節電光熱費 (15,000円)</button>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:2px solid var(--blue);border-radius:16px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:12px;color:var(--muted);font-weight:800">手取り 180,000円 − 固定費合計 <span id="livingFixedSum">120,000</span>円</div>
+          <strong style="font-size:18px;color:var(--blue-dark)">1ヶ月自由に使えるお金（残り予算）：<span id="livingStartBudget">60,000</span>円</strong>
+        </div>
+        <button class="btn btn-primary" onclick="startLivingWeeks()">🚀 この予算で1ヶ月サバイバル開始！ 👆</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: 4週間サバイバル進行 -->
+    <div id="livingPlayBox" style="display:none">
+      <div class="dashboard" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="dash-item"><label>📅 現在の週</label><div class="val" id="livWeek">第1週 / 4週</div></div>
+        <div class="dash-item"><label>👛 残り生活費</label><div class="val" id="livMoney">60,000円</div></div>
+        <div class="dash-item"><label>💳 リボ払い残高</label><div class="val" id="livRevo" style="color:#ffd65a">0円</div></div>
+        <div class="dash-item"><label>😊 メンタル・満足度</label><div class="val" id="livMood">😊 普通</div></div>
+      </div>
+
+      <div style="background:var(--paper);border:3px solid var(--blue);border-radius:22px;padding:22px">
+        <span class="tap-badge" style="background:var(--blue)" id="livEventWeekBadge">WEEK 1 EVENT</span>
+        <h3 style="font-size:20px;margin:10px 0 6px;font-weight:900" id="livEventTitle">イベントタイトル</h3>
+        <p style="font-size:13.5px;color:var(--ink);line-height:1.7;margin:0 0 16px" id="livEventDesc">説明文</p>
+
+        <div id="livChoicesContainer" style="display:flex;flex-direction:column;gap:10px"></div>
+
+        <div id="livTurnFeedback" style="display:none;margin-top:16px;background:#fff;border-radius:16px;padding:14px 16px;border:2px solid var(--green);font-size:13.5px;line-height:1.65"></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: 1ヶ月結果発表 -->
+    <div id="livingResultBox" style="display:none;text-align:center;background:var(--paper);border:3px solid var(--purple);border-radius:24px;padding:24px">
+      <div style="font-size:48px" id="livEndEmoji">🎉</div>
+      <h3 style="font-size:24px;margin:8px 0;font-weight:900" id="livEndTitle">1ヶ月サバイバル結果！</h3>
+      <p style="font-size:14px;max-width:600px;margin:0 auto 18px;line-height:1.75" id="livEndDesc"></p>
+      <div class="stat-grid" style="max-width:680px;margin:0 auto 20px">
+        <div class="stat"><small>月末の残り現金</small><strong id="livResCash">0円</strong></div>
+        <div class="stat"><small>リボ払い借金残高</small><strong id="livResRevo" style="color:var(--pink-dark)">0円</strong></div>
+        <div class="stat"><small>来月への貯金繰り越し</small><strong id="livResSave" style="color:var(--green)">0円</strong></div>
+      </div>
+      <button class="btn btn-primary" onclick="resetLivingGame()">🔄 固定費を見直してもう一度挑戦する 👆</button>
+    </div>
+  </div>
+</section>
+  <!-- ABOUT VIEW -->
 <section id="about" class="view">
   <button class="back" onclick="showView('home')">← ホームに戻る</button>
   <div class="section-tag" style="background:var(--purple)">ABOUT MONEY QUEST</div>
@@ -1551,7 +1862,7 @@ let userStamps = { lab: false, game: false, quiz: false, life: false, start: fal
 function loadStamps(){
   try {
     const saved = localStorage.getItem('moneyquest_stamps');
-    if(saved) userStamps = Object.assign(userStamps, JSON.parse(saved));
+    if(saved) userStamps = Object.assign(userStamps, JSON.parse(saved), guard: false);
   } catch(e){}
   updateStampUI();
 }
@@ -1572,7 +1883,7 @@ function resetStamps(){
 
 function updateStampUI(){
   let clearedCount = 0;
-  const keys = ['lab', 'game', 'quiz', 'life', 'start'];
+  const keys = ['lab', 'game', 'guard', 'quiz', 'life', 'start'];
   keys.forEach(k => {
     const item = document.getElementById(`stamp-${k}`);
     const tile = document.getElementById(`tile-${k}`);
@@ -1589,7 +1900,7 @@ function updateStampUI(){
   const fill = document.getElementById('stampProgressFill');
   const txt = document.getElementById('stampRatioText');
   const banner = document.getElementById('allClearBanner');
-  if(fill) fill.style.width = `${(clearedCount / 5) * 100}%`;
+  if(fill) fill.style.width = `${(clearedCount / 6) * 100}%`;
   if(txt) txt.textContent = `${clearedCount} / 5 ${clearedCount === 5 ? 'COMPLETE!' : 'CLEAR'}`;
   if(banner) banner.style.display = (clearedCount === 5) ? 'block' : 'none';
 }
@@ -1598,6 +1909,7 @@ function updateStampUI(){
 function showView(id){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  else if(id === 'guard') { initGuardView(); }
   
   const target = document.getElementById(id);
   if(target) target.classList.add('active');
@@ -1630,8 +1942,39 @@ document.addEventListener('DOMContentLoaded', () => {
   try { renderDictCards(); } catch(e){}
 });
 
-/* 1. LAB (HISTORICAL WITH EXACT X/Y AXES & DRILLDOWN) */
+/* 1. LAB (HISTORICAL WITH EXACT X/Y AXES, INFLATION & CRASH CHOICE) */
 let histAmt = 3, currentZoom = 'all', histPoints = [];
+let panicSellResult = null; // { crashMode, sellIdx, finalTotal, diffFromHold }
+
+const crashMetaInfo = {
+  bubble: {
+    zoomStart: 168, zoomEnd: 180, sellIdx: 176,
+    title: '📉 1990年 バブル崩壊（1年間ズーム）',
+    meter: 'ハラハラ度：★★★★☆ (ショック大)',
+    cause: '原因：日本の不動産・株価の過熱と急激な金融引き締め',
+    recovery: '回復までの目安：世界分散なら約2〜3年で回復（日本株のみは約30年）',
+    desc: 'たった1年間で資産評価額がどんどん目減りしていきます。横軸を見てわかる通り、毎月資産が減り続ける恐怖の時期です。',
+    lesson: '💡 <strong>学び:</strong> 1つの国（日本だけ）に集中していた人は回復に何十年もかかりましたが、世界中に分散して積立を続けた人は数年でプラスに転じました！'
+  },
+  lehman: {
+    zoomStart: 390, zoomEnd: 402, sellIdx: 398,
+    title: '💥 2008年 リーマンショック（1年間ズーム）',
+    meter: 'ハラハラ度：★★★★★ MAX (大暴落！)',
+    cause: '原因：アメリカの大手投資銀行リーマン・ブラザーズの経営破綻',
+    recovery: '回復までの目安：約3〜4年で暴落前の水準を突破',
+    desc: '2008年9月〜2009年3月の半年で資産額が急降下！ニュースでも「100年に一度の金融危機」と連日報道され、多くの人が恐怖で株を手放しました。',
+    lesson: '💡 <strong>学び:</strong> 暴落時に怖くなって売ってしまうと損失が確定します。上の「運命の2択」で売った場合と続けた場合の差を比べてみよう！'
+  },
+  covid: {
+    zoomStart: 528, zoomEnd: 534, sellIdx: 531,
+    title: '🦠 2020年 コロナショック（半年間ズーム）',
+    meter: 'ハラハラ度：★★★☆☆ (急落からのV字回復)',
+    cause: '原因：新型コロナウイルスの世界的大流行と都市封鎖（ロックダウン）',
+    recovery: '回復までの目安：わずか約5〜6ヶ月でV字回復！',
+    desc: '2020年2月〜4月に一気に暴落！しかし各国の大規模な経済対策とIT企業の成長により、わずか数ヶ月で急激なV字回復を見せました。',
+    lesson: '💡 <strong>学び:</strong> 回復のタイミングは誰にも読めません。怖くて売った人はその後の急回復の波に乗り遅れてしまいました。'
+  }
+};
 
 function initHistLab(){ generateHistData(); renderHistUI(); }
 
@@ -1639,12 +1982,16 @@ function setHistAmount(amt, btn){
   histAmt = amt;
   btn.parentNode.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
+  panicSellResult = null;
+  const fb = document.getElementById('crashActionFeedback');
+  if(fb) fb.style.display = 'none';
   generateHistData(); renderHistUI();
 }
 
 function generateHistData(){
   histPoints = [];
-  let price = 100, units = 0;
+  let price = 100, units = 0, infValue = 0;
+  const monthlyInfRate = Math.pow(1.02, 1/12) - 1; // 年率2%インフレ換算
   for(let i = 0; i < 600; i++){
     let ret = 0.0068;
     if(i >= 168 && i <= 180) ret = -0.038; // 1990 Bubble
@@ -1654,23 +2001,31 @@ function generateHistData(){
     price = Math.max(10, price * (1 + ret));
     const monthlyYen = histAmt * 10000;
     units += monthlyYen / price;
+    infValue = (infValue + monthlyYen) * (1 + monthlyInfRate);
 
     histPoints.push({
       index: i,
       year: 1976 + Math.floor(i / 12),
       month: (i % 12) + 1,
       principal: monthlyYen * (i + 1),
-      asset: units * price
+      asset: units * price,
+      inflationTarget: infValue
     });
   }
 }
 
+function formatManOku(yen){
+  const man = Math.round(yen / 10000);
+  return man >= 10000 ? (man / 10000).toFixed(2) + '億' : man.toLocaleString() + '万';
+}
+
 function renderHistUI(){
   const last = histPoints[599];
-  const pMan = Math.round(last.principal / 10000), aMan = Math.round(last.asset / 10000), diffMan = aMan - pMan;
+  const pMan = Math.round(last.principal / 10000);
+  const diffYen = last.asset - last.principal;
   document.getElementById('cardPrinc').textContent = `¥${pMan.toLocaleString()}万円`;
-  document.getElementById('cardAsset').textContent = `¥${(aMan >= 10000 ? (aMan / 10000).toFixed(2) + '億' : aMan.toLocaleString() + '万')}円`;
-  document.getElementById('cardDiff').textContent = `+¥${(diffMan >= 10000 ? (diffMan / 10000).toFixed(2) + '億' : diffMan.toLocaleString() + '万')}円`;
+  document.getElementById('cardAsset').textContent = `¥${formatManOku(last.asset)}円`;
+  document.getElementById('cardDiff').textContent = `+¥${formatManOku(diffYen)}円`;
   renderHistChart();
 }
 
@@ -1679,48 +2034,94 @@ function applyZoom(mode){
   document.querySelectorAll('[id^="btn-zoom-"]').forEach(b => b.classList.remove('selected'));
   const targetBtn = document.getElementById(`btn-zoom-${mode}`);
   if(targetBtn) targetBtn.classList.add('selected');
-  renderHistChart();
 
   const title = document.getElementById('panicTitle');
   const meter = document.getElementById('panicMeter');
   const desc = document.getElementById('panicDesc');
   const lesson = document.getElementById('panicLesson');
+  const metaBox = document.getElementById('panicMetaBadges');
+  const choiceBox = document.getElementById('crashChoiceBox');
+  const fb = document.getElementById('crashActionFeedback');
 
   if(mode === 'all'){
     title.textContent = '🔭 50年全体の振り返り（1976〜2026）';
     meter.textContent = 'ハラハラ度：★☆☆☆☆ (安心)';
+    metaBox.innerHTML = '';
     desc.textContent = '50年間全体で見ると、途中で何度も暴落を挟みながらもきれいな右肩上がりの成長曲線を描いています！';
-    lesson.innerHTML = '💡 <strong>ポイント:</strong> 虫めがねボタンでリーマンショックなどにズームすると、横軸が月単位に変わり、暴落の短期的恐怖が体感できます。';
-  } else if(mode === 'bubble'){
-    title.textContent = '📉 1990年 バブル崩壊（1年間ズーム）';
-    meter.textContent = 'ハラハラ度：★★★★☆ (ショック大)';
-    desc.textContent = 'たった1年間で資産評価額がどんどん目減りしていきます。横軸を見てわかる通り、毎月資産が減り続ける恐怖の時期です。';
-    lesson.innerHTML = '💡 <strong>学び:</strong> 短期で見ると大損した気分になりますが、積立を止めずに続けた人が50年後には大きな資産を築けました。';
-  } else if(mode === 'lehman'){
-    title.textContent = '💥 2008年 リーマンショック（1年間ズーム）';
-    meter.textContent = 'ハラハラ度：★★★★★ MAX (大暴落！)';
-    desc.textContent = '2008年9月〜2009年3月の半年でなんと最大 -48.5% も資産額が急降下！画面上の赤線が恐怖の落ち込みを示しています。';
-    lesson.innerHTML = '💡 <strong>学び:</strong> 暴落時に怖くなって売ってしまうと損失が確定します。「長期視点」を持つ大切さがここから学べます。';
-  } else if(mode === 'covid'){
-    title.textContent = '🦠 2020年 コロナショック（半年間ズーム）';
-    meter.textContent = 'ハラハラ度：★★★☆☆ (急落からのV字回復)';
-    desc.textContent = '2020年2月〜4月に一気に暴落！しかしその後わずか数ヶ月で急激なV字回復を見せました。';
-    lesson.innerHTML = '💡 <strong>学び:</strong> 短期の値動きは誰にも予測できません。積立を淡々と続けることで安値で多く買えるメリットが生まれます。';
+    lesson.innerHTML = '💡 <strong>ポイント:</strong> 虫めがねボタンでリーマンショックなどにズームすると、暴落時の「運命の2択シミュレーション」に挑戦できます！';
+    if(choiceBox) choiceBox.style.display = 'none';
+  } else {
+    const info = crashMetaInfo[mode];
+    title.textContent = info.title;
+    meter.textContent = info.meter;
+    metaBox.innerHTML = `
+      <span style="background:#fff;border:1.5px solid #ff8b94;color:#d63031;font-size:11.5px;font-weight:900;padding:4px 10px;border-radius:99px">📌 ${info.cause}</span>
+      <span style="background:#fff;border:1.5px solid var(--green);color:var(--green-dark);font-size:11.5px;font-weight:900;padding:4px 10px;border-radius:99px">⏱️ ${info.recovery}</span>
+    `;
+    desc.textContent = info.desc;
+    lesson.innerHTML = info.lesson;
+    if(choiceBox) choiceBox.style.display = 'block';
+    if(fb) fb.style.display = 'none';
   }
+  renderHistChart();
+}
+
+function chooseCrashAction(action){
+  const info = crashMetaInfo[currentZoom];
+  if(!info) return;
+  const sellPt = histPoints[info.sellIdx];
+  const holdFinal = histPoints[599].asset;
+  const monthlyYen = histAmt * 10000;
+  // 暴落時に全部売ってしまい、その後は怖くてずっと現金貯金だけ続けた場合の2026年資産
+  const remainingMonths = 599 - info.sellIdx;
+  const sellFinal = sellPt.asset + (monthlyYen * remainingMonths);
+  const diff = holdFinal - sellFinal;
+
+  const fb = document.getElementById('crashActionFeedback');
+  fb.style.display = 'block';
+
+  if(action === 'sell'){
+    panicSellResult = { sellIdx: info.sellIdx, sellAssetAtPoint: sellPt.asset };
+    fb.innerHTML = `
+      <strong style="color:#d63031;font-size:15px">😱 結果：暴落の底で売却してしまい、その後の大回復を逃しました！</strong><br>
+      売却した瞬間の資産は <strong>¥${formatManOku(sellPt.asset)}円</strong>。その後ずっと現金貯金だけ続けた場合、2026年の最終資産は <strong>¥${formatManOku(sellFinal)}円</strong> になります。<br>
+      👉 もし売らずに積立を続けていた場合（¥${formatManOku(holdFinal)}円）と比べて、<strong style="color:#d63031;font-size:15px">約 ¥${formatManOku(diff)}円 も少ない結果</strong>になりました！<br>
+      <button class="btn btn-outline" style="margin-top:8px;padding:5px 12px;font-size:12px" onclick="applyZoom('all')">🔭 50年全体グラフに戻って2本の線の差を見る ➔</button>
+    `;
+  } else {
+    panicSellResult = null;
+    fb.innerHTML = `
+      <strong style="color:var(--green-dark);font-size:15px">💎 大正解！暴落中も安くたくさん買い続けたことで資産が爆発的に成長！</strong><br>
+      株価が下がっている時期は「同じ金額でより多くの口数（バーゲンセール価格）」を買えるチャンス！<br>
+      👉 怖くなって売ってしまった場合と比べて、2026年には <strong style="color:var(--green-dark);font-size:15px">+¥${formatManOku(diff)}円 もの大きな差</strong>が生まれました！<br>
+      <button class="btn btn-outline" style="margin-top:8px;padding:5px 12px;font-size:12px" onclick="applyZoom('all')">🔭 50年全体グラフに戻って確認する ➔</button>
+    `;
+  }
+  renderHistChart();
 }
 
 function renderHistChart(){
   const svg = document.getElementById('histSvg');
   if(!svg) return;
 
+  const showInf = document.getElementById('toggleInflation')?.checked || false;
+  const legInf = document.getElementById('legendInflation');
+  const legSell = document.getElementById('legendPanicSell');
+  if(legInf) legInf.style.display = showInf ? 'inline' : 'none';
+  if(legSell) legSell.style.display = (panicSellResult && currentZoom === 'all') ? 'inline' : 'none';
+
   let start = 0, end = 599;
-  if(currentZoom === 'bubble'){ start = 168; end = 180; }
-  else if(currentZoom === 'lehman'){ start = 390; end = 402; }
-  else if(currentZoom === 'covid'){ start = 528; end = 534; }
+  if(currentZoom !== 'all' && crashMetaInfo[currentZoom]){
+    start = crashMetaInfo[currentZoom].zoomStart;
+    end = crashMetaInfo[currentZoom].zoomEnd;
+  }
 
   const slice = histPoints.slice(start, end + 1);
   let maxV = 0, minV = Infinity;
-  slice.forEach(d => { maxV = Math.max(maxV, d.asset, d.principal); minV = Math.min(minV, d.asset, d.principal); });
+  slice.forEach(d => {
+    maxV = Math.max(maxV, d.asset, d.principal, showInf ? d.inflationTarget : 0);
+    minV = Math.min(minV, d.asset, d.principal);
+  });
   maxV *= 1.08; minV *= 0.92;
 
   const W = 780, H = 300, padL = 75, padR = 25, padT = 25, padB = 45;
@@ -1760,18 +2161,36 @@ function renderHistChart(){
     });
   }
 
-  let aPath = '', pPath = '', isCrash = (currentZoom !== 'all');
+  let aPath = '', pPath = '', infPath = '', sellPath = '', isCrash = (currentZoom !== 'all');
+  const monthlyYen = histAmt * 10000;
+
   slice.forEach((d, i) => {
-    const x = getX(i), yA = getY(d.asset), yP = getY(d.principal);
-    if(i === 0){ aPath += `M ${x} ${yA}`; pPath += `M ${x} ${yP}`; }
-    else { aPath += ` L ${x} ${yA}`; pPath += ` L ${x} ${yP}`; }
+    const x = getX(i), yA = getY(d.asset), yP = getY(d.principal), yInf = getY(d.inflationTarget);
+    if(i === 0){
+      aPath += `M ${x} ${yA}`;
+      pPath += `M ${x} ${yP}`;
+      infPath += `M ${x} ${yInf}`;
+    } else {
+      aPath += ` L ${x} ${yA}`;
+      pPath += ` L ${x} ${yP}`;
+      infPath += ` L ${x} ${yInf}`;
+    }
+
+    if(panicSellResult && currentZoom === 'all'){
+      const sellVal = d.index <= panicSellResult.sellIdx
+        ? d.asset
+        : panicSellResult.sellAssetAtPoint + (monthlyYen * (d.index - panicSellResult.sellIdx));
+      const yS = getY(sellVal);
+      if(i === 0) sellPath += `M ${x} ${yS}`;
+      else sellPath += ` L ${x} ${yS}`;
+    }
   });
 
   const lineColor = isCrash ? '#d63031' : '#26996b';
   const legend = document.getElementById('legendAsset');
   if(legend){
     legend.style.color = lineColor;
-    legend.textContent = isCrash ? '━━ 資産評価額（急降下中！）' : '━━ 資産評価額（値動きあり）';
+    legend.textContent = isCrash ? '━━ 資産評価額（急降下中！）' : '━━ 積立を続けた場合';
   }
 
   svg.innerHTML = `
@@ -1780,6 +2199,8 @@ function renderHistChart(){
     <line x1="${padL}" y1="${padT + gH}" x2="${W - padR}" y2="${padT + gH}" class="chart-axis-line" />
     ${xLabelsHtml}
     <path d="${pPath}" fill="none" stroke="#b2bec3" stroke-width="2" stroke-dasharray="4 4"/>
+    ${showInf ? `<path d="${infPath}" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="6 4"/>` : ''}
+    ${(panicSellResult && currentZoom === 'all') ? `<path d="${sellPath}" fill="none" stroke="#d63031" stroke-width="3" stroke-dasharray="6 4"/>` : ''}
     <path d="${aPath}" fill="none" stroke="${lineColor}" stroke-width="4" stroke-linecap="round"/>
   `;
 }
@@ -1866,11 +2287,40 @@ function renderFutureChart(){
   }
 }
 
-/* 2. GAME (SPINNING SLOT + MYSTERY FATE CARD FLIP + REALISTIC OUTCOME BRANCHING) */
+/* 2. GAME (CAREER TRAITS + TRAP ROUTES + TURNING POINT GRAPH) */
 const slotOptions = [
-  [ {icon:'🎂', title:'22歳・新卒会社員'}, {icon:'🐣', title:'20歳・専門卒スタート'}, {icon:'🎓', title:'25歳・転職チャレンジャー'} ],
-  [ {icon:'💼', title:'IT会社員 (手取り3,200万/10年)', inc:3200}, {icon:'🏛️', title:'公務員 (手取り3,000万/10年)', inc:3000}, {icon:'💻', title:'フリーランス (手取り3,600万/10年)', inc:3600} ],
-  [ {icon:'💰', title:'初期貯金 80万円'}, {icon:'🪙', title:'初期貯金 30万円'}, {icon:'💎', title:'初期貯金 150万円'} ]
+  [
+    { icon:'🎂', title:'22歳・新卒スタート' },
+    { icon:'🐣', title:'20歳・専門卒スタート' },
+    { icon:'🎓', title:'25歳・転職チャレンジャー' }
+  ],
+  [
+    {
+      icon:'💼', title:'IT会社員', inc:3200, trait:'balance',
+      badge:'標準バランス型',
+      desc:'【メリット】昇給・副業イベントで収入が伸びやすい。【弱点】不況時のリストラ・減給イベントは普通にダメージを受ける。'
+    },
+    {
+      icon:'🏛️', title:'公務員', inc:3000, trait:'stable',
+      badge:'超安定・減給耐性◎',
+      desc:'【メリット】不況やリストラ系イベントのダメージを半減！。【弱点】副業禁止のため、副業・収入UP系イベントのボーナスが無効。'
+    },
+    {
+      icon:'💻', title:'フリーランス', inc:3800, trait:'freelance',
+      badge:'高収入・ケガ病気ハイリスク',
+      desc:'【メリット】手取り収入が高く、自己投資カードの効果が1.3倍！。【弱点】傷病手当金がないため、病気・ケガイベントの支出が1.4倍になる。'
+    },
+    {
+      icon:'🚀', title:'起業家志望', inc:4200, trait:'founder',
+      badge:'ハイリスク・ハイリターン',
+      desc:'【メリット】手取り最高クラス＆好景気時の投資リターン1.2倍！。【弱点】事業ローン(-500万)スタート＆暴落ダメージ1.5倍！'
+    }
+  ],
+  [
+    { icon:'💰', title:'初期貯金 80万円', cash:80 },
+    { icon:'🪙', title:'初期貯金 20万円', cash:20 },
+    { icon:'💎', title:'初期貯金 150万円', cash:150 }
+  ]
 ];
 
 let slotIntervals = [null, null, null];
@@ -1894,7 +2344,7 @@ function startSlotSpinning(){
       const opt = slotOptions[i][slotSelectedIdx[i]];
       document.getElementById(`slotIcon${i}`).textContent = opt.icon;
       document.getElementById(`slotTitle${i}`).textContent = opt.title;
-    }, 60);
+    }, 65);
   }
 }
 
@@ -1918,61 +2368,67 @@ function revealProfile(){
   const opt2 = slotOptions[2][slotSelectedIdx[2]];
 
   document.getElementById('profName').textContent = `${opt0.title} / ${opt1.title}`;
+  document.getElementById('profDesc').textContent = opt1.desc;
   document.getElementById('profIncome').textContent = `¥${opt1.inc.toLocaleString()}万円`;
-  document.getElementById('profCash').textContent = opt2.title.replace('初期貯金 ','');
+  document.getElementById('profCash').textContent = opt1.trait === 'founder' ? `¥${opt2.cash}万 (事業ローン-500万)` : `¥${opt2.cash}万円`;
+  document.getElementById('profBonus').textContent = opt1.badge;
 }
 
-// Each decade has 3 hidden fate cards (A, B, C)
 const decadeFatePool = [
   {
     decade: '20代',
     cards: [
-      { title: '✨ 副業＆昇給ラッシュ！', desc: '仕事が軌道に乗りボーナスが増加！でも誘惑も多く使いすぎには注意。', impact: '基本生活費: -¥1,800万 / ボーナス: +¥400万', cost: 1400, market: 1.25, crash: 0, shieldable: false },
-      { title: '🌱 堅実な社会人スタート', desc: '大きなトラブルはないが、物価上昇で毎月の生活費がじわじわ増える10年。', impact: '基本生活費: -¥2,100万 / 市場成長: +20%', cost: 2100, market: 1.20, crash: 0, shieldable: false },
-      { title: '🚨 悪質な投資詐欺＆リボ払いの罠！', desc: 'SNSの甘い話とカード使いすぎで手痛い出費！保険や知識があれば被害を軽減できる！', impact: '基本生活費＋損失: -¥2,700万', cost: 2700, market: 1.15, crash: 0, shieldable: true }
+      { title: '✨ 副業＆昇給ラッシュ！', type:'bonus', desc: '仕事が軌道に乗り副収入が増加！ただし公務員は副業規定でボーナス対象外。', impact: '基本生活費: -¥1,900万 / 副業ボーナス: +¥500万', cost: 1400, market: 1.25, crash: 0, shieldable: false },
+      { title: '💎 SNSで見栄張り生活（固定費増の罠）', type:'vanity', desc: '高級マンション＆ブランド品でSNS映え！ガードカードを使わないと毎ターン固定費が+600万増加！', impact: '生活費: -¥2,200万 ＋ 以降毎ターン固定費+600万の罠', cost: 2200, market: 1.20, crash: 0, shieldable: true },
+      { title: '🚨 悪質な投資詐欺＆リボ払いの罠！', type:'scam', desc: 'SNSの甘い話とリボ払いで大損失！知識・ガードカードがあれば被害を食い止められる！', impact: '基本生活費＋詐欺・利息損失: -¥3,100万', cost: 3100, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '30代',
     cards: [
-      { title: '🏠 マイホーム購入＆結婚ラッシュ', desc: '人生の大きなイベントが重なり、まとまった現金が一気に必要になる時期！', impact: '生活費＋住宅頭金: -¥2,600万 / 市場成長: +25%', cost: 2600, market: 1.25, crash: 0, shieldable: false },
-      { title: '💼 キャリアアップ転職成功！', desc: '転職で収入アップに成功！投資を続けていれば複利が効き始める。', impact: '生活費: -¥2,100万 / 市場成長: +30%', cost: 2100, market: 1.30, crash: 0, shieldable: false },
-      { title: '🏥 急な入院・手術で長期休職！', desc: '予期せぬ病気で出費がかさむ！公的保険・備えカードがあれば支出を大幅にガード可能！', impact: '生活費＋医療費: -¥2,900万', cost: 2900, market: 1.15, crash: 0, shieldable: true }
+      { title: '🏠 マイホーム購入＆結婚ラッシュ', type:'normal', desc: '人生の大きなイベントが重なり、まとまった現金が一気に必要になる時期！', impact: '生活費＋住宅頭金: -¥2,800万 / 市場成長: +25%', cost: 2800, market: 1.25, crash: 0, shieldable: false },
+      { title: '💼 キャリアアップ転職成功！', type:'bonus', desc: 'スキルが認められ収入アップ！投資を続けていれば複利が効き始める。', impact: '生活費: -¥2,100万 / 市場成長: +30%', cost: 2100, market: 1.30, crash: 0, shieldable: false },
+      { title: '🏥 急な入院・手術で長期休職！', type:'medical', desc: '予期せぬ病気で出費がかさむ！フリーランスは傷病手当がなくダメージ大。保険ガードが有効！', impact: '生活費＋医療費: -¥3,200万', cost: 3200, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '40代',
     cards: [
-      { title: '⚡ 教育費ピーク ＆ 世界同時株安ショック！', desc: '子供の学費が重なる中、市場で世界的な大暴落が発生！現金がないと暴落中に株を売る羽目に！', impact: '教育費: -¥2,500万 / 投資資産 -25%暴落', cost: 2500, market: 1.0, crash: 0.25, shieldable: false },
-      { title: '📚 教育費＆住宅ローン本格化', desc: '毎月の固定費が一番重くなる10年間。先取り貯金や収入UPで乗り切ろう！', impact: '教育・生活費: -¥2,400万 / 市場成長: +20%', cost: 2400, market: 1.20, crash: 0, shieldable: false },
-      { title: '📉 景気後退による減給＆リストラ危機', desc: '会社の業績悪化で収入ダウンの危機！自己投資カードがあれば跳ね返せる！', impact: '生活費＋減収分: -¥2,800万 / 投資資産 -15%', cost: 2800, market: 1.0, crash: 0.15, shieldable: true }
+      { title: '⚡ 教育費ピーク ＆ 世界同時株安ショック！', type:'crash', desc: '子供の学費が重なる中、市場で大暴落が発生！現金がないと暴落中に株を安値で売る羽目に！', impact: '教育費: -¥2,700万 / 投資資産 -35%大暴落', cost: 2700, market: 1.0, crash: 0.35, shieldable: false },
+      { title: '📚 教育費＆住宅ローン本格化', type:'normal', desc: '毎月の固定費が一番重くなる10年間。先取り貯金や収入UPで乗り切ろう！', impact: '教育・生活費: -¥2,500万 / 市場成長: +20%', cost: 2500, market: 1.20, crash: 0, shieldable: false },
+      { title: '📉 景気後退による減給＆リストラ危機', type:'recession', desc: '会社の業績悪化で収入ダウン！公務員はダメージ半減、自己投資カードでも跳ね返せる！', impact: '生活費＋減収分: -¥3,200万 / 投資資産 -20%', cost: 3200, market: 1.0, crash: 0.20, shieldable: true }
     ]
   },
   {
     decade: '50代',
     cards: [
-      { title: '🏥 親の介護 ＆ 自身の健康メンテナンス', desc: '医療や介護の突発的な出費が増加。保険・備えカードが輝く10年間！', impact: '生活・介護費: -¥2,300万 / 市場成長: +25%', cost: 2300, market: 1.25, crash: 0, shieldable: true },
-      { title: '🚀 ラストスパート好景気！', desc: '子育てが落ち着き、これまで積み立ててきた投資資産が大きく花開くボーナスタイム！', impact: '生活費: -¥1,900万 / 市場成長: +35%', cost: 1900, market: 1.35, crash: 0, shieldable: false },
-      { title: '🌪️ 自然災害による自宅修繕トラブル', desc: '予期せぬ災害で高額な修繕費が発生！生活防衛資金（現金）の重要性が試される！', impact: '生活費＋修繕費: -¥2,700万 / 市場成長: +15%', cost: 2700, market: 1.15, crash: 0, shieldable: true }
+      { title: '🏥 親の介護 ＆ 自身の健康メンテナンス', type:'medical', desc: '医療や介護の突発的な出費が増加。保険・備えカードが輝く10年間！', impact: '生活・介護費: -¥2,600万 / 市場成長: +25%', cost: 2600, market: 1.25, crash: 0, shieldable: true },
+      { title: '🚀 ラストスパート好景気！', type:'boom', desc: '子育てが落ち着き、これまで積み立ててきた投資資産が大きく花開くボーナスタイム！', impact: '生活費: -¥2,000万 / 市場成長: +38%', cost: 2000, market: 1.38, crash: 0, shieldable: false },
+      { title: '🌪️ 自然災害による自宅修繕トラブル', type:'disaster', desc: '予期せぬ災害で高額な修繕費が発生！生活防衛資金（現金）の重要性が試される！', impact: '生活費＋修繕費: -¥3,000万 / 市場成長: +15%', cost: 3000, market: 1.15, crash: 0, shieldable: true }
     ]
   },
   {
     decade: '60代',
     cards: [
-      { title: '🌅 円満定年退職 ＆ 退職金ゲット！', desc: '無事に定年を迎え退職金を獲得！セカンドライフに向けた最後の資産調整。', impact: '退職金プラス: +¥1,200万 / 生活費: -¥1,600万', cost: 400, market: 1.20, crash: 0, shieldable: false },
-      { title: '📉 定年直前のリセッション（景気後退）', desc: '退職直前に株価が下落！現金をしっかり残していれば売らずに回復を待てる！', impact: '退職金: +¥800万 / 生活費: -¥1,700万 / 投資 -15%', cost: 900, market: 1.0, crash: 0.15, shieldable: false },
-      { title: '🎉 健康長寿＆セカンドキャリア収入', desc: '元気に働き続けながら年金＋運用益でゆとりあるシニア生活へ！', impact: '退職金＋副収入: +¥1,500万 / 生活費: -¥1,500万', cost: 0, market: 1.25, crash: 0, shieldable: false }
+      { title: '🌅 円満定年退職 ＆ 退職金ゲット！', type:'normal', desc: '無事に定年を迎え退職金を獲得！セカンドライフに向けた最後の資産調整。', impact: '退職金プラス: +¥1,000万 / 生活費: -¥1,800万', cost: 800, market: 1.20, crash: 0, shieldable: false },
+      { title: '📉 定年直前の大暴落リセッション', type:'crash', desc: '退職直前に株価が急落！現金をしっかり残していれば売らずに耐えられる！', impact: '退職金: +¥600万 / 生活費: -¥1,900万 / 投資 -25%', cost: 1300, market: 1.0, crash: 0.25, shieldable: false },
+      { title: '🎉 健康長寿＆セカンドキャリア収入', type:'boom', desc: '元気に働き続けながら年金＋運用益でゆとりあるシニア生活へ！', impact: '退職金＋副収入: +¥1,400万 / 生活費: -¥1,600万', cost: 200, market: 1.25, crash: 0, shieldable: false }
     ]
   }
 ];
 
-let gameState = { turn: 0, cash: 80, invest: 0, hearts: 5, selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false };
+let gameState = {
+  turn: 0, cash: 80, invest: 0, hearts: 5,
+  selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false,
+  vanityPenalty: false, historyLog: [], bankruptEarly: false
+};
+
 const allCards = [
   { name:'先取り貯金', cat:'savings', catName:'守り・現金', eff:'現金 +600万確保', icon:'🐷' },
-  { name:'つみたてNISA投資', cat:'invest', catName:'育てる・投資', eff:'現金300万→投資350万へ', icon:'🌱' },
-  { name:'医療・公的保障ガード', cat:'shield', catName:'保険・制度', eff:'ピンチ支出を最大700万軽減', icon:'🛡️' },
-  { name:'スキルアップ自己投資', cat:'study', catName:'収入UP', eff:'手取り収入 +600万UP', icon:'📚' },
-  { name:'一括ハイリスク投資', cat:'gamble', catName:'ハイリスク', eff:'現金500万→投資へ(大増or半減)', icon:'🎲' }
+  { name:'つみたてNISA投資', cat:'invest', catName:'育てる・長期', eff:'現金400万→投資460万へ', icon:'🌱' },
+  { name:'医療・公的保障ガード', cat:'shield', catName:'保険・知識', eff:'ピンチ支出・罠を大幅軽減', icon:'🛡️' },
+  { name:'スキルアップ自己投資', cat:'study', catName:'収入UP', eff:'手取り収入 +700万UP', icon:'📚' },
+  { name:'SNS話題株・暗号資産全ツッパ', cat:'yolo', catName:'超ハイリスク罠', eff:'投資全額が2.5倍 or 1/10に暴落！', icon:'💣' }
 ];
 let hand = [];
 
@@ -1980,9 +2436,20 @@ function startCardGame(){
   document.getElementById('gameSlot').style.display = 'none';
   document.getElementById('gamePlay').style.display = 'block';
 
-  const initCashStr = slotOptions[2][slotSelectedIdx[2]].title.replace(/[^0-9]/g, '');
-  gameState = { turn: 0, cash: parseInt(initCashStr) || 80, invest: 0, hearts: 5, selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false };
+  const jobOpt = slotOptions[1][slotSelectedIdx[1]];
+  const initCash = slotOptions[2][slotSelectedIdx[2]].cash;
+  const startCash = jobOpt.trait === 'founder' ? (initCash - 500) : initCash;
+
+  gameState = {
+    turn: 0, cash: startCash, invest: 0, hearts: 5,
+    selectedIdx: -1, canSwap: true, currentFate: null, cardPlayed: false,
+    vanityPenalty: false,
+    historyLog: [{ label: '開始', total: startCash, delta: 0, event: 'スタート', action: '初期状態' }],
+    bankruptEarly: false
+  };
   hand = [allCards[0], allCards[1], allCards[2]];
+  const alertEl = document.getElementById('fixedCostAlert');
+  if(alertEl) alertEl.style.display = 'none';
   
   renderTurn();
 }
@@ -2003,7 +2470,8 @@ function renderTurn(){
 
 function updateDashboard(){
   const stage = decadeFatePool[Math.min(4, gameState.turn)];
-  document.getElementById('dashAgeJob').textContent = `${stage.decade} (${Math.min(5, gameState.turn + 1)}/5)`;
+  const jobOpt = slotOptions[1][slotSelectedIdx[1]];
+  document.getElementById('dashAgeJob').textContent = `${stage.decade}・${jobOpt.title}`;
   document.getElementById('dashCash').textContent = `¥${gameState.cash.toLocaleString()}万`;
   document.getElementById('dashInvest').textContent = `¥${gameState.invest.toLocaleString()}万`;
   document.getElementById('dashTotal').textContent = `¥${(gameState.cash + gameState.invest).toLocaleString()}万`;
@@ -2013,7 +2481,6 @@ function updateDashboard(){
 
 function flipFateCard(cardIdx){
   const stage = decadeFatePool[gameState.turn];
-  // Shuffle so A/B/C feels genuinely surprising
   const shuffled = [...stage.cards].sort(() => Math.random() - 0.5);
   const picked = shuffled[cardIdx];
   gameState.currentFate = picked;
@@ -2028,6 +2495,11 @@ function flipFateCard(cardIdx){
   document.getElementById('eventDesc').textContent = picked.desc;
   document.getElementById('eventImpact').textContent = picked.impact;
 
+  // 後半ターンではハイリスク罠カードが手札に紛れ込む確率UP
+  if(gameState.turn >= 1 && !hand.some(c => c.cat === 'yolo') && Math.random() > 0.45){
+    hand[2] = allCards[4];
+  }
+
   const btn = document.getElementById('playBtn');
   if(btn) btn.disabled = true;
   renderHand();
@@ -2037,9 +2509,9 @@ function renderHand(){
   const container = document.getElementById('handContainer');
   if(!container) return;
   container.innerHTML = hand.map((c, i) => `
-    <div class="action-card ${gameState.selectedIdx === i ? 'selected' : ''}" onclick="selectCard(${i})">
+    <div class="action-card ${gameState.selectedIdx === i ? 'selected' : ''}" onclick="selectCard(${i})" style="${c.cat === 'yolo' ? 'border-color:var(--pink);background:#fff5f7;' : ''}">
       <div>
-        <span class="card-cat ${c.cat === 'gamble' ? 'study' : c.cat}">${c.catName}</span>
+        <span class="card-cat ${c.cat === 'yolo' ? 'shield' : c.cat}" style="${c.cat === 'yolo' ? 'background:var(--pink-dark);' : ''}">${c.catName}</span>
         <div style="font-size:24px;margin:2px 0">${c.icon}</div>
         <div style="font-size:12.5px;font-weight:900">${c.name}</div>
       </div>
@@ -2058,7 +2530,8 @@ function selectCard(idx){
 
 function swapCard(){
   if(!gameState.canSwap || gameState.selectedIdx < 0 || gameState.cardPlayed) return;
-  hand[gameState.selectedIdx] = allCards[Math.floor(Math.random() * allCards.length)];
+  const safePool = [allCards[0], allCards[1], allCards[2], allCards[3]];
+  hand[gameState.selectedIdx] = safePool[Math.floor(Math.random() * safePool.length)];
   gameState.canSwap = false;
   const btn = document.getElementById('swapBtn'); if(btn) btn.disabled = true;
   renderHand();
@@ -2071,95 +2544,151 @@ function playCard(idx){
   gameState.cardPlayed = true;
 
   const ev = gameState.currentFate;
-  const inc = slotOptions[1][slotSelectedIdx[1]].inc;
+  const jobOpt = slotOptions[1][slotSelectedIdx[1]];
+  const beforeTotal = gameState.cash + gameState.invest;
   let actualCost = ev.cost;
-  let resultLines = [`💼 10年間の手取り収入 <strong>+¥${inc.toLocaleString()}万円</strong> が入りました。`];
+  let actionLabel = '手札未使用';
+  let resultLines = [`💼 【${jobOpt.title}】10年間の手取り収入 <strong>+¥${jobOpt.inc.toLocaleString()}万円</strong>`];
 
-  // 1. Apply Crash first if event has crash
-  if(ev.crash > 0 && gameState.invest > 0){
-    const loss = Math.round(gameState.invest * ev.crash);
-    gameState.invest -= loss;
-    resultLines.push(`📉 市場の暴落ショックにより投資資産が <strong>-¥${loss.toLocaleString()}万円</strong> 一時的に目減りしました。`);
+  // 職業特性の反映
+  if(ev.type === 'bonus' && jobOpt.trait === 'stable'){
+    actualCost += 500;
+    resultLines.push(`🏛️ 【公務員特性】副業規定により副業ボーナス（500万円）は受け取れませんでした。`);
+  }
+  if(ev.type === 'medical' && jobOpt.trait === 'freelance'){
+    const extra = Math.round(actualCost * 0.35);
+    actualCost += extra;
+    resultLines.push(`💻 【フリーランス弱点】傷病手当金がないため、医療・休職コストが <strong>+¥${extra}万円</strong> 増加！`);
+  }
+  if(ev.type === 'recession' && jobOpt.trait === 'stable'){
+    actualCost -= 600;
+    resultLines.push(`🏛️ 【公務員メリット】雇用が守られているため、不況・減給ダメージを <strong>-600万円</strong> 軽減！`);
   }
 
-  // 2. Apply Selected Action Card
+  // 見栄の固定費ペナルティ判定
+  if(ev.type === 'vanity'){
+    if(idx >= 0 && hand[idx].cat === 'shield'){
+      resultLines.push(`🛡️ 見栄を張らずに堅実な生活を選択！固定費増加の罠を回避しました！`);
+    } else {
+      gameState.vanityPenalty = true;
+      document.getElementById('fixedCostAlert').style.display = 'block';
+      resultLines.push(`💸 <strong>罠発動！</strong> 高級マンション＆ブランド生活にハマり、以降毎ターン固定費が +600万円 増えます！`);
+    }
+  }
+  if(gameState.vanityPenalty){
+    actualCost += 600;
+    resultLines.push(`🧾 見栄の固定費（タワマン・高級車維持費）：<strong>-600万円</strong>`);
+  }
+
+  // 1. 暴落ショック処理
+  if(ev.crash > 0 && gameState.invest > 0){
+    const crashRate = jobOpt.trait === 'founder' ? Math.min(0.6, ev.crash * 1.5) : ev.crash;
+    const loss = Math.round(gameState.invest * crashRate);
+    gameState.invest -= loss;
+    resultLines.push(`📉 市場暴落ショックにより投資資産が <strong>-¥${loss.toLocaleString()}万円</strong> 減少！${jobOpt.trait === 'founder' ? '（起業家特性でダメージ拡大）' : ''}`);
+  }
+
+  // 2. 手札アクション実行
   if(idx >= 0){
     const c = hand[idx];
+    actionLabel = c.name;
     if(c.cat === 'savings'){
       gameState.cash += 600;
       resultLines.push(`🐷 【${c.name}】を発動！先取り習慣で現金を <strong>+600万円</strong> 確保！`);
     } else if(c.cat === 'invest'){
-      if(gameState.cash >= 300){
-        gameState.cash -= 300;
-        gameState.invest += 350;
-        resultLines.push(`🌱 【${c.name}】を発動！現金300万を投資へ回し、非課税メリット込みで <strong>+350万円</strong> 積立！`);
+      if(gameState.cash >= 400){
+        gameState.cash -= 400;
+        gameState.invest += 460;
+        resultLines.push(`🌱 【${c.name}】を発動！現金400万を長期分散投資へ回し、非課税メリット込みで <strong>+460万円</strong> 積立！`);
       } else {
-        resultLines.push(`⚠️ 【${c.name}】を使おうとしましたが、現金が300万円足りず投資に回せませんでした！`);
+        resultLines.push(`⚠️ 【${c.name}】を使おうとしましたが、現金が400万円足りず投資できませんでした！`);
       }
     } else if(c.cat === 'shield'){
-      const cut = ev.shieldable ? 700 : 300;
+      const cut = ev.shieldable ? 1100 : 400;
       actualCost = Math.max(0, actualCost - cut);
-      resultLines.push(`🛡️ 【${c.name}】を発動！公的制度・保険のガードで支出を <strong>-${cut}万円</strong> 軽減！`);
+      resultLines.push(`🛡️ 【${c.name}】を発動！公的制度・保険・知識のガードで支出を <strong>-${cut}万円</strong> 軽減！`);
     } else if(c.cat === 'study'){
-      gameState.cash += 600;
-      resultLines.push(`📚 【${c.name}】を発動！スキルアップで10年間の収入が <strong>+600万円</strong> UP！`);
-    } else if(c.cat === 'gamble'){
-      if(gameState.cash >= 500){
+      const bonus = jobOpt.trait === 'freelance' ? 900 : 700;
+      gameState.cash += bonus;
+      resultLines.push(`📚 【${c.name}】を発動！スキルアップで手取り収入が <strong>+¥${bonus}万円</strong> UP！`);
+    } else if(c.cat === 'yolo'){
+      const stake = Math.max(gameState.invest, 500);
+      if(gameState.invest === 0 && gameState.cash >= 500){
         gameState.cash -= 500;
-        if(Math.random() > 0.45){
-          gameState.invest += 950;
-          resultLines.push(`🎲 【${c.name}】大成功！500万円の投資が一気に <strong>+950万円</strong> に急成長！`);
+        gameState.invest = 500;
+      }
+      if(gameState.invest > 0){
+        if(Math.random() > 0.55){
+          const beforeYolo = gameState.invest;
+          gameState.invest = Math.round(gameState.invest * 2.5);
+          resultLines.push(`🎰 【全ツッパ大成功！】投資資産 ¥${beforeYolo}万 が一気に <strong>¥${gameState.invest.toLocaleString()}万円</strong> に暴騰！！`);
         } else {
-          gameState.invest += 200;
-          resultLines.push(`💥 【${c.name}】失敗…500万円が <strong>200万円</strong> に目減りしてしまいました。`);
+          const beforeYolo = gameState.invest;
+          gameState.invest = Math.round(gameState.invest * 0.1);
+          gameState.hearts = Math.max(0, gameState.hearts - 2);
+          resultLines.push(`💀 <strong>【全ツッパ大暴落！】</strong> 話題の銘柄が暴落し、投資資産 ¥${beforeYolo}万 が <strong>¥${gameState.invest}万円（10分の1）</strong> に溶けました…！`);
         }
       } else {
-        resultLines.push(`⚠️ 現金が500万円足りず、一括投資は見送りました。`);
+        resultLines.push(`⚠️ 投資資金が足りず全ツッパは不発に終わりました。`);
       }
     }
   } else {
     resultLines.push(`⏸️ 手札を使わずにこの10年を過ごしました。`);
   }
 
-  // 3. Apply Income & Living Cost
-  gameState.cash += (inc - actualCost);
-  resultLines.push(`🧾 生活費・イベント支出：<strong>-¥${actualCost.toLocaleString()}万円</strong>`);
+  // 3. 収入と支出の精算
+  gameState.cash += (jobOpt.inc - actualCost);
+  resultLines.push(`🧾 10年間の生活費・イベント支出：<strong>-¥${actualCost.toLocaleString()}万円</strong>`);
 
-  // 4. Market growth on remaining investment
+  // 4. 投資資産の複利成長
   if(gameState.invest > 0 && ev.market > 1.0){
+    const mRate = (ev.type === 'boom' && jobOpt.trait === 'founder') ? ev.market + 0.12 : ev.market;
     const beforeInv = gameState.invest;
-    gameState.invest = Math.round(gameState.invest * ev.market);
+    gameState.invest = Math.round(gameState.invest * mRate);
     const gain = gameState.invest - beforeInv;
     resultLines.push(`📈 10年間の複利運用で投資資産が <strong>+¥${gain.toLocaleString()}万円</strong> 成長！`);
   }
 
-  // 5. Realistic Cash Shortage Penalty (Forced liquidation or debt!)
+  // 5. 現金不足の強制売却＆破産判定
   if(gameState.cash < 0){
     const deficit = Math.abs(gameState.cash);
     if(gameState.invest > 0){
-      const sellNeeded = Math.min(gameState.invest, Math.round(deficit * 1.15));
+      const sellNeeded = Math.min(gameState.invest, Math.round(deficit * 1.25));
       gameState.invest -= sellNeeded;
-      gameState.cash += Math.round(sellNeeded / 1.15);
+      gameState.cash += Math.round(sellNeeded / 1.25);
       gameState.hearts = Math.max(0, gameState.hearts - 1);
-      resultLines.push(`🚨 <strong>現金不足ピンチ！</strong> 生活防衛資金が足りず、投資資産を不利なタイミングで強制売却（-¥${sellNeeded}万）し、安心度が❤️-1下がりました！`);
+      resultLines.push(`🚨 <strong>現金ショート！</strong> 生活防衛資金が足りず、投資資産を割安で強制売却（-¥${sellNeeded}万）し、安心度が❤️-1低下！`);
     }
     if(gameState.cash < 0){
       gameState.hearts = Math.max(0, gameState.hearts - 2);
-      resultLines.push(`💸 <strong>赤字転落！</strong> 現金がマイナス（¥${gameState.cash}万）になり借金状態に！安心度が大きく低下しました！`);
+      resultLines.push(`💸 <strong>借金・赤字転落！</strong> 現金がマイナス（¥${gameState.cash}万）になり破産寸前です！`);
     }
-  } else if(gameState.cash >= 800 && gameState.hearts < 5){
+  } else if(gameState.cash >= 1000 && gameState.hearts < 5){
     gameState.hearts++;
-    resultLines.push(`✨ 十分な生活防衛資金（現金）を確保しているため、安心度が❤️+1回復！`);
+    resultLines.push(`✨ 生活防衛資金（現金1,000万以上）を確保しているため、安心度が❤️+1回復！`);
   }
+
+  const afterTotal = gameState.cash + gameState.invest;
+  const stage = decadeFatePool[gameState.turn];
+  gameState.historyLog.push({
+    label: stage.decade,
+    total: afterTotal,
+    delta: afterTotal - beforeTotal,
+    event: ev.title,
+    action: actionLabel
+  });
 
   updateDashboard();
 
-  const stage = decadeFatePool[gameState.turn];
   document.getElementById('resTitle').textContent = `🎉 ${stage.decade}の結果発表！`;
   document.getElementById('resBody').innerHTML = resultLines.join('<br>');
   document.getElementById('turnResult').style.display = 'block';
 
-  if(idx >= 0) hand[idx] = allCards[Math.floor(Math.random() * allCards.length)];
+  // 手札補充
+  if(idx >= 0){
+    const nextPool = [allCards[0], allCards[1], allCards[2], allCards[3]];
+    hand[idx] = nextPool[Math.floor(Math.random() * nextPool.length)];
+  }
 }
 
 function nextTurn(){
@@ -2167,6 +2696,13 @@ function nextTurn(){
   document.getElementById('turnResult').style.display = 'none';
   gameState.selectedIdx = -1;
   const btn = document.getElementById('playBtn'); if(btn) btn.disabled = true;
+
+  // 途中で深刻な破産（現金-1500万以下 or 安心度0）になった場合は早期ゲームオーバー
+  if(gameState.cash <= -1500 || gameState.hearts <= 0){
+    gameState.bankruptEarly = true;
+    showResult();
+    return;
+  }
 
   if(gameState.turn >= 5) showResult();
   else renderTurn();
@@ -2181,27 +2717,105 @@ function showResult(){
   document.getElementById('resInvest').textContent = `¥${gameState.invest.toLocaleString()}万円`;
   document.getElementById('resTotal').textContent = `¥${total.toLocaleString()}万円`;
 
-  let stars = '★★★☆☆', rank = '堅実バランス派', emoji = '🎊', comment = '現金と投資のバランスを保ちながら70歳に到達しました！';
-  if(gameState.cash < 0 || total < 1000){
-    stars = '★☆☆☆☆'; rank = '資金ショート・破産ピンチ'; emoji = '💦';
-    comment = '手元の現金（生活防衛資金）が不足して苦しい老後になってしまいました…。「守るお金」を先取りで残してから投資すると結果が大きく変わります！';
-  } else if(total >= 7500 && gameState.hearts >= 4 && gameState.invest >= 2500){
+  let stars = '★★★☆☆', rank = '堅実バランス派', emoji = '🎊', headline = '70歳！人生のゴール到達！',
+      comment = '現金と投資のバランスを保ちながら70歳に到達しました！';
+
+  if(gameState.bankruptEarly || gameState.cash < 0 || total < 1200){
+    stars = '★☆☆☆☆'; rank = '資金ショート・破産転落'; emoji = '💀';
+    headline = gameState.bankruptEarly ? '途中で資金ショート（破産）…！' : '老後資金が足りず大ピンチ…！';
+    comment = '手元の現金（生活防衛資金）の不足や、見栄の固定費・ハイリスク投資の失敗が重なり転落してしまいました。「まず現金で守りを作り、余剰資金で分散投資する」鉄則を思い出そう！';
+  } else if(total >= 8500 && gameState.hearts >= 4 && gameState.invest >= 3000){
     stars = '★★★★★'; rank = '伝説のマネーマスター'; emoji = '👑';
-    comment = '素晴らしい！生活防衛資金（現金）でピンチを防ぎつつ、長期投資の複利パワーも最大限に活かした理想の資産形成です！';
-  } else if(total >= 5000 && gameState.hearts >= 3){
+    comment = 'お見事！生活防衛資金（現金）でピンチや暴落を耐え抜きつつ、長期投資の複利パワーを最大限に活かした理想の人生設計です！';
+  } else if(total >= 5500 && gameState.hearts >= 3){
     stars = '★★★★☆'; rank = 'ゆとりの資産形成達人'; emoji = '🏆';
-    comment = 'お見事！大きな赤字を出さずに着実に資産を育てられました。セカンドライフも安心の資金水準です！';
+    comment = '素晴らしい！大きな赤字を出さずに着実に資産を育てられました。セカンドライフも安心の資金水準です！';
   } else if(gameState.invest === 0){
     stars = '★★☆☆☆'; rank = '超慎重な現金主義タイプ'; emoji = '🏦';
-    comment = '赤字は防ぎましたが、投資を一度も使わなかったためお金が働く（複利の）チャンスを逃しました。次は少額でも投資カードを試してみよう！';
+    comment = '赤字は防ぎましたが、投資を一度も使わなかったためお金が働く（複利の）チャンスを逃しました。次は生活防衛資金を残しつつ投資カードも試してみよう！';
   }
 
   document.getElementById('endEmoji').textContent = emoji;
   document.getElementById('endStars').textContent = stars;
   document.getElementById('endRankTitle').textContent = `称号：${rank}`;
+  document.getElementById('endHeadline').textContent = headline;
   document.getElementById('endComment').textContent = comment;
-  
+
+  renderLifeTurningPointGraph();
   markStampCleared('game');
+}
+
+function renderLifeTurningPointGraph(){
+  const svg = document.getElementById('lifeResultSvg');
+  if(!svg) return;
+
+  const logs = gameState.historyLog;
+  // ベストターンとワーストターンを抽出
+  let bestTurn = logs[1] || logs[0];
+  let worstTurn = logs[1] || logs[0];
+  for(let i = 1; i < logs.length; i++){
+    if(logs[i].delta > bestTurn.delta) bestTurn = logs[i];
+    if(logs[i].delta < worstTurn.delta) worstTurn = logs[i];
+  }
+
+  document.getElementById('tpBestTitle').textContent = `${bestTurn.label}（資産 ${bestTurn.delta >= 0 ? '+' : ''}¥${bestTurn.delta.toLocaleString()}万）`;
+  document.getElementById('tpBestDesc').textContent = `出来事「${bestTurn.event}」に対し、【${bestTurn.action}】を選んだのが最大の成長ポイントでした！`;
+
+  document.getElementById('tpWorstTitle').textContent = `${worstTurn.label}（資産 ${worstTurn.delta >= 0 ? '+' : ''}¥${worstTurn.delta.toLocaleString()}万）`;
+  document.getElementById('tpWorstDesc').textContent = `出来事「${worstTurn.event}」での出費や選択（${worstTurn.action}）が一番の試練でした。次回は備えカードや現金確保で対策しよう！`;
+
+  const W = 720, H = 230, padL = 70, padR = 30, padT = 30, padB = 40;
+  const gW = W - padL - padR, gH = H - padT - padB;
+
+  let maxV = 2000, minV = 0;
+  logs.forEach(d => { maxV = Math.max(maxV, d.total); minV = Math.min(minV, d.total); });
+  maxV *= 1.15;
+  minV = minV < 0 ? minV * 1.15 : 0;
+
+  const getX = i => padL + (i / (logs.length - 1 || 1)) * gW;
+  const getY = val => padT + gH - ((val - minV) / (maxV - minV || 1)) * gH;
+
+  let gridHtml = '';
+  for(let i = 0; i <= 4; i++){
+    const val = minV + ((maxV - minV) / 4) * i;
+    const y = getY(val);
+    gridHtml += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" class="chart-grid-line" />`;
+    gridHtml += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" class="chart-axis-text">${Math.round(val).toLocaleString()}万</text>`;
+  }
+
+  // 0円ライン（赤字境界線）
+  const zeroY = getY(0);
+  const zeroLine = minV < 0 ? `<line x1="${padL}" y1="${zeroY}" x2="${W - padR}" y2="${zeroY}" stroke="#d63031" stroke-width="1.5" stroke-dasharray="4 3" />` : '';
+
+  let pathD = '';
+  let dotsHtml = '';
+  logs.forEach((d, i) => {
+    const x = getX(i), y = getY(d.total);
+    pathD += (i === 0) ? `M ${x} ${y}` : ` L ${x} ${y}`;
+
+    const isBest = (i > 0 && d === bestTurn);
+    const isWorst = (i > 0 && d === worstTurn && worstTurn.delta < bestTurn.delta);
+    const dotColor = isBest ? '#10b981' : (isWorst ? '#ef4444' : '#8b5cf6');
+    const r = (isBest || isWorst) ? 8 : 5;
+
+    dotsHtml += `<circle cx="${x}" cy="${y}" r="${r}" fill="${dotColor}" stroke="#fff" stroke-width="2" />`;
+    dotsHtml += `<text x="${x}" y="${padT + gH + 22}" text-anchor="middle" class="chart-axis-text">${d.label}</text>`;
+
+    if(isBest){
+      dotsHtml += `<text x="${x}" y="${Math.max(16, y - 12)}" text-anchor="middle" fill="#065f46" font-size="11" font-weight="900">🌟神判断</text>`;
+    } else if(isWorst){
+      dotsHtml += `<text x="${x}" y="${Math.min(padT + gH - 6, y + 18)}" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="900">💥ピンチ</text>`;
+    }
+  });
+
+  svg.innerHTML = `
+    ${gridHtml}
+    ${zeroLine}
+    <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + gH}" class="chart-axis-line" />
+    <line x1="${padL}" y1="${padT + gH}" x2="${W - padR}" y2="${padT + gH}" class="chart-axis-line" />
+    <path d="${pathD}" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round" />
+    ${dotsHtml}
+  `;
 }
 
 function restartSlotGame(){
@@ -2725,6 +3339,286 @@ function getCatName(cat){
   if(cat === 'credit') return 'カード・契約';
   if(cat === 'life') return '社会保障';
   return '用語';
+}
+/* 7. DEFENSE & SURVIVAL MINIGAMES (SCAM DM + LIVING ALONE) */
+function initGuardView(){
+  switchGuardGame('scam');
+}
+
+function switchGuardGame(mode){
+  document.getElementById('guardTab-scam').classList.toggle('active', mode === 'scam');
+  document.getElementById('guardTab-living').classList.toggle('active', mode === 'living');
+  document.getElementById('guardPanel-scam').style.display = (mode === 'scam') ? 'block' : 'none';
+  document.getElementById('guardPanel-living').style.display = (mode === 'living') ? 'block' : 'none';
+
+  if(mode === 'scam') initScamGame();
+  else resetLivingGame();
+}
+
+/* MINIGAME 1: SCAM & CONTRACT TRAP */
+const scamStages = [
+  {
+    appTitle: '💬 SNSダイレクトメッセージ',
+    messages: [
+      { sender: '副業コンサル＠誰でも月収50万', text: '投稿にいいねありがとうございます！✨ スマホで1日10分コピペするだけで毎月30〜50万円稼げる限定案件があります！', isTrap: false },
+      { sender: '副業コンサル＠誰でも月収50万', text: '今すぐ始めるなら特別にサポート枠を空けます！ただし最初に「専用マニュアル＆登録料 3万円」だけ今日中に振り込んでください！💸', isTrap: true }
+    ],
+    choices: [
+      { text: '🚨 「先に高額な登録料を請求する副業は詐欺！」と指摘してブロックする', correct: true },
+      { text: '😍 「1日で元が取れるなら！」と急いで3万円を振り込む', correct: false },
+      { text: '🤔 「お金がないので消費者金融で借りて払います」と返信する', correct: false }
+    ],
+    winTitle: '🎉 見事撃退！典型的な「副業・情報商材詐欺」を見破りました！',
+    winDesc: '「簡単に稼げる」と誘い、最初にマニュアル代やサポート料を払わせる手口は100%詐欺です。払った後で「さらに高額なプラン（30万円〜）」を契約させられるケースが多発しています。',
+    tip: '📞 もし振り込んでしまったり契約してしまったら、すぐに「消費者ホットライン 188（いやや！）」に電話しよう！'
+  },
+  {
+    appTitle: '🛒 ネット通販・SNS広告画面',
+    messages: [
+      { sender: '美容・筋トレサプリ公式広告', text: '【本日限定】初回なんと 500円（税込）！いつでも解約OK！今すぐ下のボタンから注文！', isTrap: false },
+      { sender: '※画面一番下の極小グレー文字（特商法表記）', text: '※特別価格のため5回以上の継続購入がお約束となります。2回目以降は毎月7,980円が自動発送され、途中解約は違約金が発生します。', isTrap: true }
+    ],
+    choices: [
+      { text: '🔍 注文ボタンを押す前に画面下部の小さな条件（定期縛り）を見つけて購入をやめる', correct: true },
+      { text: '✨ 「初回500円ならお小遣いで買える！」と下の文字を読まずに即注文する', correct: false },
+      { text: '📱 友達にも「500円で買えるよ！」とリンクを拡散する', correct: false }
+    ],
+    winTitle: '🎉 大正解！「定期購入トラブル（サブスクの罠）」を回避しました！',
+    winDesc: '「初回500円・いつでも解約OK」と大きく書きながら、小さな文字で「5回継続が条件（総額3万円以上）」と書かれている悪質な広告が増えています。',
+    tip: '📌 ネット通販には原則クーリング・オフがありません！必ず最終確認画面の「支払い総額・回数・解約条件」をスクショして確認しよう！'
+  },
+  {
+    appTitle: '☕ 久しぶりの先輩・友人からのLINE',
+    messages: [
+      { sender: '高校の時の先輩', text: '久しぶり！今度カフェで話さない？実はすごい投資の師匠と知り合って、スマホアプリで毎月配当が入るビジネスやってるんだよね！', isTrap: false },
+      { sender: '高校の時の先輩', text: '初期費用30万円かかるけど、友達を2人紹介すれば紹介料で元が取れるから絶対損しないよ！今日ここで契約しよう！', isTrap: true }
+    ],
+    choices: [
+      { text: '🛑 「人を紹介して報酬を得る仕組みはマルチ商法！きっぱり断って帰る」', correct: true },
+      { text: '💦 「先輩の顔を立てないと悪いから…」と断れずに契約書にサインする', correct: false },
+      { text: '💳 「現金がない」と言ったら「学生ローンで借りればいいよ」と言われ借りに行く', correct: false }
+    ],
+    winTitle: '🎉 完璧な判断！「モノなしマルチ商法」の勧誘を断ち切りました！',
+    winDesc: '「儲かる投資アプリ」「友達を紹介すれば紹介料が入る」と誘う手口は「モノなしマルチ商法」と呼ばれ、自分が加害者になって友達を失う危険なトラブルです。',
+    tip: '🛡️ 18歳からは親の同意なしで契約できてしまいます。もし契約してしまっても、マルチ商法（連鎖販売取引）は契約書面を受け取ってから20日間は「クーリング・オフ（無条件解約）」が可能です！'
+  }
+];
+
+let scamStageIdx = 0;
+
+function initScamGame(){
+  scamStageIdx = 0;
+  renderScamStage();
+}
+
+function renderScamStage(){
+  const st = scamStages[scamStageIdx];
+  document.getElementById('scamStageCounter').textContent = `STAGE ${scamStageIdx + 1} / ${scamStages.length}`;
+  document.getElementById('phoneAppTitle').textContent = st.appTitle;
+  document.getElementById('scamFeedbackBox').style.display = 'none';
+
+  const body = document.getElementById('phoneScreenBody');
+  body.innerHTML = st.messages.map(m => `
+    <div style="background:${m.isTrap ? '#fff1f2' : '#fff'};border:2px solid ${m.isTrap ? '#fda4af' : '#cbd5e1'};border-radius:16px;padding:12px 14px;box-shadow:0 2px 6px rgba(0,0,0,0.04)">
+      <div style="font-size:11px;font-weight:900;color:${m.isTrap ? '#be123c' : '#475569'};margin-bottom:4px">${m.sender}</div>
+      <div style="font-size:${m.isTrap && scamStageIdx === 1 ? '11.5px' : '13.5px'};color:#1e293b;line-height:1.55;font-weight:700">${m.text}</div>
+    </div>
+  `).join('');
+
+  const choicesArea = document.getElementById('phoneChoicesArea');
+  choicesArea.innerHTML = `
+    <div style="font-size:11.5px;font-weight:900;color:var(--purple-dark);margin-bottom:2px">👇 あなたの行動を選んでください：</div>
+    ${st.choices.map((c, i) => `
+      <button class="quiz-opt-btn" style="padding:10px 14px;font-size:13px" onclick="answerScamStage(${i})">${c.text}</button>
+    `).join('')}
+  `;
+}
+
+function answerScamStage(idx){
+  const st = scamStages[scamStageIdx];
+  const chosen = st.choices[idx];
+  const fb = document.getElementById('scamFeedbackBox');
+  fb.style.display = 'block';
+
+  document.querySelectorAll('#phoneChoicesArea button').forEach(b => b.disabled = true);
+
+  if(chosen.correct){
+    fb.style.background = 'var(--green-light)';
+    fb.style.borderColor = 'var(--green)';
+    document.getElementById('scamFbTitle').innerHTML = `<span style="color:var(--green-dark)">${st.winTitle}</span>`;
+  } else {
+    fb.style.background = 'var(--pink-light)';
+    fb.style.borderColor = 'var(--pink)';
+    document.getElementById('scamFbTitle').innerHTML = `<span style="color:var(--pink-dark)">💥 危険！悪質商法の罠にハマってしまいました！</span>`;
+  }
+
+  document.getElementById('scamFbDesc').textContent = st.winDesc;
+  document.getElementById('scamFbTip').textContent = st.tip;
+
+  const nextBtn = document.getElementById('scamNextBtn');
+  if(scamStageIdx < scamStages.length - 1){
+    nextBtn.textContent = '次のステージへ ➔ 👆';
+    nextBtn.onclick = () => { scamStageIdx++; renderScamStage(); };
+  } else {
+    nextBtn.textContent = '🏆 全ステージ完了！（スタンプ獲得）';
+    nextBtn.onclick = () => {
+      markStampCleared('guard');
+      alert('🎉 契約トラブル防衛シミュレーションをクリアしました！スタンプを獲得！次は「一人暮らしサバイバル」にも挑戦してみよう！');
+      scamStageIdx = 0;
+      renderScamStage();
+    };
+  }
+}
+
+/* MINIGAME 2: LIVING ALONE SURVIVAL */
+let livOpts = { rent: 85000, phone: 9000, sub: 26000 };
+let livState = { week: 0, cash: 60000, revo: 0, mood: 3 };
+
+const livingWeekEvents = [
+  {
+    title: '第1週：新生活の食費＆日用品の買い出し',
+    desc: '新生活スタート！毎晩コンビニ弁当や外食にするか、自炊メインにするかで出費が大きく変わります。',
+    choices: [
+      { label: '🍱 面倒なので毎日コンビニ＆デリバリー（-18,000円 / 満足度UP）', cost: 18000, mood: 1, msg: 'ラクして美味しい1週間でしたが、食費が一気にかさみました！' },
+      { label: '🍳 スーパーでまとめ買い＆週末作り置き自炊（-8,000円 / 満足度維持）', cost: 8000, mood: 0, msg: '自炊のおかげで食費を1万円も節約できました！' }
+    ]
+  },
+  {
+    title: '第2週：友達から週末のテーマパーク＆飲み会のお誘い！',
+    desc: '「みんなで今週末遊びに行こうよ！」と誘われました。交際費も大事だけどお財布事情は大丈夫？',
+    choices: [
+      { label: '🎢 全部参加して思いっきり楽しむ！（-22,000円 / 満足度UP）', cost: 22000, mood: 1, msg: '最高の思い出ができましたが、残高が一気に減りました…！' },
+      { label: '☕ テーマパークは見送り、ランチだけ参加する（-5,000円 / 満足度維持）', cost: 5000, mood: 0, msg: '無理のない範囲で友達との時間も楽しみました！' }
+    ]
+  },
+  {
+    title: '第3週：🚨 急な発熱で病院へ ＆ ドライヤーが故障！',
+    desc: '季節の変わり目で体調を崩して病院へ行き、さらに愛用のドライヤーまで壊れてしまいました！',
+    choices: [
+      { label: '🏥 病院受診＋必要なドライヤーを堅実に購入（-14,000円）', cost: 14000, mood: -1, msg: '急な出費（予備費）が発生！現金が足りないとリボ払いの危機に…！' },
+      { label: '✨ せっかくなら最新の高級ドライヤー（35,000円）を買う！（-35,000円）', cost: 35000, mood: 1, msg: '高級家電を買って気分は上がりましたが、財布は大打撃です！' }
+    ]
+  },
+  {
+    title: '第4週：給料日直前のラスト1週間！',
+    desc: 'あと1週間で次の給料日！手元の現金を残して黒字でゴールできるか、それとも赤字転落か！？',
+    choices: [
+      { label: '🍙 家にある食材で乗り切る「ノーマネーデー」を実践（-4,000円）', cost: 4000, mood: 0, msg: '工夫してラスト1週間を乗り切りました！' },
+      { label: '🛍️ ストレス発散にネット通販で服をポチる（-16,000円）', cost: 16000, mood: 1, msg: 'ついポチってしまい最後の最後で出費が増えました！' }
+    ]
+  }
+];
+
+function setLivingOpt(key, val, btn){
+  livOpts[key] = val;
+  btn.parentNode.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const fixed = livOpts.rent + livOpts.phone + livOpts.sub;
+  const remain = 180000 - fixed;
+  document.getElementById('livingFixedSum').textContent = fixed.toLocaleString();
+  document.getElementById('livingStartBudget').textContent = remain.toLocaleString();
+}
+
+function startLivingWeeks(){
+  const fixed = livOpts.rent + livOpts.phone + livOpts.sub;
+  livState = { week: 0, cash: 180000 - fixed, revo: 0, mood: 3 };
+
+  document.getElementById('livingSetupBox').style.display = 'none';
+  document.getElementById('livingPlayBox').style.display = 'block';
+  document.getElementById('livingResultBox').style.display = 'none';
+  renderLivingWeek();
+}
+
+function updateLivingDash(){
+  document.getElementById('livWeek').textContent = `第${Math.min(4, livState.week + 1)}週 / 4週`;
+  document.getElementById('livMoney').textContent = `${livState.cash.toLocaleString()}円`;
+  document.getElementById('livRevo').textContent = `${livState.revo.toLocaleString()}円`;
+  const moods = ['😭 限界', '😰 ピンチ', '😐 普通', '😊 良好', '😆 最高'];
+  document.getElementById('livMood').textContent = moods[Math.max(0, Math.min(4, livState.mood))];
+}
+
+function renderLivingWeek(){
+  updateLivingDash();
+  const ev = livingWeekEvents[livState.week];
+  document.getElementById('livEventWeekBadge').textContent = `WEEK ${livState.week + 1} / 4`;
+  document.getElementById('livEventTitle').textContent = ev.title;
+  document.getElementById('livEventDesc').textContent = ev.desc;
+  document.getElementById('livTurnFeedback').style.display = 'none';
+
+  const box = document.getElementById('livChoicesContainer');
+  box.innerHTML = ev.choices.map((c, i) => `
+    <button class="quiz-opt-btn" onclick="chooseLivingAction(${i})">${c.label}</button>
+  `).join('');
+}
+
+function chooseLivingAction(idx){
+  const ev = livingWeekEvents[livState.week];
+  const ch = ev.choices[idx];
+  document.querySelectorAll('#livChoicesContainer button').forEach(b => b.disabled = true);
+
+  livState.cash -= ch.cost;
+  livState.mood += ch.mood;
+  let extraAlert = '';
+
+  if(livState.cash < 0){
+    const shortage = Math.abs(livState.cash);
+    // リボ払い手数料（実質年率15%相当＋手数料上乗せイメージ）
+    const fee = Math.round(shortage * 0.15) + 1500;
+    livState.revo += (shortage + fee);
+    livState.cash = 0;
+    livState.mood -= 1;
+    extraAlert = `<br><strong style="color:var(--pink-dark)">🚨 現金が足りず「クレジットカードのリボ払い」を利用しました！（不足分 ${shortage.toLocaleString()}円 ＋ 手数料 ${fee.toLocaleString()}円 が借金残高に追加）</strong>`;
+  }
+
+  updateLivingDash();
+
+  const fb = document.getElementById('livTurnFeedback');
+  fb.style.display = 'block';
+  fb.innerHTML = `
+    <strong>${ch.msg}</strong>${extraAlert}
+    <div style="text-align:right;margin-top:10px">
+      <button class="btn btn-secondary" onclick="nextLivingWeek()">${livState.week < 3 ? '次の週へ進む ➔ 👆' : '🏁 1ヶ月の結果を見る！'}</button>
+    </div>
+  `;
+}
+
+function nextLivingWeek(){
+  livState.week++;
+  if(livState.week >= 4) showLivingResult();
+  else renderLivingWeek();
+}
+
+function showLivingResult(){
+  document.getElementById('livingPlayBox').style.display = 'none';
+  document.getElementById('livingResultBox').style.display = 'block';
+
+  document.getElementById('livResCash').textContent = `${livState.cash.toLocaleString()}円`;
+  document.getElementById('livResRevo').textContent = `${livState.revo.toLocaleString()}円`;
+  const netSave = livState.cash - livState.revo;
+  document.getElementById('livResSave').textContent = `${netSave >= 0 ? '+' : ''}${netSave.toLocaleString()}円`;
+
+  if(livState.revo > 0){
+    document.getElementById('livEndEmoji').textContent = '💳';
+    document.getElementById('livEndTitle').textContent = 'リボ払い借金が発生してしまいました…！';
+    document.getElementById('livEndDesc').textContent = '家賃・スマホ代・サブスクなどの「固定費」が高すぎると、急な病気や家電の故障に対応できずリボ払いに頼る羽目になります。固定費を月2万円下げるだけで年間24万円もの余裕が生まれます！';
+  } else if(livState.cash >= 15000){
+    document.getElementById('livEndEmoji').textContent = '👑';
+    document.getElementById('livEndTitle').textContent = '黒字達成！一人暮らしやりくりマスター！';
+    document.getElementById('livEndDesc').textContent = 'お見事！固定費をしっかり抑えたおかげで、急な病院代や付き合いも乗り切り、来月への貯金まで残せました！この余裕資金をNISAなどで積み立てていけば未来はバッチリです！';
+  } else {
+    document.getElementById('livEndEmoji').textContent = '😅';
+    document.getElementById('livEndTitle').textContent = 'ギリギリ黒字！でも来月はピンチかも？';
+    document.getElementById('livEndDesc').textContent = 'なんとかリボ払いは回避しましたが、手元に残ったお金はわずかです。スマホを格安SIMに変えたり、家賃を少し見直すと心にゆとりが生まれます！';
+  }
+
+  markStampCleared('guard');
+}
+
+function resetLivingGame(){
+  document.getElementById('livingSetupBox').style.display = 'block';
+  document.getElementById('livingPlayBox').style.display = 'none';
+  document.getElementById('livingResultBox').style.display = 'none';
 }
 </script>
 </body>
